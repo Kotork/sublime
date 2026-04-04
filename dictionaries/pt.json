@@ -1,0 +1,7 @@
+{
+  "auth": {},
+  "errors": {
+    "unexpectedError": "Ocorreu um erro inesperado",
+    "somethingWentWrong": "Algo correu mal"
+  }
+}
