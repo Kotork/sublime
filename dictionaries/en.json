@@ -1,5 +1,19 @@
 {
-  "auth": {},
+  "auth": {
+    "login": {
+      "title": "Sign in",
+      "description": "Enter your email below to sign in to your account.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "m@example.com",
+      "passwordLabel": "Password",
+      "forgotPassword": "Forgot your password?",
+      "submit": "Sign in",
+      "submitting": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "genericError": "Something went wrong"
+    }
+  },
   "errors": {
     "unexpectedError": "An unexpected error occurred",
     "somethingWentWrong": "Something went wrong"

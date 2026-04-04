@@ -1,5 +1,19 @@
 {
-  "auth": {},
+  "auth": {
+    "login": {
+      "title": "Iniciar sessão",
+      "description": "Introduza o seu email abaixo para iniciar sessão na sua conta.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "exemplo@email.com",
+      "passwordLabel": "Palavra-passe",
+      "forgotPassword": "Esqueceu-se da palavra-passe?",
+      "submit": "Iniciar sessão",
+      "submitting": "A iniciar sessão...",
+      "noAccount": "Não tem uma conta?",
+      "signUp": "Registar-se",
+      "genericError": "Ocorreu um erro"
+    }
+  },
   "errors": {
     "unexpectedError": "Ocorreu um erro inesperado",
     "somethingWentWrong": "Algo correu mal"
