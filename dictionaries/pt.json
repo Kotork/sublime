@@ -12,6 +12,25 @@
       "noAccount": "Não tem uma conta?",
       "signUp": "Registar-se",
       "genericError": "Ocorreu um erro"
+    },
+    "error": {
+      "title": "Desculpe, algo correu mal.",
+      "codePrefix": "Código de erro:",
+      "unspecified": "Ocorreu um erro não especificado."
+    },
+    "forgotPassword": {
+      "successTitle": "Verifique o seu email",
+      "successDescription": "Instruções para redefinir a palavra-passe enviadas",
+      "successBody": "Se se registou com email e palavra-passe, receberá um email para redefinir a palavra-passe.",
+      "title": "Redefinir a palavra-passe",
+      "description": "Introduza o seu email e enviaremos um link para redefinir a palavra-passe.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "exemplo@email.com",
+      "submit": "Enviar email de redefinição",
+      "submitting": "A enviar...",
+      "hasAccount": "Já tem uma conta?",
+      "signIn": "Iniciar sessão",
+      "genericError": "Ocorreu um erro"
     }
   },
   "errors": {

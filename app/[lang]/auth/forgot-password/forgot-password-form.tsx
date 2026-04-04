@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
+import type { Locale } from "@/lib/i18n/locale";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,10 +16,30 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useState } from "react";
 
+export type ForgotPasswordFormCopy = {
+  successTitle: string;
+  successDescription: string;
+  successBody: string;
+  title: string;
+  description: string;
+  emailLabel: string;
+  emailPlaceholder: string;
+  submit: string;
+  submitting: string;
+  hasAccount: string;
+  signIn: string;
+  genericError: string;
+};
+
 export function ForgotPasswordForm({
   className,
+  lang,
+  forgotPassword,
   ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+}: {
+  lang: Locale;
+  forgotPassword: ForgotPasswordFormCopy;
+} & React.ComponentPropsWithoutRef<"div">) {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -33,12 +54,14 @@ export function ForgotPasswordForm({
     try {
       // The url which will be included in the email. This URL needs to be configured in your redirect URLs in the Supabase dashboard at https://supabase.com/dashboard/project/_/auth/url-configuration
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/auth/update-password`,
+        redirectTo: `${window.location.origin}/${lang}/auth/update-password`,
       });
       if (error) throw error;
       setSuccess(true);
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred");
+      setError(
+        error instanceof Error ? error.message : forgotPassword.genericError
+      );
     } finally {
       setIsLoading(false);
     }
@@ -49,34 +72,34 @@ export function ForgotPasswordForm({
       {success ? (
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl">Check Your Email</CardTitle>
-            <CardDescription>Password reset instructions sent</CardDescription>
+            <CardTitle className="text-2xl">
+              {forgotPassword.successTitle}
+            </CardTitle>
+            <CardDescription>
+              {forgotPassword.successDescription}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              If you registered using your email and password, you will receive
-              a password reset email.
+              {forgotPassword.successBody}
             </p>
           </CardContent>
         </Card>
       ) : (
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl">Reset Your Password</CardTitle>
-            <CardDescription>
-              Type in your email and we&apos;ll send you a link to reset your
-              password
-            </CardDescription>
+            <CardTitle className="text-2xl">{forgotPassword.title}</CardTitle>
+            <CardDescription>{forgotPassword.description}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleForgotPassword}>
               <div className="flex flex-col gap-6">
                 <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">{forgotPassword.emailLabel}</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="m@example.com"
+                    placeholder={forgotPassword.emailPlaceholder}
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -84,16 +107,18 @@ export function ForgotPasswordForm({
                 </div>
                 {error && <p className="text-sm text-red-500">{error}</p>}
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? "Sending..." : "Send reset email"}
+                  {isLoading
+                    ? forgotPassword.submitting
+                    : forgotPassword.submit}
                 </Button>
               </div>
               <div className="mt-4 text-center text-sm">
-                Already have an account?{" "}
+                {forgotPassword.hasAccount}{" "}
                 <Link
-                  href="/auth/login"
+                  href={`/${lang}/auth/login`}
                   className="underline underline-offset-4"
                 >
-                  Login
+                  {forgotPassword.signIn}
                 </Link>
               </div>
             </form>

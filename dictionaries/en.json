@@ -12,6 +12,25 @@
       "noAccount": "Don't have an account?",
       "signUp": "Sign up",
       "genericError": "Something went wrong"
+    },
+    "error": {
+      "title": "Sorry, something went wrong.",
+      "codePrefix": "Code error:",
+      "unspecified": "An unspecified error occurred."
+    },
+    "forgotPassword": {
+      "successTitle": "Check your email",
+      "successDescription": "Password reset instructions sent",
+      "successBody": "If you registered using your email and password, you will receive a password reset email.",
+      "title": "Reset your password",
+      "description": "Type in your email and we'll send you a link to reset your password.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "m@example.com",
+      "submit": "Send reset email",
+      "submitting": "Sending...",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "genericError": "Something went wrong"
     }
   },
   "errors": {
