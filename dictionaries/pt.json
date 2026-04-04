@@ -32,6 +32,20 @@
       "signIn": "Iniciar sessão",
       "genericError": "Ocorreu um erro"
     },
+    "updatePassword": {
+      "title": "Atualizar a palavra-passe",
+      "description": "Introduza a sua nova palavra-passe abaixo.",
+      "passwordLabel": "Nova palavra-passe",
+      "passwordPlaceholder": "Nova palavra-passe",
+      "submit": "Guardar nova palavra-passe",
+      "submitting": "A guardar...",
+      "genericError": "Ocorreu um erro"
+    },
+    "signUpSuccess": {
+      "title": "Obrigado por se registar!",
+      "description": "Verifique o seu email para confirmar",
+      "body": "Registou-se com sucesso. Verifique o seu email para confirmar a sua conta antes de iniciar sessão."
+    },
     "signUp": {
       "title": "Registar-se",
       "description": "Criar uma conta nova",

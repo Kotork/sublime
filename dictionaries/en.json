@@ -32,6 +32,20 @@
       "signIn": "Sign in",
       "genericError": "Something went wrong"
     },
+    "updatePassword": {
+      "title": "Update your password",
+      "description": "Please enter your new password below.",
+      "passwordLabel": "New password",
+      "passwordPlaceholder": "New password",
+      "submit": "Save new password",
+      "submitting": "Saving...",
+      "genericError": "Something went wrong"
+    },
+    "signUpSuccess": {
+      "title": "Thank you for signing up!",
+      "description": "Check your email to confirm",
+      "body": "You've successfully signed up. Please check your email to confirm your account before signing in."
+    },
     "signUp": {
       "title": "Sign up",
       "description": "Create a new account",

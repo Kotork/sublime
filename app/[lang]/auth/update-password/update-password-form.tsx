@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
+import type { Locale } from "@/lib/i18n/locale";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,18 +14,26 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { ComponentPropsWithoutRef, useState } from "react";
+
+import pt from "@/dictionaries/pt.json";
+type UpdatePasswordFormDict = (typeof pt)["auth"]["updatePassword"];
 
 export function UpdatePasswordForm({
   className,
+  lang,
+  dict,
   ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+}: {
+  lang: Locale;
+  dict: UpdatePasswordFormDict;
+} & ComponentPropsWithoutRef<"div">) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleForgotPassword = async (e: React.FormEvent) => {
+  const handleUpdatePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     const supabase = createClient();
     setIsLoading(true);
@@ -33,10 +42,9 @@ export function UpdatePasswordForm({
     try {
       const { error } = await supabase.auth.updateUser({ password });
       if (error) throw error;
-      // Update this route to redirect to an authenticated route. The user already has an active session.
-      router.push("/dashboard");
+      router.push(`/${lang}/dashboard`);
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred");
+      setError(error instanceof Error ? error.message : dict.genericError);
     } finally {
       setIsLoading(false);
     }
@@ -46,20 +54,18 @@ export function UpdatePasswordForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Reset Your Password</CardTitle>
-          <CardDescription>
-            Please enter your new password below.
-          </CardDescription>
+          <CardTitle className="text-2xl">{dict.title}</CardTitle>
+          <CardDescription>{dict.description}</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleForgotPassword}>
+          <form onSubmit={handleUpdatePassword}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
-                <Label htmlFor="password">New password</Label>
+                <Label htmlFor="password">{dict.passwordLabel}</Label>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="New password"
+                  placeholder={dict.passwordPlaceholder}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -67,7 +73,7 @@ export function UpdatePasswordForm({
               </div>
               {error && <p className="text-sm text-red-500">{error}</p>}
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Saving..." : "Save new password"}
+                {isLoading ? dict.submitting : dict.submit}
               </Button>
             </div>
           </form>

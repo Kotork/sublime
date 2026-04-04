@@ -11,7 +11,7 @@ export default async function Page({
 }) {
   const { lang } = await params;
   const dictionary = await getDictionary(lang as Locale);
-  const { error: dict } = dictionary.auth;
+  const dict = dictionary.auth.error;
   const paramsResolved = await searchParams;
 
   return (
