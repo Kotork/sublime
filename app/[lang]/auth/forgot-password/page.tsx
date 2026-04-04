@@ -15,7 +15,7 @@ export default async function Page({
       <div className="w-full max-w-sm">
         <ForgotPasswordForm
           lang={lang as Locale}
-          forgotPassword={dictionary.auth.forgotPassword}
+          dict={dictionary.auth.forgotPassword}
         />
       </div>
     </div>

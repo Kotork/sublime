@@ -11,7 +11,7 @@ export default async function Page({
 }) {
   const { lang } = await params;
   const dictionary = await getDictionary(lang as Locale);
-  const { error: err } = dictionary.auth;
+  const { error: dict } = dictionary.auth;
   const paramsResolved = await searchParams;
 
   return (
@@ -20,16 +20,16 @@ export default async function Page({
         <div className="flex flex-col gap-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">{err.title}</CardTitle>
+              <CardTitle className="text-2xl">{dict.title}</CardTitle>
             </CardHeader>
             <CardContent>
               {paramsResolved?.error ? (
                 <p className="text-sm text-muted-foreground">
-                  {err.codePrefix} {paramsResolved.error}
+                  {dict.codePrefix} {paramsResolved.error}
                 </p>
               ) : (
                 <p className="text-sm text-muted-foreground">
-                  {err.unspecified}
+                  {dict.unspecified}
                 </p>
               )}
             </CardContent>

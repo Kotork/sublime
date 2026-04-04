@@ -1,8 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { createClient } from "@/lib/supabase/client";
-import type { Locale } from "@/lib/i18n/locale";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,32 +10,23 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import type { Locale } from "@/lib/i18n/locale";
+import { createClient } from "@/lib/supabase/client";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useState } from "react";
 
-export type ForgotPasswordFormCopy = {
-  successTitle: string;
-  successDescription: string;
-  successBody: string;
-  title: string;
-  description: string;
-  emailLabel: string;
-  emailPlaceholder: string;
-  submit: string;
-  submitting: string;
-  hasAccount: string;
-  signIn: string;
-  genericError: string;
-};
+import pt from "@/dictionaries/pt.json";
+type ForgotPasswordFormDict = (typeof pt)["auth"]["forgotPassword"];
 
 export function ForgotPasswordForm({
   className,
   lang,
-  forgotPassword,
+  dict,
   ...props
 }: {
   lang: Locale;
-  forgotPassword: ForgotPasswordFormCopy;
+  dict: ForgotPasswordFormDict;
 } & React.ComponentPropsWithoutRef<"div">) {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -60,7 +48,7 @@ export function ForgotPasswordForm({
       setSuccess(true);
     } catch (error: unknown) {
       setError(
-        error instanceof Error ? error.message : forgotPassword.genericError
+        error instanceof Error ? error.message : dict.genericError
       );
     } finally {
       setIsLoading(false);
@@ -73,33 +61,33 @@ export function ForgotPasswordForm({
         <Card>
           <CardHeader>
             <CardTitle className="text-2xl">
-              {forgotPassword.successTitle}
+              {dict.successTitle}
             </CardTitle>
             <CardDescription>
-              {forgotPassword.successDescription}
+              {dict.successDescription}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              {forgotPassword.successBody}
+              {dict.successBody}
             </p>
           </CardContent>
         </Card>
       ) : (
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl">{forgotPassword.title}</CardTitle>
-            <CardDescription>{forgotPassword.description}</CardDescription>
+            <CardTitle className="text-2xl">{dict.title}</CardTitle>
+            <CardDescription>{dict.description}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleForgotPassword}>
               <div className="flex flex-col gap-6">
                 <div className="grid gap-2">
-                  <Label htmlFor="email">{forgotPassword.emailLabel}</Label>
+                  <Label htmlFor="email">{dict.emailLabel}</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder={forgotPassword.emailPlaceholder}
+                    placeholder={dict.emailPlaceholder}
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -108,17 +96,17 @@ export function ForgotPasswordForm({
                 {error && <p className="text-sm text-red-500">{error}</p>}
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading
-                    ? forgotPassword.submitting
-                    : forgotPassword.submit}
+                    ? dict.submitting
+                    : dict.submit}
                 </Button>
               </div>
               <div className="mt-4 text-center text-sm">
-                {forgotPassword.hasAccount}{" "}
+                {dict.hasAccount}{" "}
                 <Link
                   href={`/${lang}/auth/login`}
                   className="underline underline-offset-4"
                 >
-                  {forgotPassword.signIn}
+                  {dict.signIn}
                 </Link>
               </div>
             </form>

@@ -18,16 +18,16 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import pt from "@/dictionaries/pt.json";
-type LoginFormCopy = (typeof pt)["auth"]["login"];
+type LoginFormDict = (typeof pt)["auth"]["login"];
 
 export function LoginForm({
   className,
   lang,
-  login,
+  dict,
   ...props
 }: {
   lang: Locale;
-  login: LoginFormCopy;
+  dict: LoginFormDict;
 } & React.ComponentPropsWithoutRef<"div">) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,7 +50,7 @@ export function LoginForm({
       // Update this route to redirect to an authenticated route. The user already has an active session.
       router.push(`/${lang}/dashboard`);
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : login.genericError);
+      setError(error instanceof Error ? error.message : dict.genericError);
     } finally {
       setIsLoading(false);
     }
@@ -60,18 +60,18 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">{login.title}</CardTitle>
-          <CardDescription>{login.description}</CardDescription>
+          <CardTitle className="text-2xl">{dict.title}</CardTitle>
+          <CardDescription>{dict.description}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
-                <Label htmlFor="email">{login.emailLabel}</Label>
+                <Label htmlFor="email">{dict.emailLabel}</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder={login.emailPlaceholder}
+                  placeholder={dict.emailPlaceholder}
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -79,12 +79,12 @@ export function LoginForm({
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="password">{login.passwordLabel}</Label>
+                  <Label htmlFor="password">{dict.passwordLabel}</Label>
                   <Link
                     href={`/${lang}/auth/forgot-password`}
                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                   >
-                    {login.forgotPassword}
+                    {dict.forgotPassword}
                   </Link>
                 </div>
                 <Input
@@ -97,16 +97,16 @@ export function LoginForm({
               </div>
               {error && <p className="text-sm text-red-500">{error}</p>}
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? login.submitting : login.submit}
+                {isLoading ? dict.submitting : dict.submit}
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">
-              {login.noAccount}{" "}
+              {dict.noAccount}{" "}
               <Link
                 href={`/${lang}/auth/sign-up`}
                 className="underline underline-offset-4"
               >
-                {login.signUp}
+                {dict.signUp}
               </Link>
             </div>
           </form>
