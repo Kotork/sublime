@@ -64,5 +64,18 @@
   "errors": {
     "unexpectedError": "An unexpected error occurred",
     "somethingWentWrong": "Something went wrong"
+  },
+  "components": {
+    "themeSwitcher": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "authButton": {
+      "loggedInGreeting": "Hey, {email}!",
+      "signIn": "Sign in",
+      "signUp": "Sign up",
+      "logout": "Logout"
+    }
   }
 }

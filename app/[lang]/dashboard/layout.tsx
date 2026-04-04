@@ -1,16 +1,23 @@
 import { DeployButton } from "@/components/deploy-button";
 import { EnvVarWarning } from "@/components/env-var-warning";
-import { AuthButton } from "@/components/auth-button";
-import { ThemeSwitcher } from "@/components/theme-switcher";
+import { AuthButton } from "@/components/shared/auth-button";
+import { ThemeSwitcher } from "@/components/shared/theme-switcher";
 import { hasEnvVars } from "@/lib/utils";
+import type { Locale } from "@/lib/i18n/locale";
 import Link from "next/link";
 import { Suspense } from "react";
+import { getDictionary } from "../dictionaries";
 
-export default function ProtectedLayout({
+export default async function ProtectedLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ lang: string }>;
 }) {
+  const { lang } = await params;
+  const dictionary = await getDictionary(lang as Locale);
+
   return (
     <main className="min-h-screen flex flex-col items-center">
       <div className="flex-1 w-full flex flex-col gap-20 items-center">
@@ -26,7 +33,10 @@ export default function ProtectedLayout({
               <EnvVarWarning />
             ) : (
               <Suspense>
-                <AuthButton />
+                <AuthButton
+                  lang={lang as Locale}
+                  dict={dictionary.components.authButton}
+                />
               </Suspense>
             )}
           </div>
@@ -47,7 +57,7 @@ export default function ProtectedLayout({
               Supabase
             </a>
           </p>
-          <ThemeSwitcher />
+          <ThemeSwitcher dict={dictionary.components.themeSwitcher} />
         </footer>
       </div>
     </main>

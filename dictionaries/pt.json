@@ -64,5 +64,18 @@
   "errors": {
     "unexpectedError": "Ocorreu um erro inesperado",
     "somethingWentWrong": "Algo correu mal"
+  },
+  "components": {
+    "themeSwitcher": {
+      "light": "Claro",
+      "dark": "Escuro",
+      "system": "Sistema"
+    },
+    "authButton": {
+      "loggedInGreeting": "Olá, {email}!",
+      "signIn": "Iniciar sessão",
+      "signUp": "Registar-se",
+      "logout": "Terminar sessão"
+    }
   }
 }
