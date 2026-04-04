@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { ComponentPropsWithoutRef, useState } from "react";
 
 import pt from "@/dictionaries/pt.json";
 type LoginFormDict = (typeof pt)["auth"]["login"];
@@ -28,7 +28,7 @@ export function LoginForm({
 }: {
   lang: Locale;
   dict: LoginFormDict;
-} & React.ComponentPropsWithoutRef<"div">) {
+} & ComponentPropsWithoutRef<"div">) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);

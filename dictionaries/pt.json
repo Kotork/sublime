@@ -31,6 +31,20 @@
       "hasAccount": "Já tem uma conta?",
       "signIn": "Iniciar sessão",
       "genericError": "Ocorreu um erro"
+    },
+    "signUp": {
+      "title": "Registar-se",
+      "description": "Criar uma conta nova",
+      "emailLabel": "Email",
+      "emailPlaceholder": "exemplo@email.com",
+      "passwordLabel": "Palavra-passe",
+      "repeatPasswordLabel": "Confirmar palavra-passe",
+      "passwordsMismatch": "As palavras-passe não coincidem",
+      "submit": "Registar-se",
+      "submitting": "A criar a sua conta...",
+      "hasAccount": "Já tem uma conta?",
+      "signIn": "Iniciar sessão",
+      "genericError": "Ocorreu um erro"
     }
   },
   "errors": {

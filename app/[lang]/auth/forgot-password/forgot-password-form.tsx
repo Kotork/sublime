@@ -14,7 +14,7 @@ import type { Locale } from "@/lib/i18n/locale";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useState } from "react";
+import { ComponentPropsWithoutRef, useState } from "react";
 
 import pt from "@/dictionaries/pt.json";
 type ForgotPasswordFormDict = (typeof pt)["auth"]["forgotPassword"];
@@ -27,7 +27,7 @@ export function ForgotPasswordForm({
 }: {
   lang: Locale;
   dict: ForgotPasswordFormDict;
-} & React.ComponentPropsWithoutRef<"div">) {
+} & ComponentPropsWithoutRef<"div">) {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);

@@ -31,6 +31,20 @@
       "hasAccount": "Already have an account?",
       "signIn": "Sign in",
       "genericError": "Something went wrong"
+    },
+    "signUp": {
+      "title": "Sign up",
+      "description": "Create a new account",
+      "emailLabel": "Email",
+      "emailPlaceholder": "m@example.com",
+      "passwordLabel": "Password",
+      "repeatPasswordLabel": "Confirm password",
+      "passwordsMismatch": "Passwords do not match",
+      "submit": "Sign up",
+      "submitting": "Creating your account...",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "genericError": "Something went wrong"
     }
   },
   "errors": {
