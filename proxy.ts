@@ -3,7 +3,8 @@ import { createServerClient } from "@supabase/ssr";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import { locales, defaultLocale, isValidLocale } from "@/lib/i18n/locale";
-import { updateSession } from './lib/supabase/middleware';
+import { applyDashboardLocalizedRouting } from "@/lib/i18n/apply-dashboard-localized-routing";
+import { updateSession } from "./lib/supabase/middleware";
 
 function getLocale(request: NextRequest): string {
   const pathname = request.nextUrl.pathname;
@@ -180,6 +181,16 @@ export async function proxy(request: NextRequest) {
     if (!user) {
       return redirectWithSupabaseCookies("/");
     }
+  }
+
+  const dashboardLocalized = applyDashboardLocalizedRouting(
+    request,
+    response,
+    pathname,
+    pathnameHasLocale
+  );
+  if (dashboardLocalized) {
+    return dashboardLocalized;
   }
 
   return response;

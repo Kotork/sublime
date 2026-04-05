@@ -1,3 +1,7 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -5,17 +9,21 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/ui/breadcrumb";
+import { getLocaleFromPathname } from "@/lib/utils/pathname";
 
 const UserBreadcrumbs = () => {
+  const pathname = usePathname();
+  const locale = getLocaleFromPathname(pathname);
+
   return (
     <Breadcrumb className="flex items-center">
       <BreadcrumbList className="items-center">
         <BreadcrumbItem>
-          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          <BreadcrumbLink href={`/${locale}`}>Home</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator className="hidden sm:block" />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
+          <BreadcrumbLink href={`/${locale}/dashboard`}>Dashboard</BreadcrumbLink>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

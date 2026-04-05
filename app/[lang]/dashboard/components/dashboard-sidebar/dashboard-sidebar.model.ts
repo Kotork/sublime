@@ -1,6 +1,9 @@
 import { ContactRound, Globe, Inbox, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+import { canonicalDashboardSegmentToLocalized } from "@/lib/i18n/localized-paths";
+import { getLocaleFromPathname } from "@/lib/utils/pathname";
+
 export type NavItem = {
   name: string;
   href: string;
@@ -34,25 +37,26 @@ export function buildNavigation(
   dict: NavigationDictionary
 ): NavItem[] {
   const base = buildDashboardBase(pathname);
+  const locale = getLocaleFromPathname(pathname);
   return [
     {
       name: dict.navigation.users,
-      href: `${base}/users`,
+      href: `${base}/${canonicalDashboardSegmentToLocalized(locale, "users")}`,
       icon: Users,
     },
     {
       name: dict.navigation.website,
-      href: `${base}/website`,
+      href: `${base}/${canonicalDashboardSegmentToLocalized(locale, "website")}`,
       icon: Globe,
     },
     {
       name: dict.navigation.contacts,
-      href: `${base}/contacts`,
+      href: `${base}/${canonicalDashboardSegmentToLocalized(locale, "contacts")}`,
       icon: ContactRound,
     },
     {
       name: dict.navigation.formSubmissions,
-      href: `${base}/form-submissions`,
+      href: `${base}/${canonicalDashboardSegmentToLocalized(locale, "form-submissions")}`,
       icon: Inbox,
     },
   ];
