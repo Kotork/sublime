@@ -1,14 +1,14 @@
-import { locales, isValidLocale } from "@/lib/i18n/locale";
+import { locales, isValidLocale, defaultLocale, Locale } from "@/lib/i18n/locale";
 
 /**
  * Extracts the locale from a pathname if it exists.
  * @param pathname - The pathname to check (e.g., "/en/admin" or "/pt/dashboard")
  * @returns The locale string if found, null otherwise
  */
-export function getLocaleFromPathname(pathname: string): string | null {
+export function getLocaleFromPathname(pathname: string): Locale {
   const segments = pathname.split("/").filter(Boolean);
   if (segments.length === 0) {
-    return null;
+    return defaultLocale;
   }
 
   const firstSegment = segments[0];
@@ -16,7 +16,7 @@ export function getLocaleFromPathname(pathname: string): string | null {
     return firstSegment;
   }
 
-  return null;
+  return defaultLocale;
 }
 
 /**

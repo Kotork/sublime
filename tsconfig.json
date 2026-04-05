@@ -27,6 +27,7 @@
       "@/client/*": ["./lib/client/*"],
       "@/hooks/*": ["./lib/client/hooks/*"],
       "@/server/*": ["./lib/server/*"],
+      "@/trpc/*": ["./trpc/*"],
     }
   },
   "include": [

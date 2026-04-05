@@ -3,10 +3,11 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../../globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/lib/client/providers/theme-provider";
-import { QueryProvider } from "@/lib/client/providers/query-provider";
+import { TRPCReactProvider } from "@/trpc/client";
 import { redirect } from "next/navigation";
-import { defaultLocale } from "@/lib/i18n/locale";
-import { hasLocale } from "./dictionaries";
+import { defaultLocale, type Locale } from "@/lib/i18n/locale";
+import { getDictionary, hasLocale } from "./dictionaries";
+import { DictionaryProvider } from '@/lib/client/providers/dictionary-provider';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,8 @@ export default async function RootLayout({
 }>) {
   const { lang } = await params;
 
+  const dictionary = await getDictionary(lang as Locale);
+
   if (!hasLocale(lang)) {
     redirect(`/${defaultLocale}`);
   }
@@ -47,8 +50,10 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <QueryProvider>{children}</QueryProvider>
-          <Toaster />
+          <DictionaryProvider dictionary={dictionary}>
+            <TRPCReactProvider>{children}</TRPCReactProvider>
+            <Toaster />
+          </DictionaryProvider>
         </ThemeProvider>
       </body>
     </html>

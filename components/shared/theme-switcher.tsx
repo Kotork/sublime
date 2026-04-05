@@ -8,29 +8,13 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/locale";
-import en from "@/dictionaries/en.json";
-import pt from "@/dictionaries/pt.json";
+import { useDictionary } from '@/lib/client/providers/dictionary-provider';
 import { Laptop, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const themeSwitcherByLocale: Record<
-  Locale,
-  (typeof en)["components"]["themeSwitcher"]
-> = {
-  en: en.components.themeSwitcher,
-  pt: pt.components.themeSwitcher,
-};
-
 const ThemeSwitcher = () => {
-  const params = useParams();
-  const lang = params?.lang;
-  const locale =
-    typeof lang === "string" && isValidLocale(lang) ? lang : defaultLocale;
-  const dict = themeSwitcherByLocale[locale];
-
+  const dict = useDictionary();
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -76,15 +60,15 @@ const ThemeSwitcher = () => {
         >
           <DropdownMenuRadioItem className="flex gap-2" value="light">
             <Sun size={ICON_SIZE} className="text-muted-foreground" />{" "}
-            <span>{dict.light}</span>
+            <span>{dict.components['themeSwitcher'].light}</span>
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem className="flex gap-2" value="dark">
             <Moon size={ICON_SIZE} className="text-muted-foreground" />{" "}
-            <span>{dict.dark}</span>
+            <span>{dict.components['themeSwitcher'].dark}</span>
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem className="flex gap-2" value="system">
             <Laptop size={ICON_SIZE} className="text-muted-foreground" />{" "}
-            <span>{dict.system}</span>
+            <span>{dict.components['themeSwitcher'].system}</span>
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>

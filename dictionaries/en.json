@@ -76,6 +76,28 @@
       "signIn": "Sign in",
       "signUp": "Sign up",
       "logout": "Logout"
+    },
+    "data-table": {
+      "column-header": {
+        "sortAscending": "Sort ascending",
+        "sortDescending": "Sort descending",
+        "hide": "Hide"
+      },
+      "pagination": {
+        "rowsPerPage": "Rows per page",
+        "of": "de",
+        "page": "Page",
+        "goToFirstPage": "Go to first page",
+        "goToPreviousPage": "Go to previous page",
+        "goToNextPage": "Go to next page",
+        "goToLastPage": "Go to last page",
+        "rowSelected": "row selected",
+        "rowsSelected": "rows selected"
+      },
+      "viewOptions": {
+        "view": "View",
+        "toggleColumns": "Toggle columns"
+      }
     }
   },
   "navigation": {
