@@ -2,10 +2,11 @@ import { EnvVarWarning } from "@/components/env-var-warning";
 import { AuthButton } from "@/components/shared/auth-button";
 import { hasEnvVars } from "@/lib/utils";
 import type { Locale } from "@/lib/i18n/locale";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "@/ui/sidebar";
 import { Suspense } from "react";
 import { getDictionary } from "../dictionaries";
 import DashboardSidebar from "./components/dashboard-sidebar/dashboard-sidebar";
+import { Header } from "./components/header/header";
 
 export default async function ProtectedLayout({
   children,
@@ -21,9 +22,10 @@ export default async function ProtectedLayout({
     <SidebarProvider defaultOpen={false}>
       <DashboardSidebar dict={dictionary} />
       <SidebarInset className="min-h-svh">
-        <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4 md:hidden">
+        {/* <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4 md:hidden">
           <SidebarTrigger className="-ml-1" />
-        </header>
+        </header> */}
+        <Header />
         <div className="flex flex-1 flex-col overflow-y-auto">
           <div className="container mx-auto flex flex-1 flex-col gap-6 p-4 md:p-6">
             {children}

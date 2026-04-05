@@ -62,7 +62,7 @@ export default async function Home({
               Supabase
             </a>
           </p>
-          <ThemeSwitcher dict={dictionary.components.themeSwitcher} />
+          <ThemeSwitcher />
         </footer>
       </div>
     </main>
