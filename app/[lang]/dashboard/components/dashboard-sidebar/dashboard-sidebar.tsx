@@ -1,12 +1,15 @@
 "use client";
 
-import SidebarView from "./presentation/components/sidebar-view";
-import { useSidebarNavigation } from "./application/hooks/use-sidebar-navigation";
+import type { NavigationDictionary } from "./dashboard-sidebar.model";
+import { DashboardSidebarView } from "./dashboard-sidebar.view";
+import { useDashboardSidebarViewModel } from "./dashboard-sidebar.view-model";
 
-const DashboardSidebar = () => {
-  const { navigation, isActive } = useSidebarNavigation();
-
-  return <SidebarView items={navigation} isActive={isActive} />;
+type DashboardSidebarProps = {
+  dict: NavigationDictionary;
 };
 
-export default DashboardSidebar;
+export default function DashboardSidebar({ dict }: DashboardSidebarProps) {
+  const { navigation, isActive } = useDashboardSidebarViewModel(dict);
+
+  return <DashboardSidebarView items={navigation} isActive={isActive} />;
+}

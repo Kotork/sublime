@@ -1,0 +1,81 @@
+import { ContactRound, Globe, Inbox, Users } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
+export type NavItem = {
+  name: string;
+  href: string;
+  icon: LucideIcon;
+};
+
+/** Labels for the fixed dashboard sidebar (en/pt via `getDictionary`). */
+export type NavigationDictionary = {
+  navigation: {
+    users: string;
+    website: string;
+    contacts: string;
+    formSubmissions: string;
+  };
+};
+
+function buildDashboardBase(pathname: string): string {
+  const parts = pathname.split("/").filter(Boolean);
+  const i = parts.indexOf("dashboard");
+  if (i >= 0) {
+    return `/${parts.slice(0, i + 1).join("/")}`;
+  }
+  if (parts.length >= 1) {
+    return `/${parts[0]}/dashboard`;
+  }
+  return "/dashboard";
+}
+
+export function buildNavigation(
+  pathname: string,
+  dict: NavigationDictionary
+): NavItem[] {
+  const base = buildDashboardBase(pathname);
+  return [
+    {
+      name: dict.navigation.users,
+      href: `${base}/users`,
+      icon: Users,
+    },
+    {
+      name: dict.navigation.website,
+      href: `${base}/website`,
+      icon: Globe,
+    },
+    {
+      name: dict.navigation.contacts,
+      href: `${base}/contacts`,
+      icon: ContactRound,
+    },
+    {
+      name: dict.navigation.formSubmissions,
+      href: `${base}/form-submissions`,
+      icon: Inbox,
+    },
+  ];
+}
+
+export function createIsActive(pathname: string, navigation: NavItem[]) {
+  return (href: string) => {
+    if (pathname === href) {
+      return true;
+    }
+
+    if (pathname.startsWith(`${href}/`)) {
+      const moreSpecificMatch = navigation.find(
+        (item) =>
+          (item.href !== href &&
+            item.href.startsWith(`${href}/`) &&
+            pathname.startsWith(`${item.href}/`)) ||
+          pathname === item.href
+      );
+
+      return !moreSpecificMatch;
+    }
+
+    return false;
+  };
+}

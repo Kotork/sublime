@@ -77,5 +77,11 @@
       "signUp": "Registar-se",
       "logout": "Terminar sessão"
     }
+  },
+  "navigation": {
+    "users": "Utilizadores",
+    "website": "Website",
+    "contacts": "Contactos",
+    "formSubmissions": "Submissões de formulário"
   }
 }
