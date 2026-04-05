@@ -126,7 +126,16 @@
         "inviteCancel": "Cancelar",
         "inviteSuccess": "Convite enviado.",
         "inviteError": "Não foi possível enviar o convite.",
-        "verificationBadge": "Verificação pendente"
+        "verificationBadge": "Verificação pendente",
+        "actions": "Ações",
+        "deleteUserAria": "Eliminar utilizador",
+        "deleteConfirmTitle": "Eliminar utilizador?",
+        "deleteConfirmDescription": "Isto remove permanentemente {email} do projeto. Esta ação não pode ser anulada.",
+        "deleteConfirm": "Eliminar",
+        "deleteCancel": "Cancelar",
+        "deleteSuccess": "Utilizador eliminado.",
+        "deleteError": "Não foi possível eliminar o utilizador.",
+        "deleteSelfError": "Não pode eliminar a sua própria conta."
       }
     }
   }

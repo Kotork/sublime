@@ -126,7 +126,16 @@
         "inviteCancel": "Cancel",
         "inviteSuccess": "Invitation sent.",
         "inviteError": "Could not send invitation.",
-        "verificationBadge": "Pending verification"
+        "verificationBadge": "Pending verification",
+        "actions": "Actions",
+        "deleteUserAria": "Delete user",
+        "deleteConfirmTitle": "Delete user?",
+        "deleteConfirmDescription": "This will permanently remove {email} from the project. This cannot be undone.",
+        "deleteConfirm": "Delete",
+        "deleteCancel": "Cancel",
+        "deleteSuccess": "User deleted.",
+        "deleteError": "Could not delete user.",
+        "deleteSelfError": "You cannot delete your own account."
       }
     }
   }

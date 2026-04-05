@@ -14,6 +14,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { createClient } from "@/lib/supabase/client";
 import { useDictionary } from "@/lib/client/providers/dictionary-provider";
 import { useTRPC } from "@/trpc/client";
 import type { AppRouter } from "@/trpc/routers/_app";
@@ -21,8 +22,8 @@ import { TRPCClientError } from "@trpc/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { inferRouterOutputs } from "@trpc/server";
-import { UserPlus } from "lucide-react";
-import { useMemo, useState } from "react";
+import { Trash2, UserPlus } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
 type UserRow = inferRouterOutputs<AppRouter>["users"]["list"][number];
@@ -42,6 +43,15 @@ export function UsersTable() {
 
   const [inviteOpen, setInviteOpen] = useState(false);
   const [inviteEmail, setInviteEmail] = useState("");
+  const [userToDelete, setUserToDelete] = useState<UserRow | null>(null);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+    void supabase.auth.getUser().then(({ data: { user } }) => {
+      setCurrentUserId(user?.id ?? null);
+    });
+  }, []);
 
   const { data, isLoading, error, isError } = useQuery(
     trpc.users.list.queryOptions(undefined),
@@ -60,6 +70,30 @@ export function UsersTable() {
       onError: (err) => {
         toast.error(
           err instanceof TRPCClientError ? err.message : copy.inviteError,
+        );
+      },
+    }),
+  );
+
+  const deleteMutation = useMutation(
+    trpc.users.delete.mutationOptions({
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: trpc.users.list.queryKey(undefined),
+        });
+        toast.success(copy.deleteSuccess);
+        setUserToDelete(null);
+      },
+      onError: (err) => {
+        if (
+          err instanceof TRPCClientError &&
+          err.message === "CANNOT_DELETE_SELF"
+        ) {
+          toast.error(copy.deleteSelfError);
+          return;
+        }
+        toast.error(
+          err instanceof TRPCClientError ? err.message : copy.deleteError,
         );
       },
     }),
@@ -109,13 +143,41 @@ export function UsersTable() {
         ),
         cell: ({ row }) => formatDate(row.original.lastSignInAt),
       },
+      {
+        id: "actions",
+        enableSorting: false,
+        header: () => (
+          <span className="text-muted-foreground">{copy.actions}</span>
+        ),
+        cell: ({ row }) => {
+          const isSelf = row.original.id === currentUserId;
+          return (
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+              disabled={isSelf}
+              title={isSelf ? copy.deleteSelfError : copy.deleteUserAria}
+              aria-label={copy.deleteUserAria}
+              onClick={() => setUserToDelete(row.original)}
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          );
+        },
+      },
     ],
     [
+      copy.actions,
       copy.createdAt,
+      copy.deleteSelfError,
+      copy.deleteUserAria,
       copy.displayName,
       copy.email,
       copy.lastSignIn,
       copy.verificationBadge,
+      currentUserId,
     ],
   );
 
@@ -186,6 +248,47 @@ export function UsersTable() {
                   </Button>
                 </DialogFooter>
               </form>
+            </DialogContent>
+          </Dialog>
+
+          <Dialog
+            open={userToDelete !== null}
+            onOpenChange={(open) => {
+              if (!open) setUserToDelete(null);
+            }}
+          >
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>{copy.deleteConfirmTitle}</DialogTitle>
+                <DialogDescription>
+                  {copy.deleteConfirmDescription.replace(
+                    "{email}",
+                    userToDelete?.email || "",
+                  )}
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setUserToDelete(null)}
+                  disabled={deleteMutation.isPending}
+                >
+                  {copy.deleteCancel}
+                </Button>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  disabled={deleteMutation.isPending || !userToDelete}
+                  onClick={() => {
+                    if (userToDelete) {
+                      deleteMutation.mutate({ id: userToDelete.id });
+                    }
+                  }}
+                >
+                  {copy.deleteConfirm}
+                </Button>
+              </DialogFooter>
             </DialogContent>
           </Dialog>
         </>

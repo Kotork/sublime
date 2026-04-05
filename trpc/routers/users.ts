@@ -8,6 +8,10 @@ const inviteEmailSchema = z.object({
   email: z.string().email(),
 });
 
+const deleteUserSchema = z.object({
+  id: z.string().uuid(),
+});
+
 function displayNameFromMetadata(
   meta: Record<string, unknown> | null | undefined,
 ): string {
@@ -69,5 +73,31 @@ export const usersRouter = createTRPCRouter({
         });
       }
       return { userId: data.user?.id ?? null };
+    }),
+
+  delete: authenticatedProcedure
+    .input(deleteUserSchema)
+    .mutation(async ({ input, ctx }) => {
+      const {
+        data: { user },
+      } = await ctx.supabase.auth.getUser();
+      if (!user) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+      if (user.id === input.id) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "CANNOT_DELETE_SELF",
+        });
+      }
+      const admin = createAdminClient();
+      const { error } = await admin.auth.admin.deleteUser(input.id);
+      if (error) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: error.message,
+        });
+      }
+      return { ok: true as const };
     }),
 });
