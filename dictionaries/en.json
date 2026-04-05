@@ -117,7 +117,16 @@
         "signInRequired": "You must be signed in to view this list.",
         "loadError": "Could not load users.",
         "noUsers": "No users found.",
-        "loading": "Loading users…"
+        "loading": "Loading users…",
+        "inviteUser": "Invite user",
+        "inviteDialogTitle": "Invite user",
+        "inviteDialogDescription": "We will email this address a link they can use to join.",
+        "inviteEmailLabel": "Email",
+        "inviteSubmit": "Send invitation",
+        "inviteCancel": "Cancel",
+        "inviteSuccess": "Invitation sent.",
+        "inviteError": "Could not send invitation.",
+        "verificationBadge": "Pending verification"
       }
     }
   }

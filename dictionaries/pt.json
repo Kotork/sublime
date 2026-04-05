@@ -117,7 +117,16 @@
         "signInRequired": "Tem de iniciar sessão para ver esta lista.",
         "loadError": "Não foi possível carregar os utilizadores.",
         "noUsers": "Nenhum utilizador encontrado.",
-        "loading": "A carregar utilizadores…"
+        "loading": "A carregar utilizadores…",
+        "inviteUser": "Convidar utilizador",
+        "inviteDialogTitle": "Convidar utilizador",
+        "inviteDialogDescription": "Enviaremos um email com um link para este endereço para poderem entrar.",
+        "inviteEmailLabel": "Email",
+        "inviteSubmit": "Enviar convite",
+        "inviteCancel": "Cancelar",
+        "inviteSuccess": "Convite enviado.",
+        "inviteError": "Não foi possível enviar o convite.",
+        "verificationBadge": "Verificação pendente"
       }
     }
   }

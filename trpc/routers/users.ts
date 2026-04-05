@@ -1,7 +1,12 @@
 import { TRPCError } from "@trpc/server";
+import { z } from "zod";
 
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createTRPCRouter, authenticatedProcedure } from "../init";
+
+const inviteEmailSchema = z.object({
+  email: z.string().email(),
+});
 
 function displayNameFromMetadata(
   meta: Record<string, unknown> | null | undefined,
@@ -32,14 +37,37 @@ export const usersRouter = createTRPCRouter({
         message: error.message,
       });
     }
-    return data.users.map((u) => ({
-      id: u.id,
-      email: u.email ?? "",
-      displayName: displayNameFromMetadata(
-        u.user_metadata as Record<string, unknown> | null,
-      ),
-      createdAt: u.created_at,
-      lastSignInAt: u.last_sign_in_at,
-    }));
+    return data.users.map((u) => {
+      const email = u.email ?? "";
+      const waitingForVerification = Boolean(
+        email && !u.email_confirmed_at,
+      );
+      return {
+        id: u.id,
+        email,
+        displayName: displayNameFromMetadata(
+          u.user_metadata as Record<string, unknown> | null,
+        ),
+        createdAt: u.created_at,
+        lastSignInAt: u.last_sign_in_at,
+        waitingForVerification,
+      };
+    });
   }),
+
+  invite: authenticatedProcedure
+    .input(inviteEmailSchema)
+    .mutation(async ({ input }) => {
+      const admin = createAdminClient();
+      const { data, error } = await admin.auth.admin.inviteUserByEmail(
+        input.email.trim(),
+      );
+      if (error) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: error.message,
+        });
+      }
+      return { userId: data.user?.id ?? null };
+    }),
 });
