@@ -105,5 +105,20 @@
     "website": "Website",
     "contacts": "Contactos",
     "formSubmissions": "Submissões de formulário"
+  },
+  "pages": {
+    "dashboard": {
+      "users": {
+        "email": "Email",
+        "displayName": "Nome",
+        "createdAt": "Criado em",
+        "lastSignIn": "Último acesso",
+        "filterPlaceholder": "Filtrar por email…",
+        "signInRequired": "Tem de iniciar sessão para ver esta lista.",
+        "loadError": "Não foi possível carregar os utilizadores.",
+        "noUsers": "Nenhum utilizador encontrado.",
+        "loading": "A carregar utilizadores…"
+      }
+    }
   }
 }

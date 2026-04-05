@@ -105,5 +105,20 @@
     "website": "Website",
     "contacts": "Contacts",
     "formSubmissions": "Form submissions"
+  },
+  "pages": {
+    "dashboard": {
+      "users": {
+        "email": "Email",
+        "displayName": "Display name",
+        "createdAt": "Created at",
+        "lastSignIn": "Last sign in",
+        "filterPlaceholder": "Filter by email…",
+        "signInRequired": "You must be signed in to view this list.",
+        "loadError": "Could not load users.",
+        "noUsers": "No users found.",
+        "loading": "Loading users…"
+      }
+    }
   }
 }

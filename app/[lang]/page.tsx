@@ -34,10 +34,7 @@ export default async function Home({
               <EnvVarWarning />
             ) : (
               <Suspense>
-                <AuthButton
-                  lang={lang as Locale}
-                  dict={dictionary.components.authButton}
-                />
+                <AuthButton lang={lang as Locale} dictionary={dictionary} />
               </Suspense>
             )}
           </div>
