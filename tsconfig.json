@@ -24,6 +24,9 @@
       "@/components/*": ["./components/*"],
       "@/ui/*": ["./components/ui/*"],
       "@/lib/*": ["./lib/*"],
+      "@/client/*": ["./lib/client/*"],
+      "@/hooks/*": ["./lib/client/hooks/*"],
+      "@/server/*": ["./lib/server/*"],
     }
   },
   "include": [

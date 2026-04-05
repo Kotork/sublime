@@ -5,13 +5,7 @@ import type { Locale } from "@/lib/i18n/locale";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
-export function LogoutButton({
-  label,
-  lang,
-}: {
-  label: string;
-  lang: Locale;
-}) {
+export function LogoutButton({ label, lang }: { label: string; lang: Locale }) {
   const router = useRouter();
 
   const logout = async () => {

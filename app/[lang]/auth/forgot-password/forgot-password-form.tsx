@@ -47,9 +47,7 @@ export function ForgotPasswordForm({
       if (error) throw error;
       setSuccess(true);
     } catch (error: unknown) {
-      setError(
-        error instanceof Error ? error.message : dict.genericError
-      );
+      setError(error instanceof Error ? error.message : dict.genericError);
     } finally {
       setIsLoading(false);
     }
@@ -60,17 +58,11 @@ export function ForgotPasswordForm({
       {success ? (
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl">
-              {dict.successTitle}
-            </CardTitle>
-            <CardDescription>
-              {dict.successDescription}
-            </CardDescription>
+            <CardTitle className="text-2xl">{dict.successTitle}</CardTitle>
+            <CardDescription>{dict.successDescription}</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">
-              {dict.successBody}
-            </p>
+            <p className="text-sm text-muted-foreground">{dict.successBody}</p>
           </CardContent>
         </Card>
       ) : (
@@ -95,9 +87,7 @@ export function ForgotPasswordForm({
                 </div>
                 {error && <p className="text-sm text-red-500">{error}</p>}
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading
-                    ? dict.submitting
-                    : dict.submit}
+                  {isLoading ? dict.submitting : dict.submit}
                 </Button>
               </div>
               <div className="mt-4 text-center text-sm">

@@ -3,10 +3,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../../globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/lib/client/providers/theme-provider";
-import { QueryProvider } from '@/lib/client/providers/query-provider';
+import { QueryProvider } from "@/lib/client/providers/query-provider";
 import { redirect } from "next/navigation";
 import { defaultLocale } from "@/lib/i18n/locale";
-import { hasLocale } from './dictionaries';
+import { hasLocale } from "./dictionaries";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
