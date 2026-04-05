@@ -9,19 +9,27 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n/locale";
+import en from "@/dictionaries/en.json";
+import pt from "@/dictionaries/pt.json";
 import { Laptop, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getDictionary } from '@/app/[lang]/dictionaries';
+
+const themeSwitcherByLocale: Record<
+  Locale,
+  (typeof en)["components"]["themeSwitcher"]
+> = {
+  en: en.components.themeSwitcher,
+  pt: pt.components.themeSwitcher,
+};
 
 const ThemeSwitcher = () => {
   const params = useParams();
   const lang = params?.lang;
   const locale =
     typeof lang === "string" && isValidLocale(lang) ? lang : defaultLocale;
-  const dictionary = getDictionary(locale as Locale);
-  const dict = dictionary.components.themeSwitcher;
+  const dict = themeSwitcherByLocale[locale];
 
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();

@@ -19,29 +19,31 @@ export default async function ProtectedLayout({
   const dictionary = await getDictionary(lang as Locale);
 
   return (
-    <SidebarProvider defaultOpen={false}>
-      <DashboardSidebar dict={dictionary} />
-      <SidebarInset className="min-h-svh">
-        {/* <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4 md:hidden">
+    <div className="flex min-h-svh flex-col">
+      <Header />
+      <SidebarProvider defaultOpen={false} className="min-h-0 flex-1">
+        <DashboardSidebar dict={dictionary} />
+        <SidebarInset className="min-h-0 flex-1">
+          {/* <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4 md:hidden">
           <SidebarTrigger className="-ml-1" />
         </header> */}
-        <Header />
-        <div className="flex flex-1 flex-col overflow-y-auto">
-          <div className="container mx-auto flex flex-1 flex-col gap-6 p-4 md:p-6">
-            {children}
-            {!hasEnvVars ? (
-              <EnvVarWarning />
-            ) : (
-              <Suspense>
-                <AuthButton
-                  lang={lang as Locale}
-                  dict={dictionary.components.authButton}
-                />
-              </Suspense>
-            )}
+          <div className="flex flex-1 flex-col overflow-y-auto">
+            <div className="container mx-auto flex flex-1 flex-col gap-6 p-4 md:p-6">
+              {children}
+              {!hasEnvVars ? (
+                <EnvVarWarning />
+              ) : (
+                <Suspense>
+                  <AuthButton
+                    lang={lang as Locale}
+                    dict={dictionary.components.authButton}
+                  />
+                </Suspense>
+              )}
+            </div>
           </div>
-        </div>
-      </SidebarInset>
-    </SidebarProvider>
+        </SidebarInset>
+      </SidebarProvider>
+    </div>
   );
 }
