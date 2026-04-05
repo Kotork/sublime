@@ -18,16 +18,19 @@ export default async function ProtectedLayout({
   const dictionary = await getDictionary(lang as Locale);
 
   return (
-    <div className="flex min-h-svh flex-col">
+    <div className="flex h-svh max-h-svh flex-col overflow-hidden">
       <Header />
-      <SidebarProvider defaultOpen={false} className="min-h-0 flex-1">
+      <SidebarProvider
+        defaultOpen={false}
+        className="flex min-h-0 flex-1 overflow-hidden"
+      >
         <DashboardSidebar dict={dictionary} />
-        <SidebarInset className="min-h-0 flex-1">
+        <SidebarInset className="min-h-0 overflow-hidden">
           {/* <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4 md:hidden">
           <SidebarTrigger className="-ml-1" />
         </header> */}
-          <div className="flex flex-1 flex-col overflow-y-auto">
-            <div className="container mx-auto flex flex-1 flex-col gap-6 p-4 md:p-6">
+          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain">
+            <div className="container mx-auto flex flex-col gap-6 p-4 md:p-6">
               {!hasEnvVars ? <EnvVarWarning /> : <Suspense>{children}</Suspense>}
             </div>
           </div>
