@@ -10,8 +10,9 @@ import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import type { SerializedEditorState } from "lexical";
 
 import { cn } from "@/lib/utils";
+import { ImageNode } from "./nodes/image-node";
 
-const NODES = [HeadingNode, QuoteNode, ListNode, ListItemNode, LinkNode];
+const NODES = [HeadingNode, QuoteNode, ListNode, ListItemNode, LinkNode, ImageNode];
 
 function onError(error: Error) {
   console.error("Lexical read-only error:", error);

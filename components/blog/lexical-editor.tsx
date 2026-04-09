@@ -16,9 +16,12 @@ import {
   FORMAT_TEXT_COMMAND,
   $getSelection,
   $isRangeSelection,
+  $insertNodes,
   COMMAND_PRIORITY_LOW,
   SELECTION_CHANGE_COMMAND,
+  createCommand,
 } from "lexical";
+import type { EditorState, LexicalCommand, SerializedEditorState } from "lexical";
 import {
   INSERT_ORDERED_LIST_COMMAND,
   INSERT_UNORDERED_LIST_COMMAND,
@@ -26,12 +29,18 @@ import {
 import { $setBlocksType } from "@lexical/selection";
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
 import { $createParagraphNode } from "lexical";
-import type { EditorState, SerializedEditorState } from "lexical";
+import { ImageIcon } from "lucide-react";
+import { useRef } from "react";
+import { toast } from "sonner";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/ui/button";
+import { ImageNode, $createImageNode } from "./nodes/image-node";
 
-const NODES = [HeadingNode, QuoteNode, ListNode, ListItemNode, LinkNode];
+export const INSERT_IMAGE_COMMAND: LexicalCommand<{ src: string; altText: string }> =
+  createCommand("INSERT_IMAGE_COMMAND");
+
+const NODES = [HeadingNode, QuoteNode, ListNode, ListItemNode, LinkNode, ImageNode];
 
 const THEME = {
   root: "lexical-root",
@@ -65,6 +74,8 @@ function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext();
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -84,6 +95,34 @@ function ToolbarPlugin() {
       COMMAND_PRIORITY_LOW,
     );
   }, [editor, updateToolbar]);
+
+  const handleImageUpload = useCallback(
+    async (file: File) => {
+      setIsUploading(true);
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+        const res = await fetch("/api/blog/upload-image", {
+          method: "POST",
+          body: formData,
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          toast.error(data.error ?? "Upload failed");
+          return;
+        }
+        editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
+          src: data.url,
+          altText: file.name,
+        });
+      } catch {
+        toast.error("Upload failed");
+      } finally {
+        setIsUploading(false);
+      }
+    },
+    [editor],
+  );
 
   const formatHeading = (level: "h1" | "h2" | "h3") => {
     editor.update(() => {
@@ -201,8 +240,48 @@ function ToolbarPlugin() {
       >
         Quote
       </Button>
+      <div className="w-px bg-border mx-1" />
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
+        className="h-7 px-2 text-xs"
+        disabled={isUploading}
+        onClick={() => fileInputRef.current?.click()}
+      >
+        <ImageIcon className="size-3.5" />
+      </Button>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (file) handleImageUpload(file);
+          e.target.value = "";
+        }}
+      />
     </div>
   );
+}
+
+function ImagePlugin() {
+  const [editor] = useLexicalComposerContext();
+
+  useEffect(() => {
+    return editor.registerCommand(
+      INSERT_IMAGE_COMMAND,
+      (payload: { src: string; altText: string }) => {
+        const imageNode = $createImageNode(payload.src, payload.altText);
+        $insertNodes([imageNode]);
+        return true;
+      },
+      COMMAND_PRIORITY_LOW,
+    );
+  }, [editor]);
+
+  return null;
 }
 
 function onError(error: Error) {
@@ -255,6 +334,7 @@ export function LexicalEditor({
           <HistoryPlugin />
           <ListPlugin />
           <LinkPlugin />
+          <ImagePlugin />
           <OnChangePlugin onChange={handleChange} ignoreSelectionChange />
         </div>
       </div>
