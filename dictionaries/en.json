@@ -128,7 +128,14 @@
     "website": "Website",
     "contacts": "Contacts",
     "formSubmissions": "Form submissions",
-    "blog": "Blog"
+    "blog": "Blog",
+    "sidebar": {
+      "menuTitle": "Sidebar Control",
+      "expanded": "Expanded",
+      "collapsed": "Collapsed",
+      "expandOnHover": "Expand on hover",
+      "menuTriggerAria": "Sidebar control"
+    }
   },
   "pages": {
     "dashboard": {

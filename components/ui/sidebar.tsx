@@ -168,6 +168,8 @@ const Sidebar = React.forwardRef<
     side?: "left" | "right";
     variant?: "sidebar" | "floating" | "inset";
     collapsible?: "offcanvas" | "icon" | "none";
+    /** When false, desktop icon rail does not expand/collapse on hover (locked expanded/collapsed modes). */
+    hoverToExpand?: boolean;
   }
 >(
   (
@@ -175,6 +177,7 @@ const Sidebar = React.forwardRef<
       side = "left",
       variant = "sidebar",
       collapsible = "offcanvas",
+      hoverToExpand = true,
       className,
       children,
       ...props
@@ -186,16 +189,21 @@ const Sidebar = React.forwardRef<
 
     // Handle hover to expand sidebar when collapsed
     const handleMouseEnter = useCallback(() => {
-      if (collapsible === "icon" && state === "collapsed" && !isMobile) {
+      if (
+        hoverToExpand &&
+        collapsible === "icon" &&
+        state === "collapsed" &&
+        !isMobile
+      ) {
         setOpen(true);
       }
-    }, [collapsible, state, isMobile, setOpen]);
+    }, [hoverToExpand, collapsible, state, isMobile, setOpen]);
 
     const handleMouseLeave = React.useCallback(() => {
-      if (collapsible === "icon" && !isMobile) {
+      if (hoverToExpand && collapsible === "icon" && !isMobile) {
         setOpen(false);
       }
-    }, [collapsible, isMobile, setOpen]);
+    }, [hoverToExpand, collapsible, isMobile, setOpen]);
 
     if (collapsible === "none") {
       return (

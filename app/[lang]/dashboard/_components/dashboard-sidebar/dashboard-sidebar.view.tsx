@@ -3,6 +3,7 @@ import Link from "next/link";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -10,20 +11,36 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import type { SidebarBehavior } from "@/lib/user-preferences/sidebar-behavior";
 
-import type { NavGroup } from "./dashboard-sidebar.model";
+import type { NavGroup, NavigationDictionary } from "./dashboard-sidebar.model";
+import { SidebarBehaviorMenu } from "./sidebar-behavior-menu";
 
 type DashboardSidebarViewProps = {
   groups: NavGroup[];
   isActive: (href: string) => boolean;
+  dict: NavigationDictionary;
+  sidebarBehavior: SidebarBehavior;
+  onSidebarBehaviorChange: (value: SidebarBehavior) => void;
+  canPersistSidebar: boolean;
+  hoverToExpand: boolean;
 };
 
 export function DashboardSidebarView({
   groups,
   isActive,
+  dict,
+  sidebarBehavior,
+  onSidebarBehaviorChange,
+  canPersistSidebar,
+  hoverToExpand,
 }: DashboardSidebarViewProps) {
   return (
-    <Sidebar collapsible="icon" className="border-r">
+    <Sidebar
+      collapsible="icon"
+      className="border-r"
+      hoverToExpand={hoverToExpand}
+    >
       <SidebarContent className="gap-0">
         {groups.map((group) => (
           <SidebarGroup key={group.title} className="pb-0">
@@ -52,6 +69,14 @@ export function DashboardSidebarView({
           </SidebarGroup>
         ))}
       </SidebarContent>
+      <SidebarFooter className="border-t border-sidebar-border p-2">
+        <SidebarBehaviorMenu
+          dict={dict}
+          value={sidebarBehavior}
+          onChange={onSidebarBehaviorChange}
+          canPersist={canPersistSidebar}
+        />
+      </SidebarFooter>
     </Sidebar>
   );
 }

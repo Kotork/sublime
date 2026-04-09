@@ -35,6 +35,13 @@ export type NavigationDictionary = {
     contacts: string;
     formSubmissions: string;
     blog: string;
+    sidebar: {
+      menuTitle: string;
+      expanded: string;
+      collapsed: string;
+      expandOnHover: string;
+      menuTriggerAria: string;
+    };
   };
 };
 

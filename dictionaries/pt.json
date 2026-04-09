@@ -128,7 +128,14 @@
     "website": "Website",
     "contacts": "Contactos",
     "formSubmissions": "Submissões de formulário",
-    "blog": "Blog"
+    "blog": "Blog",
+    "sidebar": {
+      "menuTitle": "Controlo da barra lateral",
+      "expanded": "Expandida",
+      "collapsed": "Colapsada",
+      "expandOnHover": "Expandir ao passar o rato",
+      "menuTriggerAria": "Controlo da barra lateral"
+    }
   },
   "pages": {
     "dashboard": {
