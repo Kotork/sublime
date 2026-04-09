@@ -173,7 +173,11 @@
         "placeholderSlug": "url-da-publicacao",
         "placeholderExcerpt": "Breve descrição (opcional)",
         "placeholderTag": "Adicionar etiqueta",
-        "addTag": "Adicionar"
+        "addTag": "Adicionar",
+        "paginationPage": "Página",
+        "paginationOf": "de",
+        "paginationPrevious": "Anterior",
+        "paginationNext": "Seguinte"
       }
     }
   },

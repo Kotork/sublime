@@ -104,23 +104,32 @@ async function syncTags(supabase: any, postId: string, rawTags: string[]) {
 export const blogRouter = createTRPCRouter({
   list: authenticatedProcedure
     .input(listSchema)
-    .query(async ({ ctx, input }): Promise<BlogPostListItem[]> => {
-      let query = ctx.supabase
-        .from("blog_posts")
-        .select(
-          "id, locale, slug, title, excerpt, main_image_url, status, published_at, created_at, updated_at",
-        )
-        .order("updated_at", { ascending: false })
-        .range(input.offset, input.offset + input.limit - 1);
+    .query(
+      async ({
+        ctx,
+        input,
+      }): Promise<{ items: BlogPostListItem[]; total: number }> => {
+        let query = ctx.supabase
+          .from("blog_posts")
+          .select(
+            "id, locale, slug, title, excerpt, main_image_url, status, published_at, created_at, updated_at",
+            { count: "exact" },
+          )
+          .order("updated_at", { ascending: false })
+          .range(input.offset, input.offset + input.limit - 1);
 
-      if (input.status) query = query.eq("status", input.status);
-      if (input.locale) query = query.eq("locale", input.locale);
+        if (input.status) query = query.eq("status", input.status);
+        if (input.locale) query = query.eq("locale", input.locale);
 
-      const { data, error } = await query;
-      if (error)
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: error.message });
-      return (data ?? []) as BlogPostListItem[];
-    }),
+        const { data, error, count } = await query;
+        if (error)
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: error.message,
+          });
+        return { items: (data ?? []) as BlogPostListItem[], total: count ?? 0 };
+      },
+    ),
 
   getById: authenticatedProcedure
     .input(idSchema)

@@ -229,7 +229,7 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
             variant="ghost"
             size="sm"
             className="-ml-2 h-8 gap-1.5 px-2 text-muted-foreground hover:text-foreground"
-            onClick={() => router.back()}
+            onClick={() => router.push(`/${lang}/dashboard/blog`)}
           >
             <ArrowLeft className="size-4" aria-hidden />
             {dict.back}

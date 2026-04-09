@@ -173,7 +173,11 @@
         "placeholderSlug": "post-url-slug",
         "placeholderExcerpt": "Brief description (optional)",
         "placeholderTag": "Add a tag",
-        "addTag": "Add"
+        "addTag": "Add",
+        "paginationPage": "Page",
+        "paginationOf": "of",
+        "paginationPrevious": "Previous",
+        "paginationNext": "Next"
       }
     }
   },
