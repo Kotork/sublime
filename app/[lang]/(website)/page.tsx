@@ -9,7 +9,7 @@ import { hasEnvVars } from "@/lib/utils";
 import type { Locale } from "@/lib/i18n/locale";
 import Link from "next/link";
 import { Suspense } from "react";
-import { getDictionary } from "./dictionaries";
+import { getDictionary } from "../dictionaries";
 
 export default async function Home({
   params,
