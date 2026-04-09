@@ -106,10 +106,11 @@ export default async function BlogPostPage({
         <div className="flex items-center gap-3 text-sm text-muted-foreground flex-wrap">
           {post.published_at && (
             <time dateTime={post.published_at}>
-              {new Date(post.published_at).toLocaleDateString(
-                lang as Locale,
-                { year: "numeric", month: "long", day: "numeric" },
-              )}
+              {new Date(post.published_at).toLocaleDateString(lang as Locale, {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
             </time>
           )}
           {tags.length > 0 && (

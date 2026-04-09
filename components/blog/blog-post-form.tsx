@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import type { SerializedEditorState } from "lexical";
 import { toast } from "sonner";
 
+import { useDictionary } from "@/lib/client/providers/dictionary-provider";
 import { useTRPC } from "@/trpc/client";
 import { useMutation } from "@tanstack/react-query";
 import { LexicalEditor } from "./lexical-editor";
@@ -32,6 +33,9 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
   const router = useRouter();
   const trpc = useTRPC();
 
+  const dictionary = useDictionary();
+  const dict = dictionary.pages.dashboard.blog;
+
   const [title, setTitle] = useState(initial?.title ?? "");
   const [slug, setSlug] = useState(initial?.slug ?? "");
   const [excerpt, setExcerpt] = useState(initial?.excerpt ?? "");
@@ -46,7 +50,7 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
   const createMutation = useMutation(
     trpc.blog.create.mutationOptions({
       onSuccess: (data) => {
-        toast.success("Post created");
+        toast.success(dict.toastCreated);
         router.push(`/${lang}/dashboard/blog/${data.id}/edit`);
       },
       onError: (err) => toast.error(err.message),
@@ -55,7 +59,7 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
 
   const updateMutation = useMutation(
     trpc.blog.update.mutationOptions({
-      onSuccess: () => toast.success("Post saved"),
+      onSuccess: () => toast.success(dict.toastSaved),
       onError: (err) => toast.error(err.message),
     }),
   );
@@ -63,7 +67,7 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
   const publishMutation = useMutation(
     trpc.blog.publish.mutationOptions({
       onSuccess: () => {
-        toast.success("Post published");
+        toast.success(dict.toastPublished);
         router.refresh();
       },
       onError: (err) => toast.error(err.message),
@@ -73,7 +77,7 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
   const archiveMutation = useMutation(
     trpc.blog.archive.mutationOptions({
       onSuccess: () => {
-        toast.success("Post archived");
+        toast.success(dict.toastArchived);
         router.push(`/${lang}/dashboard/blog`);
       },
       onError: (err) => toast.error(err.message),
@@ -158,7 +162,7 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <h1 className="text-2xl font-bold">
-          {isEdit ? "Edit post" : "New post"}
+          {isEdit ? dict.editPost : dict.newPost}
         </h1>
         <div className="flex gap-2 flex-wrap">
           {isEdit && initial?.status !== "published" && (
@@ -168,7 +172,7 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
               onClick={handlePublish}
               disabled={isSaving}
             >
-              Publish
+              {dict.publish}
             </Button>
           )}
           {isEdit && postId && (
@@ -178,7 +182,7 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Preview
+                {dict.preview}
               </a>
             </Button>
           )}
@@ -189,54 +193,54 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
               onClick={handleArchive}
               disabled={isSaving}
             >
-              Archive
+              {dict.archive}
             </Button>
           )}
           <Button size="sm" onClick={handleSave} disabled={isSaving || !title || !slug}>
-            {isSaving ? "Saving..." : "Save draft"}
+            {isSaving ? dict.saving : dict.saveDraft}
           </Button>
         </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="title">Title</Label>
+          <Label htmlFor="title">{dict.fieldTitle}</Label>
           <Input
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             onBlur={autoSlug}
-            placeholder="Post title"
+            placeholder={dict.placeholderTitle}
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="slug">Slug</Label>
+          <Label htmlFor="slug">{dict.fieldSlug}</Label>
           <Input
             id="slug"
             value={slug}
             onChange={(e) => setSlug(e.target.value)}
-            placeholder="post-url-slug"
+            placeholder={dict.placeholderSlug}
           />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="excerpt">Excerpt</Label>
+        <Label htmlFor="excerpt">{dict.fieldExcerpt}</Label>
         <Input
           id="excerpt"
           value={excerpt}
           onChange={(e) => setExcerpt(e.target.value)}
-          placeholder="Brief description (optional)"
+          placeholder={dict.placeholderExcerpt}
         />
       </div>
 
       <div className="space-y-2">
-        <Label>Tags</Label>
+        <Label>{dict.fieldTags}</Label>
         <div className="flex gap-2">
           <Input
             value={tagInput}
             onChange={(e) => setTagInput(e.target.value)}
-            placeholder="Add a tag"
+            placeholder={dict.placeholderTag}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 e.preventDefault();
@@ -245,7 +249,7 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
             }}
           />
           <Button type="button" variant="outline" size="sm" onClick={addTag}>
-            Add
+            {dict.addTag}
           </Button>
         </div>
         {tags.length > 0 && (
@@ -267,7 +271,7 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
       </div>
 
       <div className="space-y-2">
-        <Label>Content</Label>
+        <Label>{dict.fieldContent}</Label>
         <LexicalEditor
           initialContent={initial?.body}
           onChange={setBody}

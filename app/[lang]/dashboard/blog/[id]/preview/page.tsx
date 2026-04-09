@@ -12,7 +12,7 @@ export default function PreviewBlogPostPage() {
   const trpc = useTRPC();
 
   const { data: post, isLoading } = useQuery(
-    trpc.blog.getById.queryOptions({ id: params.id }),
+    trpc.blog.getById.queryOptions({ id: params.id })
   );
 
   if (isLoading) {
@@ -20,7 +20,9 @@ export default function PreviewBlogPostPage() {
   }
 
   if (!post) {
-    return <p className="text-muted-foreground text-sm py-8">Post not found.</p>;
+    return (
+      <p className="text-muted-foreground text-sm py-8">Post not found.</p>
+    );
   }
 
   return (
