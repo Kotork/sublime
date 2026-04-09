@@ -104,7 +104,8 @@
     "users": "Utilizadores",
     "website": "Website",
     "contacts": "Contactos",
-    "formSubmissions": "Submissões de formulário"
+    "formSubmissions": "Submissões de formulário",
+    "blog": "Blog"
   },
   "pages": {
     "dashboard": {
@@ -138,5 +139,11 @@
         "deleteSelfError": "Não pode eliminar a sua própria conta."
       }
     }
+  },
+  "blog": {
+    "title": "Blog",
+    "noPosts": "Ainda não há publicações. Volte em breve!",
+    "postNotFound": "A publicação que procura não existe ou foi removida.",
+    "backToBlog": "Voltar ao blog"
   }
 }

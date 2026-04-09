@@ -1,4 +1,4 @@
-import { ContactRound, Globe, Inbox, Users } from "lucide-react";
+import { ContactRound, FileText, Globe, Inbox, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { canonicalDashboardSegmentToLocalized } from "@/lib/i18n/localized-paths";
@@ -17,6 +17,7 @@ export type NavigationDictionary = {
     website: string;
     contacts: string;
     formSubmissions: string;
+    blog: string;
   };
 };
 
@@ -58,6 +59,11 @@ export function buildNavigation(
       name: dict.navigation.formSubmissions,
       href: `${base}/${canonicalDashboardSegmentToLocalized(locale, "form-submissions")}`,
       icon: Inbox,
+    },
+    {
+      name: dict.navigation.blog,
+      href: `${base}/blog`,
+      icon: FileText,
     },
   ];
 }
