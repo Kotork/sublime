@@ -4,8 +4,8 @@ import { hasEnvVars } from "@/lib/utils";
 import { SidebarInset, SidebarProvider } from "@/ui/sidebar";
 import { Suspense } from "react";
 import { getDictionary } from "../dictionaries";
-import DashboardSidebar from "./components/dashboard-sidebar/dashboard-sidebar";
-import { Header } from "./components/header/header";
+import DashboardSidebar from "./_components/dashboard-sidebar/dashboard-sidebar";
+import { Header } from "./_components/header/header";
 
 export default async function ProtectedLayout({
   children,
