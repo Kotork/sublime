@@ -7,7 +7,11 @@ import { TRPCReactProvider } from "@/trpc/client";
 import { redirect } from "next/navigation";
 import { defaultLocale, type Locale } from "@/lib/i18n/locale";
 import { getDictionary, hasLocale } from "./dictionaries";
-import { DictionaryProvider } from '@/lib/client/providers/dictionary-provider';
+import { DictionaryProvider } from "@/lib/client/providers/dictionary-provider";
+import { createClient } from "@/lib/supabase/server";
+import { LocalePreferenceBanner } from "@/components/shared/locale-preference-banner";
+import { LocalePreferenceSync } from "@/components/shared/locale-preference-sync";
+import { getUserPreferencesForLayout } from "@/lib/user-preferences/get-user-preferences-for-layout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +43,11 @@ export default async function RootLayout({
     redirect(`/${defaultLocale}`);
   }
 
+  const supabase = await createClient();
+  const prefs = await getUserPreferencesForLayout(supabase);
+  const defaultTheme = prefs.theme ?? "light";
+  const themeStorageKey = prefs.userId ? `theme-${prefs.userId}` : "theme";
+
   return (
     <html lang={lang} suppressHydrationWarning>
       <body
@@ -46,12 +55,20 @@ export default async function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme={defaultTheme}
           enableSystem
           disableTransitionOnChange
+          storageKey={themeStorageKey}
         >
           <DictionaryProvider dictionary={dictionary}>
-            <TRPCReactProvider>{children}</TRPCReactProvider>
+            <TRPCReactProvider>
+              <LocalePreferenceSync />
+              <LocalePreferenceBanner
+                savedLocale={prefs.userId ? prefs.savedLocale : null}
+                currentLocale={lang}
+              />
+              {children}
+            </TRPCReactProvider>
             <Toaster />
           </DictionaryProvider>
         </ThemeProvider>

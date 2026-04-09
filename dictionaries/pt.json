@@ -76,6 +76,18 @@
       "english": "Inglês",
       "portuguese": "Português"
     },
+    "localePreferenceBanner": {
+      "message": "O idioma da sua conta está definido como {locale}.",
+      "switch": "Mudar idioma",
+      "dismiss": "Agora não",
+      "ariaLabel": "Lembrete de idioma da conta"
+    },
+    "userProfile": {
+      "settings": "Definições",
+      "goToDashboard": "Ir para o painel",
+      "goToAdmin": "Ir para Admin",
+      "logout": "Terminar sessão"
+    },
     "authButton": {
       "loggedInGreeting": "Olá, {email}!",
       "signIn": "Iniciar sessão",
@@ -200,6 +212,12 @@
         "paginationOf": "de",
         "paginationPrevious": "Anterior",
         "paginationNext": "Seguinte"
+      },
+      "settings": {
+        "title": "Definições",
+        "description": "O idioma e a aparência são guardados na sua conta e aplicam-se noutros dispositivos quando inicia sessão.",
+        "language": "Idioma",
+        "theme": "Tema"
       },
       "storageUsage": {
         "title": "Utilização de armazenamento",

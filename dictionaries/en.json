@@ -76,6 +76,18 @@
       "english": "English",
       "portuguese": "Portuguese"
     },
+    "localePreferenceBanner": {
+      "message": "Your account language is set to {locale}.",
+      "switch": "Switch language",
+      "dismiss": "Not now",
+      "ariaLabel": "Language preference reminder"
+    },
+    "userProfile": {
+      "settings": "Settings",
+      "goToDashboard": "Go to the dashboard",
+      "goToAdmin": "Go to Admin",
+      "logout": "Logout"
+    },
     "authButton": {
       "loggedInGreeting": "Hey, {email}!",
       "signIn": "Sign in",
@@ -200,6 +212,12 @@
         "paginationOf": "of",
         "paginationPrevious": "Previous",
         "paginationNext": "Next"
+      },
+      "settings": {
+        "title": "Settings",
+        "description": "Language and appearance are saved to your account and apply on other devices when you sign in.",
+        "language": "Language",
+        "theme": "Theme"
       },
       "storageUsage": {
         "title": "Storage usage",

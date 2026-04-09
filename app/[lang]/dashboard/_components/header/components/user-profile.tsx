@@ -4,16 +4,20 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User, LayoutDashboard, Shield } from "lucide-react";
+import { User, LayoutDashboard, Shield, Settings } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { getPathnameWithoutLocale, getLocaleFromPathname } from "@/lib/utils/pathname";
+import { useDictionary } from "@/lib/client/providers/dictionary-provider";
 
 const UserProfile = () => {
+  const dict = useDictionary();
+  const labels = dict.components.userProfile;
   const router = useRouter();
   const pathname = usePathname();
   const supabase = createClient();
@@ -57,6 +61,12 @@ const UserProfile = () => {
     router.refresh();
   };
 
+  const handleSettings = () => {
+    const locale = getLocaleFromPathname(pathname);
+    const localePrefix = locale ? `/${locale}` : "";
+    router.push(`${localePrefix}/dashboard/settings`);
+  };
+
   const isStaff = userRole === "staff";
   const pathnameWithoutLocale = getPathnameWithoutLocale(pathname);
   const isOnAdminRoute = pathnameWithoutLocale.startsWith("/admin");
@@ -78,19 +88,24 @@ const UserProfile = () => {
             {isOnAdminRoute ? (
               <>
                 <LayoutDashboard className="h-4 w-4" />
-                Go to the dashboard
+                {labels.goToDashboard}
               </>
             ) : (
               <>
                 <Shield className="h-4 w-4" />
-                Go to Admin
+                {labels.goToAdmin}
               </>
             )}
           </DropdownMenuItem>
         )}
+        <DropdownMenuItem onClick={handleSettings}>
+          <Settings className="h-4 w-4" />
+          {labels.settings}
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>
           <User className="h-4 w-4" />
-          Logout
+          {labels.logout}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

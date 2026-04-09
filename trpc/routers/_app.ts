@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "../init";
 import { blogRouter } from "./blog";
+import { preferencesRouter } from "./preferences";
 import { usersRouter } from "./users";
 
 export const appRouter = createTRPCRouter({
@@ -12,6 +13,7 @@ export const appRouter = createTRPCRouter({
     }),
   users: usersRouter,
   blog: blogRouter,
+  preferences: preferencesRouter,
 });
 
 export type AppRouter = typeof appRouter;

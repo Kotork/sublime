@@ -58,9 +58,7 @@ function LanguageSwitcherContent() {
               href={getPathForLocale(pathname, loc) + querySuffix}
               hrefLang={loc}
               lang={loc}
-              className={
-                locale === loc ? "font-medium" : "font-normal"
-              }
+              className={locale === loc ? "font-medium" : "font-normal"}
             >
               {loc === "en" ? labels.english : labels.portuguese}
             </Link>
@@ -75,7 +73,13 @@ export function LanguageSwitcher() {
   return (
     <Suspense
       fallback={
-        <Button variant="ghost" size="sm" disabled className="gap-1.5" aria-hidden>
+        <Button
+          variant="ghost"
+          size="sm"
+          disabled
+          className="gap-1.5"
+          aria-hidden
+        >
           <Globe size={ICON_SIZE} />
         </Button>
       }
