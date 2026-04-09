@@ -19,6 +19,8 @@ export default async function WebsiteLayout({
   const { lang } = await params;
   const dictionary = await getDictionary(lang as Locale);
 
+  console.log("hasEnvVars-WebsiteLayout", hasEnvVars);
+
   return (
     <div className="min-h-screen flex flex-col items-center">
       <div className="flex-1 w-full flex flex-col items-center">

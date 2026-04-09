@@ -170,6 +170,11 @@ const Sidebar = React.forwardRef<
     collapsible?: "offcanvas" | "icon" | "none";
     /** When false, desktop icon rail does not expand/collapse on hover (locked expanded/collapsed modes). */
     hoverToExpand?: boolean;
+    /**
+     * In icon mode, when the sidebar is expanded, reserve full `--sidebar-width` in layout instead of
+     * the icon rail width only (avoids overlaying main content when the sidebar is always expanded).
+     */
+    fullWidthSpacerWhenExpanded?: boolean;
   }
 >(
   (
@@ -178,6 +183,7 @@ const Sidebar = React.forwardRef<
       variant = "sidebar",
       collapsible = "offcanvas",
       hoverToExpand = true,
+      fullWidthSpacerWhenExpanded = false,
       className,
       children,
       ...props
@@ -252,7 +258,12 @@ const Sidebar = React.forwardRef<
         data-collapsible={state === "collapsed" ? collapsible : ""}
         data-variant={variant}
         data-side={side}
-        data-overlay={collapsible === "icon" ? "true" : undefined}
+        data-overlay={
+          collapsible === "icon" &&
+          !(fullWidthSpacerWhenExpanded && state === "expanded")
+            ? "true"
+            : undefined
+        }
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -262,19 +273,26 @@ const Sidebar = React.forwardRef<
             "relative bg-transparent transition-[width] duration-200 ease-linear",
             "group-data-[collapsible=offcanvas]:w-0",
             "group-data-[side=right]:rotate-180",
-            // When overlay mode (icon collapsible), always keep spacer at icon width
+            // Icon mode: icon-width spacer (overlay), or full width when always expanded
             collapsible === "icon"
-              ? variant === "floating" || variant === "inset"
-                ? "w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))]"
-                : "w-[var(--sidebar-width-icon)]"
+              ? fullWidthSpacerWhenExpanded && state === "expanded"
+                ? variant === "floating" || variant === "inset"
+                  ? "w-[calc(var(--sidebar-width)_+_theme(spacing.4))]"
+                  : "w-[var(--sidebar-width)]"
+                : variant === "floating" || variant === "inset"
+                  ? "w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))]"
+                  : "w-[var(--sidebar-width-icon)]"
               : "w-[var(--sidebar-width)]"
           )}
         />
         <div
           className={cn(
             "fixed top-[var(--header-height)] bottom-0 z-10 hidden h-[calc(100svh-var(--header-height))] w-[var(--sidebar-width)] transition-[left,right,width] duration-200 ease-linear md:flex",
-            // Higher z-index when expanded in overlay mode
-            collapsible === "icon" && state === "expanded" && "z-20",
+            // Higher z-index when expanded in overlay mode (icon rail + overlay)
+            collapsible === "icon" &&
+              state === "expanded" &&
+              !fullWidthSpacerWhenExpanded &&
+              "z-20",
             side === "left"
               ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
               : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
@@ -291,7 +309,10 @@ const Sidebar = React.forwardRef<
             className={cn(
               "flex h-full w-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow",
               // Add shadow when overlaying (expanded in icon mode)
-              collapsible === "icon" && state === "expanded" && "shadow-lg"
+              collapsible === "icon" &&
+                state === "expanded" &&
+                !fullWidthSpacerWhenExpanded &&
+                "shadow-lg"
             )}
           >
             {children}

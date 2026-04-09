@@ -1,17 +1,15 @@
 "use client";
 
-import { EnvVarWarning } from "@/components/env-var-warning";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
   DEFAULT_SIDEBAR_BEHAVIOR,
   type SidebarBehavior,
 } from "@/lib/user-preferences/sidebar-behavior";
-import { hasEnvVars } from "@/lib/utils";
 import { SidebarInset, SidebarProvider } from "@/ui/sidebar";
 import { Suspense, useCallback, useEffect, useState } from "react";
 
-import type { NavigationDictionary } from "./dashboard-sidebar/dashboard-sidebar.model";
 import DashboardSidebar from "./dashboard-sidebar/dashboard-sidebar";
+import type { NavigationDictionary } from "./dashboard-sidebar/dashboard-sidebar.model";
 
 type DashboardSidebarShellProps = {
   children: React.ReactNode;
@@ -28,15 +26,14 @@ export function DashboardSidebarShell({
 }: DashboardSidebarShellProps) {
   const isMobile = useIsMobile();
   const [sidebarBehavior, setSidebarBehavior] = useState<SidebarBehavior>(
-    () => initialSidebarBehavior ?? DEFAULT_SIDEBAR_BEHAVIOR,
+    () => initialSidebarBehavior ?? DEFAULT_SIDEBAR_BEHAVIOR
   );
 
   useEffect(() => {
     setSidebarBehavior(initialSidebarBehavior ?? DEFAULT_SIDEBAR_BEHAVIOR);
   }, [initialSidebarBehavior]);
 
-  const desktopLocked =
-    !isMobile && sidebarBehavior !== "expand_on_hover";
+  const desktopLocked = !isMobile && sidebarBehavior !== "expand_on_hover";
 
   const onOpenChange = useCallback(
     (open: boolean) => {
@@ -44,16 +41,16 @@ export function DashboardSidebarShell({
       if (sidebarBehavior === "expanded" && !open) return;
       if (sidebarBehavior === "collapsed" && open) return;
     },
-    [desktopLocked, sidebarBehavior],
+    [desktopLocked, sidebarBehavior]
   );
 
   const providerOpen = isMobile
     ? undefined
     : sidebarBehavior === "expanded"
-      ? true
-      : sidebarBehavior === "collapsed"
-        ? false
-        : undefined;
+    ? true
+    : sidebarBehavior === "collapsed"
+    ? false
+    : undefined;
 
   const hoverToExpand = sidebarBehavior === "expand_on_hover";
 
@@ -75,11 +72,7 @@ export function DashboardSidebarShell({
       <SidebarInset className="min-h-0 overflow-hidden">
         <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain">
           <div className="container mx-auto flex flex-col gap-6 p-4 md:p-6">
-            {!hasEnvVars ? (
-              <EnvVarWarning />
-            ) : (
-              <Suspense>{children}</Suspense>
-            )}
+            <Suspense>{children}</Suspense>
           </div>
         </div>
       </SidebarInset>

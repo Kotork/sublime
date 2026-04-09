@@ -40,6 +40,7 @@ export function DashboardSidebarView({
       collapsible="icon"
       className="border-r"
       hoverToExpand={hoverToExpand}
+      fullWidthSpacerWhenExpanded={sidebarBehavior === "expanded"}
     >
       <SidebarContent className="gap-0">
         {groups.map((group) => (
