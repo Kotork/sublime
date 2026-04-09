@@ -198,7 +198,10 @@
         "free": "Livre",
         "total": "Total",
         "overLimit": "excedido",
-        "unavailable": "Os dados de utilização de armazenamento não estão disponíveis de momento."
+        "unavailable": "Os dados de utilização de armazenamento não estão disponíveis de momento.",
+        "limitWarning80": "Atingiu {percent}% do seu limite. Não perca dados. Contacte o gestor da sua conta em",
+        "limitWarning95": "Está quase no limite. Atingiu {percent}%. Não perca dados. Contacte o gestor da sua conta em",
+        "accountManagerEmail": "geral@buzzapy.com"
       }
     }
   },

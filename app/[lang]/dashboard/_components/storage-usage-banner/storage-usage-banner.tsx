@@ -7,6 +7,9 @@ import {
 } from "@/lib/dashboard/get-storage-metrics";
 import { cn } from "@/lib/utils";
 
+const USAGE_WARNING_THRESHOLD_PCT = 80;
+const USAGE_CRITICAL_THRESHOLD_PCT = 95;
+
 export type StorageUsageDict = {
   title: string;
   fileStorage: string;
@@ -16,6 +19,9 @@ export type StorageUsageDict = {
   total: string;
   overLimit: string;
   unavailable: string;
+  limitWarning80: string;
+  limitWarning95: string;
+  accountManagerEmail: string;
 };
 
 function UsageRow({
@@ -97,6 +103,20 @@ export async function StorageUsageBanner({
     );
   }
 
+  const filePct =
+    metrics.fileStorage.quotaBytes > 0
+      ? (metrics.fileStorage.usedBytes / metrics.fileStorage.quotaBytes) * 100
+      : 0;
+  const dbPct =
+    metrics.database.quotaBytes > 0
+      ? (metrics.database.usedBytes / metrics.database.quotaBytes) * 100
+      : 0;
+  const maxUsagePct = Math.max(filePct, dbPct);
+  const roundedPct = Math.round(maxUsagePct);
+  const showCritical = maxUsagePct >= USAGE_CRITICAL_THRESHOLD_PCT;
+  const showWarning =
+    maxUsagePct >= USAGE_WARNING_THRESHOLD_PCT && !showCritical;
+
   return (
     <Card>
       <CardContent className="py-3 px-4">
@@ -117,6 +137,38 @@ export async function StorageUsageBanner({
             dict={dict}
           />
         </div>
+        {showCritical && (
+          <div
+            role="alert"
+            className="mt-4 rounded-lg border border-red-500/50 bg-red-500/10 px-3 py-2.5 text-sm text-red-950 dark:border-red-400/40 dark:bg-red-950/40 dark:text-red-50"
+          >
+            <p>
+              {dict.limitWarning95.replace("{percent}", String(roundedPct))}{" "}
+              <a
+                href={`mailto:${dict.accountManagerEmail}`}
+                className="font-medium text-red-900 underline underline-offset-2 hover:text-red-800 dark:text-red-100 dark:hover:text-white"
+              >
+                {dict.accountManagerEmail}
+              </a>
+            </p>
+          </div>
+        )}
+        {showWarning && (
+          <div
+            role="alert"
+            className="mt-4 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-2.5 text-sm text-amber-950 dark:border-amber-400/30 dark:bg-amber-500/15 dark:text-amber-50"
+          >
+            <p>
+              {dict.limitWarning80.replace("{percent}", String(roundedPct))}{" "}
+              <a
+                href={`mailto:${dict.accountManagerEmail}`}
+                className="font-medium text-amber-900 underline underline-offset-2 hover:text-amber-800 dark:text-amber-100 dark:hover:text-white"
+              >
+                {dict.accountManagerEmail}
+              </a>
+            </p>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

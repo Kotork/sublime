@@ -198,7 +198,10 @@
         "free": "Free",
         "total": "Total",
         "overLimit": "over limit",
-        "unavailable": "Storage usage data is currently unavailable."
+        "unavailable": "Storage usage data is currently unavailable.",
+        "limitWarning80": "You reached {percent}% of you limit. Don't loose any data. Reach up to your account manager at",
+        "limitWarning95": "You're almost at your limit. You reached {percent}%. Don't loose any data. Reach up to your account manager at",
+        "accountManagerEmail": "geral@buzzapy.com"
       }
     }
   },
