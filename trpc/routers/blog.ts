@@ -10,6 +10,7 @@ const createSchema = z.object({
   slug: z.string().min(1),
   title: z.string().min(1),
   excerpt: z.string().optional(),
+  main_image_url: z.string().url().optional(),
   body: z.record(z.string(), z.unknown()),
   tags: z.array(z.string()).default([]),
 });
@@ -20,6 +21,7 @@ const updateSchema = z.object({
   slug: z.string().min(1).optional(),
   title: z.string().min(1).optional(),
   excerpt: z.string().nullable().optional(),
+  main_image_url: z.string().url().nullable().optional(),
   body: z.record(z.string(), z.unknown()).optional(),
   tags: z.array(z.string()).optional(),
 });
@@ -39,6 +41,7 @@ type BlogPostRow = {
   slug: string;
   title: string;
   excerpt: string | null;
+  main_image_url: string | null;
   body: Record<string, unknown>;
   status: string;
   published_at: string | null;
@@ -49,7 +52,16 @@ type BlogPostRow = {
 
 type BlogPostListItem = Pick<
   BlogPostRow,
-  "id" | "locale" | "slug" | "title" | "excerpt" | "status" | "published_at" | "created_at" | "updated_at"
+  | "id"
+  | "locale"
+  | "slug"
+  | "title"
+  | "excerpt"
+  | "main_image_url"
+  | "status"
+  | "published_at"
+  | "created_at"
+  | "updated_at"
 >;
 
 function normalizeTagSlug(raw: string): string {
@@ -96,7 +108,7 @@ export const blogRouter = createTRPCRouter({
       let query = ctx.supabase
         .from("blog_posts")
         .select(
-          "id, locale, slug, title, excerpt, status, published_at, created_at, updated_at",
+          "id, locale, slug, title, excerpt, main_image_url, status, published_at, created_at, updated_at",
         )
         .order("updated_at", { ascending: false })
         .range(input.offset, input.offset + input.limit - 1);

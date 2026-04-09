@@ -33,6 +33,7 @@ export default function EditBlogPostPage() {
         slug: post.slug,
         title: post.title,
         excerpt: post.excerpt,
+        main_image_url: post.main_image_url,
         body: post.body as unknown as SerializedEditorState,
         tags: post.tags,
         status: post.status,

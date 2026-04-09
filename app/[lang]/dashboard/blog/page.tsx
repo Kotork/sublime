@@ -4,6 +4,7 @@ import { useDictionary } from "@/lib/client/providers/dictionary-provider";
 import { useTRPC } from "@/trpc/client";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
+import Image from "next/image";
 import { Badge } from "@/ui/badge";
 import { Button } from "@/ui/button";
 import Link from "next/link";
@@ -72,6 +73,20 @@ export default function DashboardBlogList() {
               }
               className="w-full flex items-center gap-4 p-4 text-left hover:bg-muted/50 transition-colors"
             >
+              <div
+                className="relative size-12 shrink-0 overflow-hidden rounded-md bg-muted"
+                aria-hidden={!post.main_image_url}
+              >
+                {post.main_image_url ? (
+                  <Image
+                    src={post.main_image_url}
+                    alt=""
+                    width={48}
+                    height={48}
+                    className="size-12 object-cover"
+                  />
+                ) : null}
+              </div>
               <div className="flex-1 min-w-0">
                 <p className="font-medium truncate">
                   {post.title || copy.untitled}

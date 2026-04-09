@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import type { Locale } from "@/lib/i18n/locale";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/ui/badge";
 
@@ -14,6 +15,7 @@ type Post = {
   slug: string;
   title: string;
   excerpt: string | null;
+  main_image_url: string | null;
   published_at: string | null;
   locale: string;
 };
@@ -33,7 +35,7 @@ export default async function BlogIndex({
 
   const { data: posts } = await supabase
     .from("blog_posts")
-    .select("id, slug, title, excerpt, published_at, locale")
+    .select("id, slug, title, excerpt, main_image_url, published_at, locale")
     .eq("locale", lang)
     .eq("status", "published")
     .order("published_at", { ascending: false })
@@ -74,9 +76,21 @@ export default async function BlogIndex({
           <Link
             key={post.id}
             href={`/${lang}/blog/${post.slug}`}
-            className="group block rounded-xl border bg-card p-6 transition-colors hover:border-foreground/20"
+            className="group block rounded-xl border bg-card overflow-hidden transition-colors hover:border-foreground/20"
           >
             <article>
+              {post.main_image_url && (
+                <div className="relative aspect-[16/10] w-full bg-muted">
+                  <Image
+                    src={post.main_image_url}
+                    alt={post.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
+              )}
+              <div className={post.main_image_url ? "p-6 pt-5" : "p-6"}>
               <h2 className="text-lg font-semibold group-hover:text-primary transition-colors mb-2">
                 {post.title}
               </h2>
@@ -103,6 +117,7 @@ export default async function BlogIndex({
                     ))}
                   </div>
                 )}
+              </div>
               </div>
             </article>
           </Link>

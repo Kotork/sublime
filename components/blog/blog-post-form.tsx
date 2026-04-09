@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { SerializedEditorState } from "lexical";
 import { toast } from "sonner";
@@ -32,6 +32,7 @@ type BlogPostFormProps = {
     slug: string;
     title: string;
     excerpt: string | null;
+    main_image_url: string | null;
     body: SerializedEditorState;
     tags: string[];
     status: string;
@@ -53,6 +54,9 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
   );
   const [tags, setTags] = useState<string[]>(initial?.tags ?? []);
   const [tagInput, setTagInput] = useState("");
+  const [mainImageUrl, setMainImageUrl] = useState(initial?.main_image_url ?? "");
+  const [mainImageUploading, setMainImageUploading] = useState(false);
+  const mainImageInputRef = useRef<HTMLInputElement>(null);
 
   const [displayStatus, setDisplayStatus] = useState(
     () => initial?.status ?? "draft",
@@ -61,6 +65,12 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
   useEffect(() => {
     if (initial?.status) setDisplayStatus(initial.status);
   }, [initial?.status]);
+
+  useEffect(() => {
+    if (initial?.main_image_url !== undefined) {
+      setMainImageUrl(initial.main_image_url ?? "");
+    }
+  }, [initial?.main_image_url]);
 
   const isEdit = Boolean(postId);
 
@@ -112,7 +122,8 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
     createMutation.isPending ||
     updateMutation.isPending ||
     publishMutation.isPending ||
-    archiveMutation.isPending;
+    archiveMutation.isPending ||
+    mainImageUploading;
 
   const handleSave = useCallback(() => {
     if (!body) return;
@@ -122,6 +133,7 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
         title,
         slug,
         excerpt: excerpt || null,
+        main_image_url: mainImageUrl.trim() ? mainImageUrl.trim() : null,
         body: body as unknown as Record<string, unknown>,
         locale: lang,
         tags,
@@ -131,6 +143,9 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
         title,
         slug,
         excerpt: excerpt || undefined,
+        ...(mainImageUrl.trim()
+          ? { main_image_url: mainImageUrl.trim() }
+          : {}),
         body: body as unknown as Record<string, unknown>,
         locale: lang,
         tags,
@@ -143,11 +158,34 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
     title,
     slug,
     excerpt,
+    mainImageUrl,
     lang,
     tags,
     createMutation,
     updateMutation,
   ]);
+
+  const handleMainImageUpload = useCallback(async (file: File) => {
+    setMainImageUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await fetch("/api/blog/upload-image", {
+        method: "POST",
+        body: formData,
+      });
+      const data = (await res.json()) as { url?: string; error?: string };
+      if (!res.ok) {
+        toast.error(data.error ?? "Upload failed");
+        return;
+      }
+      if (data.url) setMainImageUrl(data.url);
+    } catch {
+      toast.error("Upload failed");
+    } finally {
+      setMainImageUploading(false);
+    }
+  }, []);
 
   const handlePublish = useCallback(() => {
     if (!postId) return;
@@ -226,7 +264,11 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
           {isEdit && postId && (
             <Button variant="outline" size="sm" asChild>
               <a
-                href={`/${lang}/dashboard/blog/${postId}/preview`}
+                href={`/${lang}/dashboard/blog/${postId}/preview${
+                  mainImageUrl.trim()
+                    ? `?main_image=${encodeURIComponent(mainImageUrl.trim())}`
+                    : ""
+                }`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -280,6 +322,54 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
           onChange={(e) => setExcerpt(e.target.value)}
           placeholder={dict.placeholderExcerpt}
         />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="main-image">{dict.fieldMainImage}</Label>
+        <p className="text-xs text-muted-foreground">{dict.mainImageHint}</p>
+        <input
+          ref={mainImageInputRef}
+          id="main-image"
+          type="file"
+          accept="image/jpeg,image/png,image/gif,image/webp,image/svg+xml"
+          className="sr-only"
+          onChange={(e) => {
+            const f = e.target.files?.[0];
+            if (f) void handleMainImageUpload(f);
+            e.target.value = "";
+          }}
+        />
+        <div className="flex flex-wrap items-center gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            disabled={mainImageUploading}
+            onClick={() => mainImageInputRef.current?.click()}
+          >
+            {mainImageUploading ? dict.mainImageUploading : dict.mainImageUpload}
+          </Button>
+          {mainImageUrl && (
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => setMainImageUrl("")}
+            >
+              {dict.mainImageRemove}
+            </Button>
+          )}
+        </div>
+        {mainImageUrl && (
+          <div className="mt-2 rounded-lg border bg-muted/30 overflow-hidden max-w-md">
+            {/* eslint-disable-next-line @next/next/no-img-element -- dashboard preview of user-uploaded URL */}
+            <img
+              src={mainImageUrl}
+              alt=""
+              className="w-full max-h-48 object-cover"
+            />
+          </div>
+        )}
       </div>
 
       <div className="space-y-2">

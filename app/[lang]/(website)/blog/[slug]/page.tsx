@@ -4,6 +4,7 @@ import { Badge } from "@/ui/badge";
 import type { Locale } from "@/lib/i18n/locale";
 import type { Metadata } from "next";
 import type { SerializedEditorState } from "lexical";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
@@ -14,6 +15,7 @@ type Post = {
   slug: string;
   title: string;
   excerpt: string | null;
+  main_image_url: string | null;
   body: SerializedEditorState;
   published_at: string | null;
   locale: string;
@@ -28,7 +30,9 @@ async function getPost(lang: string, slug: string) {
   const supabase = await createClient();
   const { data } = await supabase
     .from("blog_posts")
-    .select("id, slug, title, excerpt, body, published_at, locale, status")
+    .select(
+      "id, slug, title, excerpt, main_image_url, body, published_at, locale, status",
+    )
     .eq("locale", lang)
     .eq("slug", slug)
     .eq("status", "published")
@@ -46,6 +50,10 @@ export async function generateMetadata({
   if (!post) {
     return { title: "Post not found" };
   }
+  const ogImage = post.main_image_url
+    ? [{ url: post.main_image_url, alt: post.title }]
+    : undefined;
+
   return {
     title: post.title,
     description: post.excerpt ?? undefined,
@@ -55,11 +63,13 @@ export async function generateMetadata({
       type: "article",
       publishedTime: post.published_at ?? undefined,
       locale: lang,
+      images: ogImage,
     },
     twitter: {
-      card: "summary",
+      card: post.main_image_url ? "summary_large_image" : "summary",
       title: post.title,
       description: post.excerpt ?? undefined,
+      images: post.main_image_url ? [post.main_image_url] : undefined,
     },
     alternates: {
       canonical: `/${lang}/blog/${slug}`,
@@ -103,6 +113,18 @@ export default async function BlogPostPage({
 
       <header className="mb-8">
         <h1 className="text-3xl md:text-4xl font-bold mb-3">{post.title}</h1>
+        {post.main_image_url && (
+          <div className="relative aspect-video w-full max-w-3xl mb-6 rounded-xl overflow-hidden bg-muted">
+            <Image
+              src={post.main_image_url}
+              alt={post.title}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="object-cover"
+            />
+          </div>
+        )}
         <div className="flex items-center gap-3 text-sm text-muted-foreground flex-wrap">
           {post.published_at && (
             <time dateTime={post.published_at}>
