@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { SerializedEditorState } from "lexical";
 import { toast } from "sonner";
@@ -14,6 +14,15 @@ import { Input } from "@/ui/input";
 import { Label } from "@/ui/label";
 import { Badge } from "@/ui/badge";
 import { ArrowLeft, X } from "lucide-react";
+
+const POST_STATUS_BADGE_VARIANTS: Record<
+  string,
+  "default" | "secondary" | "outline"
+> = {
+  draft: "outline",
+  published: "default",
+  archived: "secondary",
+};
 
 type BlogPostFormProps = {
   lang: string;
@@ -45,7 +54,21 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
   const [tags, setTags] = useState<string[]>(initial?.tags ?? []);
   const [tagInput, setTagInput] = useState("");
 
+  const [displayStatus, setDisplayStatus] = useState(
+    () => initial?.status ?? "draft",
+  );
+
+  useEffect(() => {
+    if (initial?.status) setDisplayStatus(initial.status);
+  }, [initial?.status]);
+
   const isEdit = Boolean(postId);
+
+  const statusLabels: Record<string, string> = {
+    draft: dict.statusDraft,
+    published: dict.statusPublished,
+    archived: dict.statusArchived,
+  };
 
   const createMutation = useMutation(
     trpc.blog.create.mutationOptions({
@@ -68,6 +91,7 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
     trpc.blog.publish.mutationOptions({
       onSuccess: () => {
         toast.success(dict.toastPublished);
+        setDisplayStatus("published");
         router.refresh();
       },
       onError: (err) => toast.error(err.message),
@@ -172,12 +196,24 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
             <ArrowLeft className="size-4" aria-hidden />
             {dict.back}
           </Button>
-          <h1 className="text-2xl font-bold">
-            {isEdit ? dict.editPost : dict.newPost}
-          </h1>
+          <div className="flex flex-wrap items-center gap-2">
+            <h1 className="text-2xl font-bold">
+              {isEdit ? dict.editPost : dict.newPost}
+            </h1>
+            {isEdit && (
+              <Badge
+                variant={
+                  POST_STATUS_BADGE_VARIANTS[displayStatus] ?? "outline"
+                }
+                className="shrink-0"
+              >
+                {statusLabels[displayStatus] ?? displayStatus}
+              </Badge>
+            )}
+          </div>
         </div>
         <div className="flex gap-2 flex-wrap">
-          {isEdit && initial?.status !== "published" && (
+          {isEdit && displayStatus !== "published" && (
             <Button
               variant="outline"
               size="sm"
@@ -198,7 +234,7 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
               </a>
             </Button>
           )}
-          {isEdit && initial?.status !== "archived" && (
+          {isEdit && displayStatus !== "archived" && (
             <Button
               variant="ghost"
               size="sm"
