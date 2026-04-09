@@ -9,6 +9,8 @@ import { useDictionary } from "@/lib/client/providers/dictionary-provider";
 import { useTRPC } from "@/trpc/client";
 import { useMutation } from "@tanstack/react-query";
 import { LexicalEditor } from "./lexical-editor";
+import { TagAutocomplete } from "./tag-autocomplete";
+import { normalizeTagSlug } from "@/lib/blog/tag-slug";
 import { Button } from "@/ui/button";
 import { Input } from "@/ui/input";
 import { Label } from "@/ui/label";
@@ -53,7 +55,6 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
     initial?.body ?? null,
   );
   const [tags, setTags] = useState<string[]>(initial?.tags ?? []);
-  const [tagInput, setTagInput] = useState("");
   const [mainImageUrl, setMainImageUrl] = useState(initial?.main_image_url ?? "");
   const [mainImageUploading, setMainImageUploading] = useState(false);
   const mainImageInputRef = useRef<HTMLInputElement>(null);
@@ -197,13 +198,12 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
     archiveMutation.mutate({ id: postId });
   }, [postId, archiveMutation]);
 
-  const addTag = useCallback(() => {
-    const value = tagInput.trim().toLowerCase();
+  const addTag = useCallback((slug: string) => {
+    const value = normalizeTagSlug(slug);
     if (value && !tags.includes(value)) {
       setTags((prev) => [...prev, value]);
     }
-    setTagInput("");
-  }, [tagInput, tags]);
+  }, [tags]);
 
   const removeTag = useCallback((tag: string) => {
     setTags((prev) => prev.filter((t) => t !== tag));
@@ -374,22 +374,16 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
 
       <div className="space-y-2">
         <Label>{dict.fieldTags}</Label>
-        <div className="flex gap-2">
-          <Input
-            value={tagInput}
-            onChange={(e) => setTagInput(e.target.value)}
-            placeholder={dict.placeholderTag}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                addTag();
-              }
-            }}
-          />
-          <Button type="button" variant="outline" size="sm" onClick={addTag}>
-            {dict.addTag}
-          </Button>
-        </div>
+        <TagAutocomplete
+          excludedSlugs={tags}
+          onAddTag={addTag}
+          triggerLabel={dict.tagAddTrigger}
+          searchPlaceholder={dict.tagSearchPlaceholder}
+          emptyText={dict.tagEmpty}
+          addNewLabel={(slug) =>
+            dict.tagCreateNew.replace("{tag}", slug)
+          }
+        />
         {tags.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mt-2">
             {tags.map((tag) => (

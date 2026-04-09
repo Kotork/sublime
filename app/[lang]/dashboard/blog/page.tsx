@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect } from "react";
+import { Suspense, useCallback, useDeferredValue, useEffect, useState } from "react";
 import { useDictionary } from "@/lib/client/providers/dictionary-provider";
 import { useTRPC } from "@/trpc/client";
 import { useQuery } from "@tanstack/react-query";
@@ -11,10 +11,19 @@ import {
   useSearchParams,
 } from "next/navigation";
 import Image from "next/image";
+import { normalizeTagSlug } from "@/lib/blog/tag-slug";
 import { Badge } from "@/ui/badge";
 import { Button } from "@/ui/button";
+import {
+  Command,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/ui/command";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
+import { ChevronLeft, ChevronRight, ChevronsUpDown, Plus } from "lucide-react";
 
 const PAGE_SIZE = 10;
 
@@ -29,6 +38,92 @@ const STATUS_VARIANTS: Record<
   published: "default",
   archived: "secondary",
 };
+
+type BlogTagFilterProps = {
+  copy: {
+    filterByTag: string;
+    tagFilterAll: string;
+  };
+  tagFilter: string | undefined;
+  statusFilter: PostStatus | undefined;
+  buildHref: (p: number, status?: PostStatus, tag?: string) => string;
+};
+
+function BlogTagFilter({
+  copy,
+  tagFilter,
+  statusFilter,
+  buildHref,
+}: BlogTagFilterProps) {
+  const trpc = useTRPC();
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const deferredSearch = useDeferredValue(search);
+
+  const { data: tagList = [] } = useQuery(
+    trpc.blog.tagSuggestions.queryOptions({
+      q: deferredSearch,
+      limit: 50,
+    }),
+  );
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="h-8 min-w-[10rem] justify-between gap-2 font-normal"
+        >
+          <span className="truncate">
+            {tagFilter ?? copy.filterByTag}
+          </span>
+          <ChevronsUpDown className="size-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent
+        className="min-w-[min(100vw-2rem,20rem)] p-0"
+        align="start"
+      >
+        <Command shouldFilter={false}>
+          <CommandInput
+            placeholder={copy.filterByTag}
+            value={search}
+            onValueChange={setSearch}
+          />
+          <CommandList>
+            <CommandGroup>
+              <CommandItem asChild>
+                <Link
+                  href={buildHref(1, statusFilter)}
+                  onClick={() => setOpen(false)}
+                >
+                  {copy.tagFilterAll}
+                </Link>
+              </CommandItem>
+              {tagList.map((t) => (
+                <CommandItem key={t.slug} asChild>
+                  <Link
+                    href={buildHref(1, statusFilter, t.slug)}
+                    onClick={() => setOpen(false)}
+                  >
+                    <span className="font-medium">{t.slug}</span>
+                    {t.name !== t.slug && (
+                      <span className="ml-2 text-muted-foreground text-xs">
+                        {t.name}
+                      </span>
+                    )}
+                  </Link>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+}
 
 function DashboardBlogListContent() {
   const dict = useDictionary();
@@ -50,6 +145,13 @@ function DashboardBlogListContent() {
       ? (rawStatus as PostStatus)
       : undefined;
 
+  const rawTag = searchParams.get("tag");
+  const tagFilter: string | undefined = (() => {
+    if (!rawTag?.trim()) return undefined;
+    const n = normalizeTagSlug(rawTag);
+    return n || undefined;
+  })();
+
   const statusLabels: Record<string, string> = {
     draft: copy.statusDraft,
     published: copy.statusPublished,
@@ -61,6 +163,7 @@ function DashboardBlogListContent() {
       limit: PAGE_SIZE,
       offset,
       ...(statusFilter ? { status: statusFilter } : {}),
+      ...(tagFilter ? { tagSlug: tagFilter } : {}),
     }),
   );
 
@@ -73,17 +176,31 @@ function DashboardBlogListContent() {
       const params = new URLSearchParams();
       params.set("page", String(totalPages));
       if (statusFilter) params.set("status", statusFilter);
+      if (tagFilter) params.set("tag", tagFilter);
       router.replace(`${pathname}?${params.toString()}`);
     }
-  }, [isLoading, total, page, totalPages, pathname, router, statusFilter]);
+  }, [
+    isLoading,
+    total,
+    page,
+    totalPages,
+    pathname,
+    router,
+    statusFilter,
+    tagFilter,
+  ]);
 
-  function buildHref(p: number, status?: PostStatus) {
-    const params = new URLSearchParams();
-    if (p > 1) params.set("page", String(p));
-    if (status) params.set("status", status);
-    const qs = params.toString();
-    return qs ? `${pathname}?${qs}` : pathname;
-  }
+  const buildHref = useCallback(
+    (p: number, status?: PostStatus, tag?: string) => {
+      const params = new URLSearchParams();
+      if (p > 1) params.set("page", String(p));
+      if (status) params.set("status", status);
+      if (tag) params.set("tag", tag);
+      const qs = params.toString();
+      return qs ? `${pathname}?${qs}` : pathname;
+    },
+    [pathname],
+  );
 
   return (
     <div className="space-y-6">
@@ -97,30 +214,41 @@ function DashboardBlogListContent() {
         </Button>
       </div>
 
-      <div className="flex gap-2 flex-wrap">
-        {([undefined, ...VALID_STATUSES] as const).map((s) => {
-          const isActive = statusFilter === s;
-          const label =
-            s === undefined
-              ? copy.statusAll
-              : statusLabels[s] ?? s;
-          return (
-            <Button
-              key={s ?? "all"}
-              variant={isActive ? "default" : "outline"}
-              size="sm"
-              className="h-8"
-              asChild={!isActive}
-              disabled={isActive}
-            >
-              {isActive ? (
-                <span>{label}</span>
-              ) : (
-                <Link href={buildHref(1, s)}>{label}</Link>
-              )}
-            </Button>
-          );
-        })}
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <div className="flex gap-2 flex-wrap">
+          {([undefined, ...VALID_STATUSES] as const).map((s) => {
+            const isActive = statusFilter === s;
+            const label =
+              s === undefined
+                ? copy.statusAll
+                : statusLabels[s] ?? s;
+            return (
+              <Button
+                key={s ?? "all"}
+                variant={isActive ? "default" : "outline"}
+                size="sm"
+                className="h-8"
+                asChild={!isActive}
+                disabled={isActive}
+              >
+                {isActive ? (
+                  <span>{label}</span>
+                ) : (
+                  <Link href={buildHref(1, s, tagFilter)}>{label}</Link>
+                )}
+              </Button>
+            );
+          })}
+        </div>
+        <BlogTagFilter
+          copy={{
+            filterByTag: copy.filterByTag,
+            tagFilterAll: copy.tagFilterAll,
+          }}
+          tagFilter={tagFilter}
+          statusFilter={statusFilter}
+          buildHref={buildHref}
+        />
       </div>
 
       {isLoading && (
@@ -196,7 +324,7 @@ function DashboardBlogListContent() {
                   asChild={page > 1}
                 >
                   {page > 1 ? (
-                    <Link href={buildHref(page - 1, statusFilter)}>
+                    <Link href={buildHref(page - 1, statusFilter, tagFilter)}>
                       <ChevronLeft className="size-4" />
                       {copy.paginationPrevious}
                     </Link>
@@ -215,7 +343,7 @@ function DashboardBlogListContent() {
                   asChild={page < totalPages}
                 >
                   {page < totalPages ? (
-                    <Link href={buildHref(page + 1, statusFilter)}>
+                    <Link href={buildHref(page + 1, statusFilter, tagFilter)}>
                       {copy.paginationNext}
                       <ChevronRight className="size-4" />
                     </Link>

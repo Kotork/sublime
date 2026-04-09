@@ -1,6 +1,7 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
+import { normalizeTagSlug } from "@/lib/blog/tag-slug";
 import { createTRPCRouter, authenticatedProcedure } from "../init";
 
 const blogPostStatus = z.enum(["draft", "published", "archived"]);
@@ -31,8 +32,15 @@ const idSchema = z.object({ id: z.string().uuid() });
 const listSchema = z.object({
   status: blogPostStatus.optional(),
   locale: z.string().optional(),
+  /** Filter posts that have this tag slug (normalized). */
+  tagSlug: z.string().optional(),
   limit: z.number().int().min(1).max(100).default(50),
   offset: z.number().int().min(0).default(0),
+});
+
+const tagSuggestionsSchema = z.object({
+  q: z.string().default(""),
+  limit: z.number().int().min(1).max(100).default(40),
 });
 
 type BlogPostRow = {
@@ -63,14 +71,6 @@ type BlogPostListItem = Pick<
   | "created_at"
   | "updated_at"
 >;
-
-function normalizeTagSlug(raw: string): string {
-  return raw
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "");
-}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function syncTags(supabase: any, postId: string, rawTags: string[]) {
@@ -109,6 +109,37 @@ export const blogRouter = createTRPCRouter({
         ctx,
         input,
       }): Promise<{ items: BlogPostListItem[]; total: number }> => {
+        const normalizedTagSlug = input.tagSlug
+          ? normalizeTagSlug(input.tagSlug)
+          : "";
+
+        let tagId: string | null = null;
+        if (normalizedTagSlug) {
+          const { data: tagRow } = await ctx.supabase
+            .from("tags")
+            .select("id")
+            .eq("slug", normalizedTagSlug)
+            .maybeSingle();
+          if (!tagRow) {
+            return { items: [], total: 0 };
+          }
+          tagId = tagRow.id as string;
+        }
+
+        let postIdsForTag: string[] | null = null;
+        if (tagId !== null) {
+          const { data: junctionRows } = await ctx.supabase
+            .from("blog_post_tags")
+            .select("post_id")
+            .eq("tag_id", tagId);
+          postIdsForTag = [
+            ...new Set((junctionRows ?? []).map((r) => r.post_id as string)),
+          ];
+          if (postIdsForTag.length === 0) {
+            return { items: [], total: 0 };
+          }
+        }
+
         let query = ctx.supabase
           .from("blog_posts")
           .select(
@@ -118,6 +149,9 @@ export const blogRouter = createTRPCRouter({
           .order("updated_at", { ascending: false })
           .range(input.offset, input.offset + input.limit - 1);
 
+        if (postIdsForTag !== null) {
+          query = query.in("id", postIdsForTag);
+        }
         if (input.status) query = query.eq("status", input.status);
         if (input.locale) query = query.eq("locale", input.locale);
 
@@ -128,6 +162,39 @@ export const blogRouter = createTRPCRouter({
             message: error.message,
           });
         return { items: (data ?? []) as BlogPostListItem[], total: count ?? 0 };
+      },
+    ),
+
+  tagSuggestions: authenticatedProcedure
+    .input(tagSuggestionsSchema)
+    .query(
+      async ({
+        ctx,
+        input,
+      }): Promise<{ slug: string; name: string }[]> => {
+        const term = input.q.trim().toLowerCase();
+        let query = ctx.supabase
+          .from("tags")
+          .select("slug, name")
+          .order("slug")
+          .limit(input.limit);
+
+        if (term) {
+          const safe = term.replace(/[%_,]/g, "");
+          if (safe) {
+            query = query.or(
+              `slug.ilike.%${safe}%,name.ilike.%${safe}%`,
+            );
+          }
+        }
+
+        const { data, error } = await query;
+        if (error)
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: error.message,
+          });
+        return (data ?? []) as { slug: string; name: string }[];
       },
     ),
 
