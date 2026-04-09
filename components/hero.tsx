@@ -13,27 +13,27 @@ const AUTOPLAY_MS = 6000;
 const SLIDES = [
   {
     id: "sustainable-construction",
-    title: "The New Generation of Sustainable Buildings",
+    title: "A nova geração de edifícios sustentáveis",
     description:
-      "With a hybrid solution of wood and concrete, we are building a new generation of buildings that combine efficiency and sustainability.",
-    ctaLabel: "Discover Our Approach",
+      "Com a solução de LSF, estamos a construir uma nova geração de edifícios que combinam eficiência e sustentabilidade.",
+    ctaLabel: "Descubra a nossa abordagem",
     ctaHref: "#about",
     imageSrc:
       "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920&q=80",
     imageAlt:
-      "Construction site with modern sustainable building and crane against a clear sky",
+      "Edifício sustentável com moderno edifício e uma grua contra um céu claro",
   },
   {
     id: "green-innovation",
-    title: "Building a Greener Future",
+    title: "Construindo um futuro mais sustentável",
     description:
-      "Our commitment to the environment drives every project. From eco-friendly materials to energy-efficient designs, sustainability is at our core.",
-    ctaLabel: "View Our Projects",
+      "O nosso compromisso com o meio ambiente impulsiona cada projeto. Desde materiais sustentáveis até projetos eficientes em energia, a sustentabilidade é o nosso núcleo.",
+    ctaLabel: "Ver os nossos projetos",
     ctaHref: "#projects",
     imageSrc:
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
     imageAlt:
-      "Contemporary eco-friendly residential architecture with natural landscaping",
+      "Arquitetura sustentável residencial moderna com paisagens naturais",
   },
 ] as const;
 
@@ -147,10 +147,10 @@ export function Hero() {
           })}
         </div>
 
-        <div className="pointer-events-none absolute inset-0 z-2 flex items-center justify-between px-3 md:px-6">
+        <div className="absolute inset-0 z-2 flex items-center justify-between px-3 md:px-6">
           <button
             aria-label="Previous slide"
-            className="pointer-events-auto hidden rounded-full bg-white/90 p-2 text-foreground shadow-md transition hover:bg-white md:inline-flex"
+            className="cursor-pointer hidden rounded-full bg-white/90 p-2 text-foreground shadow-md transition hover:bg-white md:inline-flex"
             onClick={goPrev}
             type="button"
           >
@@ -158,7 +158,7 @@ export function Hero() {
           </button>
           <button
             aria-label="Next slide"
-            className="pointer-events-auto hidden rounded-full bg-white/90 p-2 text-foreground shadow-md transition hover:bg-white md:inline-flex"
+            className="cursor-pointer hidden rounded-full bg-white/90 p-2 text-foreground shadow-md transition hover:bg-white md:inline-flex"
             onClick={goNext}
             type="button"
           >
