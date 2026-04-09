@@ -6,7 +6,6 @@ import { Suspense } from "react";
 import { getDictionary } from "../dictionaries";
 import DashboardSidebar from "./_components/dashboard-sidebar/dashboard-sidebar";
 import { Header } from "./_components/header/header";
-import { StorageUsageBanner } from "./_components/storage-usage-banner/storage-usage-banner";
 
 export default async function ProtectedLayout({
   children,
@@ -35,14 +34,7 @@ export default async function ProtectedLayout({
               {!hasEnvVars ? (
                 <EnvVarWarning />
               ) : (
-                <>
-                  <Suspense>
-                    <StorageUsageBanner
-                      dict={dictionary.pages.dashboard.storageUsage}
-                    />
-                  </Suspense>
-                  <Suspense>{children}</Suspense>
-                </>
+                <Suspense>{children}</Suspense>
               )}
             </div>
           </div>
