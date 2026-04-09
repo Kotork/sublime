@@ -1,8 +1,16 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -28,7 +36,7 @@ const SLIDES = [
     title: "Construindo um futuro mais sustentável",
     description:
       "O nosso compromisso com o meio ambiente impulsiona cada projeto. Desde materiais sustentáveis até projetos eficientes em energia, a sustentabilidade é o nosso núcleo.",
-    ctaLabel: "Ver os nossos projetos",
+    ctaLabel: "Sabe mais sobre a nossa abordagem",
     ctaHref: "#projects",
     imageSrc:
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
@@ -38,148 +46,148 @@ const SLIDES = [
 ] as const;
 
 export function Hero() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
   const [userInteracted, setUserInteracted] = useState(false);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const autoplayRef = useRef(
+    Autoplay({ delay: AUTOPLAY_MS, stopOnInteraction: true }),
+  );
 
-  const goTo = useCallback((index: number) => {
-    setUserInteracted(true);
-    setCurrentSlide(((index % SLIDES.length) + SLIDES.length) % SLIDES.length);
-  }, []);
-
-  const goNext = useCallback(() => {
-    goTo(currentSlide + 1);
-  }, [currentSlide, goTo]);
-
-  const goPrev = useCallback(() => {
-    goTo(currentSlide - 1);
-  }, [currentSlide, goTo]);
+  const goTo = useCallback(
+    (index: number) => {
+      api?.scrollTo(index);
+      setUserInteracted(true);
+    },
+    [api],
+  );
 
   useEffect(() => {
-    if (isPaused) {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
+    if (!api) {
       return;
     }
-    intervalRef.current = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
-    }, AUTOPLAY_MS);
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
+
+    const onSelect = () => {
+      setCurrent(api.selectedScrollSnap());
     };
-  }, [isPaused]);
+
+    const onPointerDown = () => {
+      setUserInteracted(true);
+    };
+
+    onSelect();
+    api.on("select", onSelect);
+    api.on("pointerDown", onPointerDown);
+
+    return () => {
+      api.off("select", onSelect);
+      api.off("pointerDown", onPointerDown);
+    };
+  }, [api]);
 
   return (
     <section
-      aria-roledescription="carousel"
       aria-label="Featured highlights"
       className="relative w-screen max-w-[100vw] left-1/2 -translate-x-1/2 overflow-hidden"
     >
       <div
         className="relative h-[70vh] min-h-[500px] max-h-[800px] w-full"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+        onMouseEnter={() => autoplayRef.current.stop()}
+        onMouseLeave={() => autoplayRef.current.reset()}
       >
-        <div
+        <Carousel
           aria-live={userInteracted ? "polite" : "off"}
-          className="relative h-full w-full"
+          className="h-full [&>div:first-child]:h-full [&>div:first-child>div]:h-full"
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          plugins={[autoplayRef.current]}
+          setApi={setApi}
         >
-          {SLIDES.map((slide, index) => {
-            const isActive = index === currentSlide;
-            return (
-              <article
+          <CarouselContent className="ml-0 h-full">
+            {SLIDES.map((slide, index) => (
+              <CarouselItem
                 key={slide.id}
-                aria-hidden={!isActive}
-                aria-roledescription="slide"
-                className={cn(
-                  "absolute inset-0 transition-opacity duration-700 ease-in-out",
-                  isActive ? "z-1 opacity-100" : "z-0 opacity-0 pointer-events-none",
-                )}
+                className="h-full basis-full pl-0"
                 id={`hero-slide-${index}`}
-                role="group"
               >
-                <Image
-                  alt={slide.imageAlt}
-                  className="object-cover"
-                  fill
-                  priority={index === 0}
-                  sizes="100vw"
-                  src={slide.imageSrc}
-                />
-                <div
-                  aria-hidden
-                  className="absolute inset-0 bg-linear-to-t from-black/75 via-black/40 to-black/20"
-                />
-                <div className="absolute inset-0 flex items-center">
-                  <div className="mx-auto w-full max-w-5xl px-5 sm:px-8">
-                    <div className="max-w-[600px] text-left text-white">
-                      {index === 0 ? (
-                        <h1 className="text-2xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl">
-                          {slide.title}
-                        </h1>
-                      ) : (
-                        <h2 className="text-2xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl">
-                          {slide.title}
-                        </h2>
-                      )}
-                      <p className="mt-4 text-sm leading-relaxed text-white/90 sm:text-base md:text-lg">
-                        {slide.description}
-                      </p>
-                      <Button
-                        asChild
-                        className="mt-6 w-full border-0 text-white shadow-md hover:opacity-90 sm:w-auto"
-                        size="lg"
-                        style={{ backgroundColor: BRAND }}
-                      >
-                        <Link href={slide.ctaHref}>{slide.ctaLabel}</Link>
-                      </Button>
+                <article className="relative h-full w-full">
+                  <Image
+                    alt={slide.imageAlt}
+                    className="object-cover"
+                    draggable={false}
+                    fill
+                    priority={index === 0}
+                    sizes="100vw"
+                    src={slide.imageSrc}
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 bg-linear-to-t from-black/75 via-black/40 to-black/20"
+                  />
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="mx-auto w-full max-w-5xl px-5 sm:px-8 md:px-14 lg:px-[calc(1.5rem+2.5rem+0.75rem)]">
+                      <div className="max-w-[600px] text-left text-white">
+                        {index === 0 ? (
+                          <h1 className="text-2xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl">
+                            {slide.title}
+                          </h1>
+                        ) : (
+                          <h2 className="text-2xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl">
+                            {slide.title}
+                          </h2>
+                        )}
+                        <p className="mt-4 text-sm leading-relaxed text-white/90 sm:text-base md:text-lg">
+                          {slide.description}
+                        </p>
+                        <Button
+                          asChild
+                          className="mt-6 w-full border-0 text-white shadow-md hover:opacity-90 sm:w-auto"
+                          size="lg"
+                          style={{ backgroundColor: BRAND }}
+                        >
+                          <Link href={slide.ctaHref}>{slide.ctaLabel}</Link>
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </article>
-            );
-          })}
-        </div>
+                </article>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
 
-        <div className="absolute inset-0 z-2 flex items-center justify-between px-3 md:px-6">
-          <button
-            aria-label="Previous slide"
-            className="cursor-pointer hidden rounded-full bg-white/90 p-2 text-foreground shadow-md transition hover:bg-white md:inline-flex"
-            onClick={goPrev}
-            type="button"
-          >
-            <ChevronLeft className="size-6" />
-          </button>
-          <button
-            aria-label="Next slide"
-            className="cursor-pointer hidden rounded-full bg-white/90 p-2 text-foreground shadow-md transition hover:bg-white md:inline-flex"
-            onClick={goNext}
-            type="button"
-          >
-            <ChevronRight className="size-6" />
-          </button>
-        </div>
+          <CarouselPrevious
+            className={cn(
+              "pointer-events-auto z-10 h-10 w-10 border-0 bg-white/90 text-foreground shadow-md hover:bg-white",
+              "hidden lg:inline-flex",
+              "top-1/2 left-3 -translate-y-1/2 md:left-6",
+            )}
+            variant="secondary"
+          />
+          <CarouselNext
+            className={cn(
+              "pointer-events-auto z-10 h-10 w-10 border-0 bg-white/90 text-foreground shadow-md hover:bg-white",
+              "hidden lg:inline-flex",
+              "top-1/2 right-3 -translate-y-1/2 md:right-6",
+            )}
+            variant="secondary"
+          />
+        </Carousel>
 
         <div
           aria-label="Slide indicators"
-          className="pointer-events-auto absolute inset-x-0 bottom-6 z-2 flex justify-center gap-2 px-4"
+          className="pointer-events-auto absolute inset-x-0 bottom-6 z-10 flex justify-center gap-2 px-4"
           role="group"
         >
           {SLIDES.map((slide, index) => (
             <button
               key={slide.id}
               aria-controls={`hero-slide-${index}`}
-              aria-pressed={index === currentSlide}
               aria-label={`Go to slide ${index + 1}: ${slide.title}`}
+              aria-pressed={index === current}
               className={cn(
                 "h-2.5 rounded-full transition-all",
-                index === currentSlide
+                index === current
                   ? "w-8 bg-white"
                   : "w-2.5 bg-white/50 hover:bg-white/70",
               )}
