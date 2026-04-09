@@ -222,9 +222,10 @@
       },
       "settings": {
         "title": "Definições",
-        "description": "O idioma e a aparência são guardados na sua conta e aplicam-se noutros dispositivos quando inicia sessão.",
+        "description": "O idioma, a aparência e a barra lateral do painel são guardados na sua conta e aplicam-se noutros dispositivos quando inicia sessão.",
         "language": "Idioma",
-        "theme": "Tema"
+        "theme": "Tema",
+        "sidebar": "Barra lateral do painel"
       },
       "storageUsage": {
         "title": "Utilização de armazenamento",

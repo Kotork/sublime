@@ -4,15 +4,29 @@ import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { ThemeSwitcher } from "@/components/shared/theme-switcher";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import type { SidebarBehavior } from "@/lib/user-preferences/sidebar-behavior";
+
+import { SidebarBehaviorSettings } from "./sidebar-behavior-settings";
 
 type SettingsDict = {
   title: string;
   description: string;
   language: string;
   theme: string;
+  sidebar: string;
 };
 
-export function AccountSettingsForm({ dict }: { dict: SettingsDict }) {
+type AccountSettingsFormProps = {
+  dict: SettingsDict;
+  initialSidebarBehavior: SidebarBehavior | null;
+  canPersistSidebar: boolean;
+};
+
+export function AccountSettingsForm({
+  dict,
+  initialSidebarBehavior,
+  canPersistSidebar,
+}: AccountSettingsFormProps) {
   return (
     <div className="flex max-w-md flex-col gap-8">
       <div>
@@ -28,6 +42,11 @@ export function AccountSettingsForm({ dict }: { dict: SettingsDict }) {
         <Label>{dict.theme}</Label>
         <ThemeSwitcher />
       </div>
+      <Separator />
+      <SidebarBehaviorSettings
+        initialSidebarBehavior={initialSidebarBehavior}
+        canPersist={canPersistSidebar}
+      />
     </div>
   );
 }

@@ -222,9 +222,10 @@
       },
       "settings": {
         "title": "Settings",
-        "description": "Language and appearance are saved to your account and apply on other devices when you sign in.",
+        "description": "Language, appearance, and dashboard sidebar are saved to your account and apply on other devices when you sign in.",
         "language": "Language",
-        "theme": "Theme"
+        "theme": "Theme",
+        "sidebar": "Dashboard sidebar"
       },
       "storageUsage": {
         "title": "Storage usage",
