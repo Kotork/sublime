@@ -20,7 +20,7 @@ const NAV_LINKS = [
   { href: "#contact", label: "Contactos" },
 ] as const;
 
-function CasaisLogoMark({ className }: { className?: string }) {
+function SublimeLogoMark({ className }: { className?: string }) {
   return (
     <svg
       aria-hidden
@@ -126,14 +126,14 @@ export function WebsiteNavbar() {
         <div className="flex items-center justify-between gap-3 px-4 py-3.5 md:justify-start md:gap-4 md:px-5 md:py-4">
           <div className="order-1 flex min-w-0 flex-1 items-center gap-2 md:order-2 md:flex-initial md:gap-3">
             <Link
-              aria-label="CASAIS — Início"
+              aria-label="Sublime — Início"
               className="flex min-w-0 items-center gap-2 no-underline hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#003366]"
               href={base}
               onClick={closeMenu}
             >
-              <CasaisLogoMark className="h-7 w-10" />
+              <SublimeLogoMark className="h-7 w-10" />
               <span className="text-lg font-bold tracking-tight text-[#003366]">
-                CASAIS
+                SUBLIME
               </span>
             </Link>
 
