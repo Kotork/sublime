@@ -34,9 +34,16 @@ const listSchema = z.object({
   locale: z.string().optional(),
   /** Filter posts that have this tag slug (normalized). */
   tagSlug: z.string().optional(),
+  /** Case-insensitive match on title or slug (ilike). */
+  search: z.string().max(200).optional(),
   limit: z.number().int().min(1).max(100).default(50),
   offset: z.number().int().min(0).default(0),
 });
+
+/** Escape % and _ for PostgREST ilike patterns. */
+function escapeIlikePattern(raw: string): string {
+  return raw.replace(/\\/g, "\\\\").replace(/%/g, "\\%").replace(/_/g, "\\_");
+}
 
 const tagSuggestionsSchema = z.object({
   q: z.string().default(""),
@@ -154,6 +161,13 @@ export const blogRouter = createTRPCRouter({
         }
         if (input.status) query = query.eq("status", input.status);
         if (input.locale) query = query.eq("locale", input.locale);
+
+        // Commas break PostgREST `or()` argument parsing; strip for safe ilike patterns.
+        const searchTerm = (input.search?.trim() ?? "").replace(/,/g, " ");
+        if (searchTerm.length > 0) {
+          const pattern = `%${escapeIlikePattern(searchTerm)}%`;
+          query = query.or(`title.ilike.${pattern},slug.ilike.${pattern}`);
+        }
 
         const { data, error, count } = await query;
         if (error)

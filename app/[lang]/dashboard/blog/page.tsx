@@ -1,6 +1,12 @@
 "use client";
 
-import { Suspense, useCallback, useDeferredValue, useEffect, useState } from "react";
+import {
+  Suspense,
+  useCallback,
+  useDeferredValue,
+  useEffect,
+  useState,
+} from "react";
 import { useDictionary } from "@/lib/client/providers/dictionary-provider";
 import { useTRPC } from "@/trpc/client";
 import { useQuery } from "@tanstack/react-query";
@@ -14,6 +20,7 @@ import Image from "next/image";
 import { normalizeTagSlug } from "@/lib/blog/tag-slug";
 import { Badge } from "@/ui/badge";
 import { Button } from "@/ui/button";
+import { Input } from "@/ui/input";
 import {
   Command,
   CommandGroup,
@@ -23,7 +30,13 @@ import {
 } from "@/ui/command";
 import Link from "next/link";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
-import { ChevronLeft, ChevronRight, ChevronsUpDown, Plus } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsUpDown,
+  Plus,
+  Search,
+} from "lucide-react";
 
 const PAGE_SIZE = 10;
 
@@ -46,13 +59,20 @@ type BlogTagFilterProps = {
   };
   tagFilter: string | undefined;
   statusFilter: PostStatus | undefined;
-  buildHref: (p: number, status?: PostStatus, tag?: string) => string;
+  searchQuery: string;
+  buildHref: (
+    p: number,
+    status?: PostStatus,
+    tag?: string,
+    q?: string,
+  ) => string;
 };
 
 function BlogTagFilter({
   copy,
   tagFilter,
   statusFilter,
+  searchQuery,
   buildHref,
 }: BlogTagFilterProps) {
   const trpc = useTRPC();
@@ -96,7 +116,7 @@ function BlogTagFilter({
             <CommandGroup>
               <CommandItem asChild>
                 <Link
-                  href={buildHref(1, statusFilter)}
+                  href={buildHref(1, statusFilter, undefined, searchQuery)}
                   onClick={() => setOpen(false)}
                 >
                   {copy.tagFilterAll}
@@ -105,7 +125,7 @@ function BlogTagFilter({
               {tagList.map((t) => (
                 <CommandItem key={t.slug} asChild>
                   <Link
-                    href={buildHref(1, statusFilter, t.slug)}
+                    href={buildHref(1, statusFilter, t.slug, searchQuery)}
                     onClick={() => setOpen(false)}
                   >
                     <span className="font-medium">{t.slug}</span>
@@ -152,6 +172,13 @@ function DashboardBlogListContent() {
     return n || undefined;
   })();
 
+  const qFromUrl = searchParams.get("q")?.trim() ?? "";
+
+  const [qInput, setQInput] = useState(() => searchParams.get("q") ?? "");
+  useEffect(() => {
+    setQInput(searchParams.get("q") ?? "");
+  }, [searchParams]);
+
   const statusLabels: Record<string, string> = {
     draft: copy.statusDraft,
     published: copy.statusPublished,
@@ -164,6 +191,7 @@ function DashboardBlogListContent() {
       offset,
       ...(statusFilter ? { status: statusFilter } : {}),
       ...(tagFilter ? { tagSlug: tagFilter } : {}),
+      ...(qFromUrl ? { search: qFromUrl } : {}),
     }),
   );
 
@@ -177,6 +205,7 @@ function DashboardBlogListContent() {
       params.set("page", String(totalPages));
       if (statusFilter) params.set("status", statusFilter);
       if (tagFilter) params.set("tag", tagFilter);
+      if (qFromUrl) params.set("q", qFromUrl);
       router.replace(`${pathname}?${params.toString()}`);
     }
   }, [
@@ -188,14 +217,17 @@ function DashboardBlogListContent() {
     router,
     statusFilter,
     tagFilter,
+    qFromUrl,
   ]);
 
   const buildHref = useCallback(
-    (p: number, status?: PostStatus, tag?: string) => {
+    (p: number, status?: PostStatus, tag?: string, q?: string) => {
       const params = new URLSearchParams();
       if (p > 1) params.set("page", String(p));
       if (status) params.set("status", status);
       if (tag) params.set("tag", tag);
+      const qVal = q ?? "";
+      if (qVal.trim()) params.set("q", qVal.trim());
       const qs = params.toString();
       return qs ? `${pathname}?${qs}` : pathname;
     },
@@ -212,6 +244,58 @@ function DashboardBlogListContent() {
             {copy.newPost}
           </Link>
         </Button>
+      </div>
+
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 max-w-2xl">
+        <div className="relative flex-1">
+          <Search
+            className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground pointer-events-none"
+            aria-hidden
+          />
+          <Input
+            className="pl-9 h-9"
+            maxLength={200}
+            value={qInput}
+            onChange={(e) => setQInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                router.push(
+                  buildHref(1, statusFilter, tagFilter, qInput),
+                );
+              }
+            }}
+            placeholder={copy.searchPlaceholder}
+            aria-label={copy.searchLabel}
+          />
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            className="h-9"
+            onClick={() =>
+              router.push(buildHref(1, statusFilter, tagFilter, qInput))
+            }
+          >
+            {copy.searchSubmit}
+          </Button>
+          {qFromUrl ? (
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              className="h-9"
+              onClick={() => {
+                setQInput("");
+                router.push(buildHref(1, statusFilter, tagFilter, ""));
+              }}
+            >
+              {copy.searchClear}
+            </Button>
+          ) : null}
+        </div>
       </div>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
@@ -234,7 +318,9 @@ function DashboardBlogListContent() {
                 {isActive ? (
                   <span>{label}</span>
                 ) : (
-                  <Link href={buildHref(1, s, tagFilter)}>{label}</Link>
+                  <Link href={buildHref(1, s, tagFilter, qFromUrl)}>
+                    {label}
+                  </Link>
                 )}
               </Button>
             );
@@ -247,6 +333,7 @@ function DashboardBlogListContent() {
           }}
           tagFilter={tagFilter}
           statusFilter={statusFilter}
+          searchQuery={qFromUrl}
           buildHref={buildHref}
         />
       </div>
@@ -324,7 +411,14 @@ function DashboardBlogListContent() {
                   asChild={page > 1}
                 >
                   {page > 1 ? (
-                    <Link href={buildHref(page - 1, statusFilter, tagFilter)}>
+                    <Link
+                      href={buildHref(
+                        page - 1,
+                        statusFilter,
+                        tagFilter,
+                        qFromUrl,
+                      )}
+                    >
                       <ChevronLeft className="size-4" />
                       {copy.paginationPrevious}
                     </Link>
@@ -343,7 +437,14 @@ function DashboardBlogListContent() {
                   asChild={page < totalPages}
                 >
                   {page < totalPages ? (
-                    <Link href={buildHref(page + 1, statusFilter, tagFilter)}>
+                    <Link
+                      href={buildHref(
+                        page + 1,
+                        statusFilter,
+                        tagFilter,
+                        qFromUrl,
+                      )}
+                    >
                       {copy.paginationNext}
                       <ChevronRight className="size-4" />
                     </Link>
