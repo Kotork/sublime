@@ -106,6 +106,12 @@
     }
   },
   "navigation": {
+    "sections": {
+      "dashboard": "Dashboard",
+      "website": "Website",
+      "crm": "CRM"
+    },
+    "home": "Início",
     "users": "Utilizadores",
     "website": "Website",
     "contacts": "Contactos",

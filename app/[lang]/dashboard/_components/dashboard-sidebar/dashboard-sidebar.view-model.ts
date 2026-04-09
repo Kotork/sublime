@@ -4,12 +4,12 @@ import { usePathname } from "next/navigation";
 import {
   buildNavigation,
   createIsActive,
-  type NavItem,
+  type NavGroup,
   type NavigationDictionary,
 } from "./dashboard-sidebar.model";
 
 export type DashboardSidebarViewModel = {
-  navigation: NavItem[];
+  groups: NavGroup[];
   isActive: (href: string) => boolean;
 };
 
@@ -19,11 +19,11 @@ export function useDashboardSidebarViewModel(
   const pathname = usePathname();
 
   return useMemo(() => {
-    const navigation = buildNavigation(pathname, dict);
-    const isActive = createIsActive(pathname, navigation);
+    const groups = buildNavigation(pathname, dict);
+    const isActive = createIsActive(pathname, groups);
 
     return {
-      navigation,
+      groups,
       isActive,
     };
   }, [dict, pathname]);

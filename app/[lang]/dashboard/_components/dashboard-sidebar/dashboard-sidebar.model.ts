@@ -1,4 +1,10 @@
-import { ContactRound, FileText, Globe, Inbox, Users } from "lucide-react";
+import {
+  ContactRound,
+  FileText,
+  Home,
+  Inbox,
+  Users,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { canonicalDashboardSegmentToLocalized } from "@/lib/i18n/localized-paths";
@@ -10,9 +16,20 @@ export type NavItem = {
   icon: LucideIcon;
 };
 
+export type NavGroup = {
+  title: string;
+  items: NavItem[];
+};
+
 /** Labels for the fixed dashboard sidebar (en/pt via `getDictionary`). */
 export type NavigationDictionary = {
   navigation: {
+    sections: {
+      dashboard: string;
+      website: string;
+      crm: string;
+    };
+    home: string;
     users: string;
     website: string;
     contacts: string;
@@ -36,39 +53,63 @@ function buildDashboardBase(pathname: string): string {
 export function buildNavigation(
   pathname: string,
   dict: NavigationDictionary
-): NavItem[] {
+): NavGroup[] {
   const base = buildDashboardBase(pathname);
   const locale = getLocaleFromPathname(pathname);
+  const usersPath = `${base}/${canonicalDashboardSegmentToLocalized(locale, "users")}`;
+  const contactsPath = `${base}/${canonicalDashboardSegmentToLocalized(locale, "contacts")}`;
+  const formSubmissionsPath = `${base}/${canonicalDashboardSegmentToLocalized(locale, "form-submissions")}`;
+
   return [
     {
-      name: dict.navigation.users,
-      href: `${base}/${canonicalDashboardSegmentToLocalized(locale, "users")}`,
-      icon: Users,
+      title: dict.navigation.sections.dashboard,
+      items: [
+        {
+          name: dict.navigation.home,
+          href: base,
+          icon: Home,
+        },
+        {
+          name: dict.navigation.users,
+          href: usersPath,
+          icon: Users,
+        },
+      ],
     },
     {
-      name: dict.navigation.website,
-      href: `${base}/${canonicalDashboardSegmentToLocalized(locale, "website")}`,
-      icon: Globe,
+      title: dict.navigation.sections.website,
+      items: [
+        {
+          name: dict.navigation.blog,
+          href: `${base}/blog`,
+          icon: FileText,
+        },
+      ],
     },
     {
-      name: dict.navigation.contacts,
-      href: `${base}/${canonicalDashboardSegmentToLocalized(locale, "contacts")}`,
-      icon: ContactRound,
-    },
-    {
-      name: dict.navigation.formSubmissions,
-      href: `${base}/${canonicalDashboardSegmentToLocalized(locale, "form-submissions")}`,
-      icon: Inbox,
-    },
-    {
-      name: dict.navigation.blog,
-      href: `${base}/blog`,
-      icon: FileText,
+      title: dict.navigation.sections.crm,
+      items: [
+        {
+          name: dict.navigation.contacts,
+          href: contactsPath,
+          icon: ContactRound,
+        },
+        {
+          name: dict.navigation.formSubmissions,
+          href: formSubmissionsPath,
+          icon: Inbox,
+        },
+      ],
     },
   ];
 }
 
-export function createIsActive(pathname: string, navigation: NavItem[]) {
+function flattenItems(groups: NavGroup[]): NavItem[] {
+  return groups.flatMap((g) => g.items);
+}
+
+export function createIsActive(pathname: string, groups: NavGroup[]) {
+  const navigation = flattenItems(groups);
   return (href: string) => {
     if (pathname === href) {
       return true;
@@ -77,10 +118,10 @@ export function createIsActive(pathname: string, navigation: NavItem[]) {
     if (pathname.startsWith(`${href}/`)) {
       const moreSpecificMatch = navigation.find(
         (item) =>
-          (item.href !== href &&
+          ((item.href !== href &&
             item.href.startsWith(`${href}/`) &&
             pathname.startsWith(`${item.href}/`)) ||
-          pathname === item.href
+            pathname === item.href)
       );
 
       return !moreSpecificMatch;

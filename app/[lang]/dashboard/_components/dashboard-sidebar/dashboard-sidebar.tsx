@@ -9,7 +9,7 @@ type DashboardSidebarProps = {
 };
 
 export default function DashboardSidebar({ dict }: DashboardSidebarProps) {
-  const { navigation, isActive } = useDashboardSidebarViewModel(dict);
+  const { groups, isActive } = useDashboardSidebarViewModel(dict);
 
-  return <DashboardSidebarView items={navigation} isActive={isActive} />;
+  return <DashboardSidebarView groups={groups} isActive={isActive} />;
 }
