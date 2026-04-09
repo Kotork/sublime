@@ -13,7 +13,7 @@ import { Button } from "@/ui/button";
 import { Input } from "@/ui/input";
 import { Label } from "@/ui/label";
 import { Badge } from "@/ui/badge";
-import { X } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
 
 type BlogPostFormProps = {
   lang: string;
@@ -161,9 +161,21 @@ export function BlogPostForm({ lang, postId, initial }: BlogPostFormProps) {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <h1 className="text-2xl font-bold">
-          {isEdit ? dict.editPost : dict.newPost}
-        </h1>
+        <div className="space-y-1">
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="-ml-2 h-8 gap-1.5 px-2 text-muted-foreground hover:text-foreground"
+            onClick={() => router.back()}
+          >
+            <ArrowLeft className="size-4" aria-hidden />
+            {dict.back}
+          </Button>
+          <h1 className="text-2xl font-bold">
+            {isEdit ? dict.editPost : dict.newPost}
+          </h1>
+        </div>
         <div className="flex gap-2 flex-wrap">
           {isEdit && initial?.status !== "published" && (
             <Button

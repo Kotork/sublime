@@ -148,6 +148,7 @@
         "statusDraft": "Rascunho",
         "statusPublished": "Publicada",
         "statusArchived": "Arquivada",
+        "back": "Voltar",
         "editPost": "Editar publicação",
         "publish": "Publicar",
         "preview": "Pré-visualizar",

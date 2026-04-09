@@ -148,6 +148,7 @@
         "statusDraft": "Draft",
         "statusPublished": "Published",
         "statusArchived": "Archived",
+        "back": "Back",
         "editPost": "Edit post",
         "publish": "Publish",
         "preview": "Preview",
