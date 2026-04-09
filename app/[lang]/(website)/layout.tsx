@@ -1,6 +1,7 @@
 import { DeployButton } from "@/components/deploy-button";
 import { EnvVarWarning } from "@/components/env-var-warning";
 import { AuthButton } from "@/components/shared/auth-button";
+import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { ThemeSwitcher } from "@/components/shared/theme-switcher";
 import { hasEnvVars } from "@/lib/utils";
 import type { Locale } from "@/lib/i18n/locale";
@@ -35,13 +36,16 @@ export default async function WebsiteLayout({
                 <DeployButton />
               </div>
             </div>
-            {!hasEnvVars ? (
-              <EnvVarWarning />
-            ) : (
-              <Suspense>
-                <AuthButton lang={lang as Locale} dictionary={dictionary} />
-              </Suspense>
-            )}
+            <div className="flex items-center gap-2">
+              <LanguageSwitcher />
+              {!hasEnvVars ? (
+                <EnvVarWarning />
+              ) : (
+                <Suspense>
+                  <AuthButton lang={lang as Locale} dictionary={dictionary} />
+                </Suspense>
+              )}
+            </div>
           </div>
         </nav>
 

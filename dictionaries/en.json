@@ -71,6 +71,11 @@
       "dark": "Dark",
       "system": "System"
     },
+    "languageSwitcher": {
+      "label": "Language",
+      "english": "English",
+      "portuguese": "Portuguese"
+    },
     "authButton": {
       "loggedInGreeting": "Hey, {email}!",
       "signIn": "Sign in",

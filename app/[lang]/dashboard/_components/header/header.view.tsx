@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { ThemeSwitcher } from "@/components/shared/theme-switcher";
 import { Separator } from "@/components/ui/separator";
 
@@ -33,6 +34,7 @@ export function HeaderView({ homePath, isDashboardRoute }: HeaderViewProps) {
         {isDashboardRoute && <UserBreadcrumbs />}
 
         <div className="ml-auto flex items-center gap-2">
+          <LanguageSwitcher />
           <ThemeSwitcher />
           <UserProfile />
         </div>

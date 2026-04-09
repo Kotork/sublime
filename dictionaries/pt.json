@@ -71,6 +71,11 @@
       "dark": "Escuro",
       "system": "Sistema"
     },
+    "languageSwitcher": {
+      "label": "Idioma",
+      "english": "Inglês",
+      "portuguese": "Português"
+    },
     "authButton": {
       "loggedInGreeting": "Olá, {email}!",
       "signIn": "Iniciar sessão",
