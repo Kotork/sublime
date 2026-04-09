@@ -27,7 +27,7 @@ const ThemeSwitcher = () => {
   const saveTheme = useMutation(
     trpc.preferences.upsert.mutationOptions({
       onSettled: () => router.refresh(),
-    }),
+    })
   );
 
   useEffect(() => {
