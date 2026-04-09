@@ -126,7 +126,7 @@ export function Hero() {
                     className="absolute inset-0 bg-linear-to-t from-black/75 via-black/40 to-black/20"
                   />
                   <div className="absolute inset-0 flex items-center">
-                    <div className="mx-auto w-full max-w-5xl px-5 sm:px-8 md:px-14 lg:px-[calc(1.5rem+2.5rem+0.75rem)]">
+                    <div className="mx-auto w-full max-w-5xl">
                       <div className="max-w-[600px] text-left text-white">
                         {index === 0 ? (
                           <h1 className="text-2xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl">
