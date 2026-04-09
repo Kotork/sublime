@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import { getDictionary } from "../dictionaries";
 import DashboardSidebar from "./_components/dashboard-sidebar/dashboard-sidebar";
 import { Header } from "./_components/header/header";
+import { StorageUsageBanner } from "./_components/storage-usage-banner/storage-usage-banner";
 
 export default async function ProtectedLayout({
   children,
@@ -31,7 +32,18 @@ export default async function ProtectedLayout({
         </header> */}
           <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain">
             <div className="container mx-auto flex flex-col gap-6 p-4 md:p-6">
-              {!hasEnvVars ? <EnvVarWarning /> : <Suspense>{children}</Suspense>}
+              {!hasEnvVars ? (
+                <EnvVarWarning />
+              ) : (
+                <>
+                  <Suspense>
+                    <StorageUsageBanner
+                      dict={dictionary.pages.dashboard.storageUsage}
+                    />
+                  </Suspense>
+                  <Suspense>{children}</Suspense>
+                </>
+              )}
             </div>
           </div>
         </SidebarInset>

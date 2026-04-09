@@ -189,6 +189,16 @@
         "paginationOf": "of",
         "paginationPrevious": "Previous",
         "paginationNext": "Next"
+      },
+      "storageUsage": {
+        "title": "Storage usage",
+        "fileStorage": "File storage",
+        "database": "Database",
+        "used": "Used",
+        "free": "Free",
+        "total": "Total",
+        "overLimit": "over limit",
+        "unavailable": "Storage usage data is currently unavailable."
       }
     }
   },

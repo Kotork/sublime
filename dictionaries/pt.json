@@ -189,6 +189,16 @@
         "paginationOf": "de",
         "paginationPrevious": "Anterior",
         "paginationNext": "Seguinte"
+      },
+      "storageUsage": {
+        "title": "Utilização de armazenamento",
+        "fileStorage": "Ficheiros",
+        "database": "Base de dados",
+        "used": "Usado",
+        "free": "Livre",
+        "total": "Total",
+        "overLimit": "excedido",
+        "unavailable": "Os dados de utilização de armazenamento não estão disponíveis de momento."
       }
     }
   },
