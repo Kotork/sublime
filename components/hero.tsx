@@ -10,6 +10,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
+import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import Link from "next/link";
@@ -50,7 +51,7 @@ export function Hero() {
   const [current, setCurrent] = useState(0);
   const [userInteracted, setUserInteracted] = useState(false);
   const autoplayRef = useRef(
-    Autoplay({ delay: AUTOPLAY_MS, stopOnInteraction: true }),
+    Autoplay({ delay: AUTOPLAY_MS, stopOnInteraction: true })
   );
 
   const goTo = useCallback(
@@ -58,7 +59,7 @@ export function Hero() {
       api?.scrollTo(index);
       setUserInteracted(true);
     },
-    [api],
+    [api]
   );
 
   useEffect(() => {
@@ -126,7 +127,13 @@ export function Hero() {
                     className="absolute inset-0 bg-linear-to-t from-black/75 via-black/40 to-black/20"
                   />
                   <div className="absolute inset-0 flex items-center">
-                    <div className="mx-auto w-full max-w-5xl">
+                    <div
+                      className={cn(
+                        "mx-auto",
+                        WEBSITE_CONTENT_COLUMN_CLASS,
+                        "px-4 md:px-5 lg:px-[calc(1.5rem+2.5rem+0.75rem)] xl:px-0"
+                      )}
+                    >
                       <div className="max-w-[600px] text-left text-white">
                         {index === 0 ? (
                           <h1 className="text-2xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl">
@@ -160,7 +167,7 @@ export function Hero() {
             className={cn(
               "pointer-events-auto z-10 h-10 w-10 border-0 bg-white/90 text-foreground shadow-md hover:bg-white",
               "hidden lg:inline-flex",
-              "top-1/2 left-3 -translate-y-1/2 md:left-6",
+              "top-1/2 left-3 -translate-y-1/2 md:left-6"
             )}
             variant="secondary"
           />
@@ -168,7 +175,7 @@ export function Hero() {
             className={cn(
               "pointer-events-auto z-10 h-10 w-10 border-0 bg-white/90 text-foreground shadow-md hover:bg-white",
               "hidden lg:inline-flex",
-              "top-1/2 right-3 -translate-y-1/2 md:right-6",
+              "top-1/2 right-3 -translate-y-1/2 md:right-6"
             )}
             variant="secondary"
           />
@@ -189,7 +196,7 @@ export function Hero() {
                 "h-2.5 rounded-full transition-all",
                 index === current
                   ? "w-8 bg-white"
-                  : "w-2.5 bg-white/50 hover:bg-white/70",
+                  : "w-2.5 bg-white/50 hover:bg-white/70"
               )}
               onClick={() => goTo(index)}
               type="button"
