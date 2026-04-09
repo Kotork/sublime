@@ -18,6 +18,9 @@ import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 
 const PAGE_SIZE = 10;
 
+const VALID_STATUSES = ["draft", "published", "archived"] as const;
+type PostStatus = (typeof VALID_STATUSES)[number];
+
 const STATUS_VARIANTS: Record<
   string,
   "default" | "secondary" | "outline" | "warning"
@@ -41,6 +44,12 @@ function DashboardBlogListContent() {
   const page = rawPage >= 1 ? Math.floor(rawPage) : 1;
   const offset = (page - 1) * PAGE_SIZE;
 
+  const rawStatus = searchParams.get("status");
+  const statusFilter: PostStatus | undefined =
+    rawStatus && VALID_STATUSES.includes(rawStatus as PostStatus)
+      ? (rawStatus as PostStatus)
+      : undefined;
+
   const statusLabels: Record<string, string> = {
     draft: copy.statusDraft,
     published: copy.statusPublished,
@@ -48,7 +57,11 @@ function DashboardBlogListContent() {
   };
 
   const { data, isLoading } = useQuery(
-    trpc.blog.list.queryOptions({ limit: PAGE_SIZE, offset }),
+    trpc.blog.list.queryOptions({
+      limit: PAGE_SIZE,
+      offset,
+      ...(statusFilter ? { status: statusFilter } : {}),
+    }),
   );
 
   const posts = data?.items ?? [];
@@ -57,12 +70,19 @@ function DashboardBlogListContent() {
 
   useEffect(() => {
     if (!isLoading && total > 0 && page > totalPages) {
-      router.replace(`${pathname}?page=${totalPages}`);
+      const params = new URLSearchParams();
+      params.set("page", String(totalPages));
+      if (statusFilter) params.set("status", statusFilter);
+      router.replace(`${pathname}?${params.toString()}`);
     }
-  }, [isLoading, total, page, totalPages, pathname, router]);
+  }, [isLoading, total, page, totalPages, pathname, router, statusFilter]);
 
-  function pageHref(p: number) {
-    return `${pathname}?page=${p}`;
+  function buildHref(p: number, status?: PostStatus) {
+    const params = new URLSearchParams();
+    if (p > 1) params.set("page", String(p));
+    if (status) params.set("status", status);
+    const qs = params.toString();
+    return qs ? `${pathname}?${qs}` : pathname;
   }
 
   return (
@@ -75,6 +95,32 @@ function DashboardBlogListContent() {
             {copy.newPost}
           </Link>
         </Button>
+      </div>
+
+      <div className="flex gap-2 flex-wrap">
+        {([undefined, ...VALID_STATUSES] as const).map((s) => {
+          const isActive = statusFilter === s;
+          const label =
+            s === undefined
+              ? copy.statusAll
+              : statusLabels[s] ?? s;
+          return (
+            <Button
+              key={s ?? "all"}
+              variant={isActive ? "default" : "outline"}
+              size="sm"
+              className="h-8"
+              asChild={!isActive}
+              disabled={isActive}
+            >
+              {isActive ? (
+                <span>{label}</span>
+              ) : (
+                <Link href={buildHref(1, s)}>{label}</Link>
+              )}
+            </Button>
+          );
+        })}
       </div>
 
       {isLoading && (
@@ -150,7 +196,7 @@ function DashboardBlogListContent() {
                   asChild={page > 1}
                 >
                   {page > 1 ? (
-                    <Link href={pageHref(page - 1)}>
+                    <Link href={buildHref(page - 1, statusFilter)}>
                       <ChevronLeft className="size-4" />
                       {copy.paginationPrevious}
                     </Link>
@@ -169,7 +215,7 @@ function DashboardBlogListContent() {
                   asChild={page < totalPages}
                 >
                   {page < totalPages ? (
-                    <Link href={pageHref(page + 1)}>
+                    <Link href={buildHref(page + 1, statusFilter)}>
                       {copy.paginationNext}
                       <ChevronRight className="size-4" />
                     </Link>
