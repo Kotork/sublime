@@ -10,14 +10,14 @@ const SECTION_IMAGE_SRC =
   "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80";
 
 const SECTION_IMAGE_ALT =
-  "Estrutura metálica em perfis de aço galvanizado em obra, representativa de Light Steel Framing (LSF).";
+  " ICF (Cofragem de Betão Isolamento) combina a solidez do betão armado com o isolamento térmico integrado";
 
-const HEADING_ID = "construcao-lsf-intro-heading";
+const HEADING_ID = "construcao-icf-intro-heading";
 
 const CTA_CLASS =
   "inline-flex h-11 w-full items-center justify-center rounded-md bg-[#165A72] px-8 text-sm font-bold text-white transition-colors hover:bg-[#124a5f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:h-12 sm:w-auto sm:px-10 sm:text-base";
 
-export function ConstrucaoLsfIntro() {
+export function ConstrucaoIcfIntro() {
   return (
     <section aria-labelledby={HEADING_ID} className="w-full bg-background">
       <div
@@ -41,17 +41,18 @@ export function ConstrucaoLsfIntro() {
               className="text-pretty text-xl font-bold uppercase tracking-tight text-foreground md:text-2xl"
               id={HEADING_ID}
             >
-              LSF (LIGHT STEEL FRAMING)
+              ICF (INSULATED CONCRETE FORMS)
             </h2>
             <div className="space-y-4 text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
               <p>
-                O Light Steel Framing é um sistema construtivo industrializado
-                que utiliza perfis de aço galvanizado de alta resistência como
-                estrutura principal. É uma solução leve, rápida e altamente
-                eficiente do ponto de vista energético.
+                O ICF (Cofragem de Betão Isolamento) combina a solidez do betão
+                armado com o isolamento térmico integrado, através de blocos de
+                poliestireno expandido que funcionam simultaneamente como
+                cofragem e isolante.
               </p>
               <p>
-                É ideal para moradias unifamiliares, ampliações e reabilitações.
+                É ideal para moradias, edifícios multifamiliares e construção em
+                zonas urbanas e rurais.
               </p>
             </div>
             <div className="pt-1">

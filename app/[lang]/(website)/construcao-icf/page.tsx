@@ -1,3 +1,9 @@
+import { ConstrucaoIcfComparison } from "@/components/construcao-icf-comparison";
+import { ConstrucaoIcfDualShowcase } from "@/components/construcao-icf-dual-showcase";
+import { ConstrucaoIcfIntro } from "@/components/construcao-icf-intro";
+import { ConstrucaoOds } from '@/components/construcao-ods';
+import { ConstrucaoSustainability } from '@/components/construcao-sustainability';
+import { CtaBanner } from "@/components/cta-banner";
 import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
 import type { Metadata } from "next";
 
@@ -43,11 +49,16 @@ export default function ConstrucaoIcfPage() {
         imageSrc={CONSTRUCAO_ICF_HERO_IMAGE_SRC}
         titleLines={["CONSTRUÇÃO", "EM ICF"]}
       />
-      <div className="mx-auto w-full max-w-3xl px-4 py-12 sm:px-5 md:py-16">
-        <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-          Conteúdo da página em breve.
-        </p>
-      </div>
+      <ConstrucaoIcfIntro />
+      <ConstrucaoIcfComparison />
+      <ConstrucaoIcfDualShowcase />
+      <CtaBanner
+        buttonLabel="Começar"
+        dialogTitle="Pedir orçamento para Construção em ICF"
+        title="Pedir orçamento para Construção em ICF"
+      />
+      <ConstrucaoSustainability />
+      <ConstrucaoOds />
     </main>
   );
 }

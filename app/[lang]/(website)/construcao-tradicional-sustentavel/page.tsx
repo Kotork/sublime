@@ -1,3 +1,9 @@
+import { ConstrucaoCtsDualShowcase } from '@/components/construcao-cts-dual-showcase';
+import { ConstrucaoCtsIntro } from '@/components/construcao-cts-intro';
+import { ConstrucaoCtsWhyChoose } from '@/components/construcao-cts-why-choose';
+import { ConstrucaoOds } from '@/components/construcao-ods';
+import { ConstrucaoSustainability } from '@/components/construcao-sustainability';
+import { CtaBanner } from '@/components/cta-banner';
 import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
 import type { Metadata } from "next";
 
@@ -43,11 +49,16 @@ export default function ConstrucaoTradicionalSustentavelPage() {
         imageSrc={CONSTRUCAO_TRADICIONAL_SUSTENTAVEL_HERO_IMAGE_SRC}
         titleLines={["CONSTRUÇÃO", "TRADICIONAL SUSTENTÁVEL"]}
       />
-      <div className="mx-auto w-full max-w-3xl px-4 py-12 sm:px-5 md:py-16">
-        <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-          Conteúdo da página em breve.
-        </p>
-      </div>
+      <ConstrucaoCtsIntro />
+      <ConstrucaoCtsWhyChoose />
+      <ConstrucaoCtsDualShowcase />
+      <CtaBanner
+        buttonLabel="Começar"
+        dialogTitle="Pedir orçamento para Construção Tradicional Sustentável"
+        title="Pedir orçamento para Construção Tradicional Sustentável"
+      />
+      <ConstrucaoSustainability />
+      <ConstrucaoOds />
     </main>
   );
 }

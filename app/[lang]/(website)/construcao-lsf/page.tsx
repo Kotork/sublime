@@ -1,6 +1,9 @@
 import { ConstrucaoLsfComparison } from "@/components/construcao-lsf-comparison";
 import { ConstrucaoLsfDualShowcase } from "@/components/construcao-lsf-dual-showcase";
 import { ConstrucaoLsfIntro } from "@/components/construcao-lsf-intro";
+import { ConstrucaoOds } from "@/components/construcao-ods";
+import { ConstrucaoSustainability } from "@/components/construcao-sustainability";
+import { CtaBanner } from "@/components/cta-banner";
 import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
 import type { Metadata } from "next";
 
@@ -49,6 +52,13 @@ export default function ConstrucaoLsfPage() {
       <ConstrucaoLsfIntro />
       <ConstrucaoLsfComparison />
       <ConstrucaoLsfDualShowcase />
+      <CtaBanner
+        buttonLabel="Começar"
+        dialogTitle="Pedir orçamento para Construção em LSF"
+        title="Pedir orçamento para Construção em LSF"
+      />
+      <ConstrucaoSustainability />
+      <ConstrucaoOds />
     </main>
   );
 }
