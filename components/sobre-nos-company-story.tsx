@@ -3,8 +3,7 @@ import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 import Image from "next/image";
 
 /** Placeholder — construction professionals at a building site (Unsplash). */
-export const SOBRE_NOS_COMPANY_STORY_IMAGE_SRC =
-  "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=1200";
+export const SOBRE_NOS_COMPANY_STORY_IMAGE_SRC = "/images/sobre-nos/intro.png";
 
 export const SOBRE_NOS_COMPANY_STORY_IMAGE_ALT =
   "Dois profissionais da construção cumprimentam-se num estaleiro de obras, com capacetes de proteção e equipamento de segurança.";
@@ -31,7 +30,7 @@ export function SobreNosCompanyStory() {
           <figure className="relative m-0 aspect-4/3 w-full min-w-0 overflow-hidden rounded-sm">
             <Image
               alt={SOBRE_NOS_COMPANY_STORY_IMAGE_ALT}
-              className="object-cover"
+              className="object-cover rounded-lg"
               fill
               sizes="(min-width: 768px) 42vw, 100vw"
               src={SOBRE_NOS_COMPANY_STORY_IMAGE_SRC}

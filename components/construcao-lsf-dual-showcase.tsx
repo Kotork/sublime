@@ -5,25 +5,20 @@ import Image from "next/image";
 const HEADING_ID = "construcao-lsf-showcase-heading";
 
 /** Interior metal stud / framing — residential-scale LSF context (Unsplash). */
-const SHOWCASE_LEFT_SRC =
-  "https://images.unsplash.com/photo-1768321911446-baeb6c1a673f?w=1200&q=80";
+const SHOWCASE_LEFT_SRC = "/images/services/lsf/detail1.png";
 
 const SHOWCASE_LEFT_ALT =
   "Vista interior de um edifício em construção com estrutura metálica e perfis de enquadramento, ilustrativa de construção leve em aço (LSF) em contexto residencial.";
 
 /** Large-scale steel framework against sky — industrial / engineered steel (Unsplash). */
-const SHOWCASE_RIGHT_SRC =
-  "https://images.unsplash.com/photo-1706552128399-43e2baff0fe5?w=1200&q=80";
+const SHOWCASE_RIGHT_SRC = "/images/services/lsf/detail2.png";
 
 const SHOWCASE_RIGHT_ALT =
   "Estrutura metálica de grande dimensão em obra, vista de baixo para cima com céu azul de fundo, ilustrativa de engenharia e montagem estrutural em aço.";
 
 export function ConstrucaoLsfDualShowcase() {
   return (
-    <section
-      aria-labelledby={HEADING_ID}
-      className="w-full bg-background"
-    >
+    <section aria-labelledby={HEADING_ID} className="w-full bg-background">
       <div
         className={cn(
           "mx-auto w-full px-4 pb-12 sm:px-5 md:pb-16 lg:pb-20",

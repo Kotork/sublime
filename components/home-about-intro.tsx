@@ -43,7 +43,7 @@ export function HomeAboutIntro({ aboutHref }: HomeAboutIntroProps) {
           <div className="relative aspect-4/3 w-full overflow-hidden rounded-none bg-muted md:aspect-auto md:min-h-[280px] lg:min-h-[320px]">
             <Image
               alt={ABOUT_IMAGE_ALT}
-              className="object-cover"
+              className="object-cover rounded-lg"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               src={ABOUT_IMAGE_SRC}

@@ -3,8 +3,7 @@ import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 import Image from "next/image";
 
 /** Placeholder — edifício em construção (Unsplash). */
-export const SOBRE_NOS_MVV_IMAGE_SRC =
-  "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=1200";
+export const SOBRE_NOS_MVV_IMAGE_SRC = "/images/sobre-nos/hero.png";
 
 export const SOBRE_NOS_MVV_IMAGE_ALT =
   "Edifício em construção com estrutura de betão, estaleiro e equipamentos no local da obra.";
@@ -85,10 +84,10 @@ export function SobreNosMissionVisionValues() {
               <SectionHeader index="03" title="VALORES" />
               <ul className="list-disc space-y-2 pl-6 marker:text-primary">
                 <li>Qualidade (rigor em cada detalhe)</li>
+                <li>Compromisso (cumprimos prazos, com total transparência)</li>
                 <li>
-                  Compromisso (cumprimos prazos, com total transparência)
+                  Sustentabilidade (construção com menor impacto ambiental)
                 </li>
-                <li>Sustentabilidade (construção com menor impacto ambiental)</li>
                 <li>Inovação (soluções modernas e mais eficientes)</li>
                 <li>Pessoas (valorizamos a nossa equipa)</li>
               </ul>

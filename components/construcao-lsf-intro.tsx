@@ -7,7 +7,7 @@ import Image from "next/image";
 
 /** Distinct from hero art; steel / light-frame construction context. */
 const SECTION_IMAGE_SRC =
-  "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80";
+  "/images/services/lsf/lsf.png";
 
 const SECTION_IMAGE_ALT =
   "Estrutura metálica em perfis de aço galvanizado em obra, representativa de Light Steel Framing (LSF).";

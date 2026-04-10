@@ -11,8 +11,7 @@ const SERVICES = [
   {
     slug: "construcao-lsf",
     title: "Construção em LSF",
-    imageSrc:
-      "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=900&q=80",
+    imageSrc: "/images/home/lsf.png",
     imageAlt:
       "Estrutura metálica de perfis leves em obra, ilustrativa de construção em LSF (Light Steel Frame).",
   },
@@ -27,8 +26,7 @@ const SERVICES = [
   {
     slug: "construcao-tradicional-sustentavel",
     title: "Construção Tradicional Sustentável",
-    imageSrc:
-      "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=900&q=80",
+    imageSrc: "/images/home/cts.png",
     imageAlt:
       "Alvenaria e acabamentos em obra, representativa de construção tradicional com enfoque sustentável.",
   },
@@ -97,7 +95,7 @@ export function HomeServicesIntro({ lang }: HomeServicesIntroProps) {
                   <div className="relative aspect-square w-full overflow-hidden bg-muted">
                     <Image
                       alt={s.imageAlt}
-                      className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                      className="object-cover transition-transform duration-300 group-hover:scale-[1.02] rounded-lg"
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       src={s.imageSrc}

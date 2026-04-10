@@ -2,8 +2,7 @@ import { cn } from "@/lib/utils";
 import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 import Image from "next/image";
 
-export const SOBRE_NOS_HERO_IMAGE_SRC =
-  "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920&q=80";
+export const SOBRE_NOS_HERO_IMAGE_SRC = "/images/sobre-nos/hero.png";
 
 export const SOBRE_NOS_HERO_IMAGE_ALT =
   "Edifício em construção com gruas contra um céu claro, evocando construção sustentável e responsável";
