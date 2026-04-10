@@ -26,7 +26,7 @@ export default async function Home({
       <Hero />
       <main className="flex flex-1 flex-col gap-12 md:gap-16">
         <HomeValueProposition />
-        <HomeAboutIntro aboutHref={`/${lang}/about-us`} />
+        <HomeAboutIntro aboutHref={`/${lang}/sobre-nos`} />
         <HomeServicesIntro lang={lang} />
         <CtaBanner
           buttonLabel="Peça o seu orçamento"

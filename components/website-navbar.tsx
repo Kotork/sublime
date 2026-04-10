@@ -13,12 +13,17 @@ const SCROLL_DELTA = 6;
 
 const NAV_LINKS = [
   { href: "", label: "Início" },
-  { href: "#projects", label: "Projetos" },
-  { href: "#timelapse", label: "Timelapse" },
-  { href: "#purpose", label: "O nosso propósito" },
-  { href: "#next-gen", label: "Nova geração de edifícios" },
-  { href: "#partnership", label: "Parceria" },
-  { href: "#contact", label: "Contactos" },
+  { href: "/sobre-nos", label: "Sobre nós" },
+  { href: "/construcao-lsf", label: "Construção LSF" },
+  { href: "/construcao-icf", label: "Construção ICF" },
+  {
+    href: "/construcao-tradicional-sustentavel",
+    label: "Construção Tradicional",
+  },
+  { href: "/parceiros", label: "Parceiros" },
+  { href: "/noticias", label: "Notícias" },
+  { href: "/recrutamento", label: "Recrutamento" },
+  { href: "/contactos", label: "Contactos" },
 ] as const;
 
 const SOCIAL_LINKS = [
@@ -113,7 +118,6 @@ export function WebsiteNavbar() {
   }, [menuOpen, closeMenu]);
 
   const pathWithoutLocale = pathname.replace(/^\/[^/]+/, "") || "/";
-  const isHome = pathWithoutLocale === "/";
 
   return (
     <nav
@@ -182,7 +186,8 @@ export function WebsiteNavbar() {
           <ul className="list-none space-y-0 px-4 py-3 pb-0 md:px-5">
             {NAV_LINKS.map((item) => {
               const href = item.href ? `${base}${item.href}` : base;
-              const isCurrent = item.href === "" && isHome;
+              const itemPath = item.href === "" ? "/" : item.href;
+              const isCurrent = pathWithoutLocale === itemPath;
 
               return (
                 <li key={item.label}>
