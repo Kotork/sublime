@@ -1,3 +1,5 @@
+import { ConstrucaoLsfComparison } from "@/components/construcao-lsf-comparison";
+import { ConstrucaoLsfIntro } from "@/components/construcao-lsf-intro";
 import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
 import type { Metadata } from "next";
 
@@ -43,11 +45,8 @@ export default function ConstrucaoLsfPage() {
         imageSrc={CONSTRUCAO_LSF_HERO_IMAGE_SRC}
         titleLines={["CONSTRUÇÃO", "EM LSF"]}
       />
-      <div className="mx-auto w-full max-w-3xl px-4 py-12 sm:px-5 md:py-16">
-        <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-          Conteúdo da página em breve.
-        </p>
-      </div>
+      <ConstrucaoLsfIntro />
+      <ConstrucaoLsfComparison />
     </main>
   );
 }
