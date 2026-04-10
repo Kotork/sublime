@@ -100,7 +100,7 @@ export function LoginForm({
                 {isLoading ? dict.submitting : dict.submit}
               </Button>
             </div>
-            <div className="mt-4 text-center text-sm">
+            {/* <div className="mt-4 text-center text-sm">
               {dict.noAccount}{" "}
               <Link
                 href={`/${lang}/auth/sign-up`}
@@ -108,7 +108,7 @@ export function LoginForm({
               >
                 {dict.signUp}
               </Link>
-            </div>
+            </div> */}
           </form>
         </CardContent>
       </Card>
