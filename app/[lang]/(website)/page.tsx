@@ -1,3 +1,4 @@
+import { CtaBanner } from "@/components/cta-banner";
 import { Hero } from "@/components/hero";
 import { HomeAboutIntro } from "@/components/home-about-intro";
 import { HomeServicesIntro } from "@/components/home-services-intro";
@@ -24,6 +25,11 @@ export default async function Home({
         <HomeValueProposition />
         <HomeAboutIntro aboutHref={`/${lang}/about-us`} />
         <HomeServicesIntro lang={lang} />
+        <CtaBanner
+          buttonLabel="Peça o seu orçamento"
+          dialogTitle="Pedido de orçamento"
+          title="Vai construir ou remodelar casa?"
+        />
       </main>
     </div>
   );
