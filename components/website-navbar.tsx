@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import { getLocaleFromPathname } from "@/lib/utils/pathname";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
@@ -20,20 +21,23 @@ const NAV_LINKS = [
   { href: "#contact", label: "Contactos" },
 ] as const;
 
-function SublimeLogoMark({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden
-      className={cn("shrink-0 text-[#003366]", className)}
-      height={28}
-      viewBox="0 0 40 28"
-      width={40}
-    >
-      <path fill="currentColor" d="M2 4l12 10L2 24V4z" />
-      <path fill="currentColor" d="M16 4l12 10-12 10V4z" />
-    </svg>
-  );
-}
+const SOCIAL_LINKS = [
+  {
+    href: "https://example.com/facebook",
+    label: "Facebook",
+    ariaLabel: "Siga-nos no Facebook",
+  },
+  {
+    href: "https://example.com/instagram",
+    label: "Instagram",
+    ariaLabel: "Siga-nos no Instagram",
+  },
+  {
+    href: "https://example.com/linkedin",
+    label: "LinkedIn",
+    ariaLabel: "Siga-nos no LinkedIn",
+  },
+] as const;
 
 export function WebsiteNavbar() {
   const pathname = usePathname();
@@ -116,7 +120,7 @@ export function WebsiteNavbar() {
       aria-label="Navegação principal"
       className={cn(
         "fixed left-0 top-0 z-50 w-full transition-transform duration-300 ease-out md:w-auto md:max-w-none",
-        isMobileViewport && barHidden && "-translate-y-full md:translate-y-0",
+        isMobileViewport && barHidden && "-translate-y-full md:translate-y-0"
       )}
     >
       <div
@@ -127,14 +131,19 @@ export function WebsiteNavbar() {
           <div className="order-1 flex min-w-0 flex-1 items-center gap-2 md:order-2 md:flex-initial md:gap-3">
             <Link
               aria-label="Sublime — Início"
-              className="flex min-w-0 items-center gap-2 no-underline hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#003366]"
+              className="flex min-w-0 items-center no-underline hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               href={base}
               onClick={closeMenu}
             >
-              <SublimeLogoMark className="h-7 w-10" />
-              <span className="text-lg font-bold tracking-tight text-[#003366]">
-                SUBLIME
-              </span>
+              <Image
+                alt=""
+                className="h-7 w-auto shrink-0 md:h-8"
+                height={56}
+                priority
+                src="/logo.png"
+                // unoptimized
+                width={188}
+              />
             </Link>
 
             <span
@@ -142,7 +151,7 @@ export function WebsiteNavbar() {
               className="hidden h-10 w-px shrink-0 bg-neutral-300 md:block"
             />
 
-            <p className="max-w-36 text-[10px] font-medium leading-tight text-neutral-800 md:text-[11px]">
+            <p className="hidden max-w-36 text-[10px] font-medium leading-tight text-neutral-800 md:block md:text-[11px]">
               Construção sustentável
             </p>
           </div>
@@ -151,7 +160,7 @@ export function WebsiteNavbar() {
             aria-controls={menuId}
             aria-expanded={menuOpen}
             aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
-            className="cursor-pointer order-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-transparent text-[#003366] hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#003366] md:order-1 md:h-10 md:w-10"
+            className="cursor-pointer order-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-transparent text-primary hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:order-1 md:h-10 md:w-10"
             onClick={() => setMenuOpen((o) => !o)}
             type="button"
           >
@@ -166,11 +175,11 @@ export function WebsiteNavbar() {
         <div
           className={cn(
             "overflow-hidden border-t border-neutral-200 transition-[max-height] duration-300 ease-out md:min-w-[280px]",
-            menuOpen ? "max-h-[min(70vh,520px)]" : "max-h-0 border-t-0",
+            menuOpen ? "max-h-[min(70vh,560px)]" : "max-h-0 border-t-0"
           )}
           id={menuId}
         >
-          <ul className="list-none space-y-0 px-4 py-3 pb-5 md:px-5">
+          <ul className="list-none space-y-0 px-4 py-3 pb-0 md:px-5">
             {NAV_LINKS.map((item) => {
               const href = item.href ? `${base}${item.href}` : base;
               const isCurrent = item.href === "" && isHome;
@@ -179,7 +188,7 @@ export function WebsiteNavbar() {
                 <li key={item.label}>
                   <Link
                     aria-current={isCurrent ? "page" : undefined}
-                    className="block py-2.5 text-sm font-bold text-neutral-900 no-underline hover:text-[#003366] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#003366]"
+                    className="uppercase block py-1.5 text-sm font-bold text-neutral-900 no-underline hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                     href={href}
                     onClick={closeMenu}
                   >
@@ -189,6 +198,31 @@ export function WebsiteNavbar() {
               );
             })}
           </ul>
+          <div className="px-4 pb-5 pt-12 md:px-5">
+            <hr className="mb-6 border-0 border-t border-neutral-200" />
+            <section aria-labelledby="navbar-follow-heading">
+              <h2
+                className="mb-3 text-sm font-bold uppercase italic tracking-wide text-neutral-900"
+                id="navbar-follow-heading"
+              >
+                Siga-nos
+              </h2>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                {SOCIAL_LINKS.map((item) => (
+                  <a
+                    aria-label={item.ariaLabel}
+                    className="py-2 text-xs font-bold uppercase italic tracking-wide text-neutral-900 no-underline hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                    href={item.href}
+                    key={item.href}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     </nav>
