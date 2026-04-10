@@ -1,3 +1,6 @@
+import { ImageFull } from "@/components/image-full";
+import { ParceirosPartnerCta } from "@/components/parceiros-partner-cta";
+import { ParceirosPartnersIntro } from "@/components/parceiros-partners-intro";
 import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
 import type { Metadata } from "next";
 
@@ -43,11 +46,12 @@ export default function ParceirosPage() {
         imageSrc={PARCEIROS_HERO_IMAGE_SRC}
         titleLines={["RELAÇÕES", "DE CONFIANÇA"]}
       />
-      <div className="mx-auto w-full max-w-3xl px-4 py-12 sm:px-5 md:py-16">
-        <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-          Conteúdo da página em breve.
-        </p>
-      </div>
+      <ParceirosPartnersIntro />
+      <ImageFull
+        alt="Imagem de pessoas a trabalhar numa obra em equipa."
+        src="/images/parceiros/parceiros-full-width.png"
+      />
+      <ParceirosPartnerCta />
     </main>
   );
 }

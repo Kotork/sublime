@@ -4,7 +4,9 @@ import type { Locale } from "@/lib/i18n/locale";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Badge } from "@/ui/badge";
+import CenterSection from "@/components/center-section";
+import { ChevronRight } from "lucide-react";
+import { CtaBannerAlt } from "@/components/cta-banner-alt";
 
 export const NOTICIAS_HERO_IMAGE_SRC =
   "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1920&q=80";
@@ -48,11 +50,6 @@ type Post = {
   locale: string;
 };
 
-type PostTag = {
-  post_id: string;
-  tags: { slug: string } | null;
-};
-
 export default async function NoticiasIndex({
   params,
 }: {
@@ -68,24 +65,6 @@ export default async function NoticiasIndex({
     .eq("status", "published")
     .order("published_at", { ascending: false })
     .returns<Post[]>();
-
-  const postIds = (posts ?? []).map((p) => p.id);
-  let tagMap: Record<string, string[]> = {};
-  if (postIds.length > 0) {
-    const { data: tagRows } = await supabase
-      .from("blog_post_tags")
-      .select("post_id, tags(slug)")
-      .in("post_id", postIds)
-      .returns<PostTag[]>();
-
-    tagMap = (tagRows ?? []).reduce<Record<string, string[]>>((acc, row) => {
-      const slug = row.tags?.slug;
-      if (slug) {
-        (acc[row.post_id] ??= []).push(slug);
-      }
-      return acc;
-    }, {});
-  }
 
   const hero = (
     <WebsiteSplitPageHero
@@ -111,64 +90,72 @@ export default async function NoticiasIndex({
   return (
     <main>
       {hero}
+      <CenterSection
+        srTitle="Na SublimePT, cada projeto conta uma história. Aqui partilhamos novidades, conquistas e evolução contínua num setor em constante transformação."
+        description="Na SublimePT, cada projeto conta uma história. Aqui partilhamos novidades, conquistas e evolução contínua num setor em constante transformação."
+      />
       <div className="py-8">
-        <div className="grid gap-6 sm:grid-cols-2">
-          {posts.map((post) => (
-            <Link
-              key={post.id}
-              href={`/${lang}/noticias/${post.slug}`}
-              className="group block overflow-hidden rounded-xl border bg-card transition-colors hover:border-foreground/20"
-            >
-              <article>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post) => {
+            const postHref = `/${lang}/noticias/${post.slug}`;
+            return (
+              <article
+                key={post.id}
+                className="overflow-hidden rounded-xl border bg-card transition-colors hover:border-foreground/20"
+              >
                 {post.main_image_url && (
                   <div className="relative aspect-16/10 w-full bg-muted">
                     <Image
                       src={post.main_image_url}
                       alt={post.title}
                       fill
-                      sizes="(max-width: 640px) 100vw, 50vw"
+                      sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
                       className="object-cover"
                     />
                   </div>
                 )}
                 <div className={post.main_image_url ? "p-6 pt-5" : "p-6"}>
-                  <h2 className="mb-2 text-lg font-semibold transition-colors group-hover:text-primary">
+                  {post.published_at && (
+                    <time
+                      className="mb-2 block text-xs text-muted-foreground"
+                      dateTime={post.published_at}
+                    >
+                      {new Date(post.published_at).toLocaleDateString(
+                        lang as Locale,
+                        { year: "numeric", month: "long", day: "numeric" }
+                      )}
+                    </time>
+                  )}
+                  <h2 className="mb-2 text-lg font-semibold text-foreground">
                     {post.title}
                   </h2>
                   {post.excerpt && (
-                    <p className="mb-3 line-clamp-2 text-sm text-muted-foreground">
+                    <p className="mb-4 line-clamp-2 text-sm text-muted-foreground">
                       {post.excerpt}
                     </p>
                   )}
-                  <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
-                    {post.published_at && (
-                      <time dateTime={post.published_at}>
-                        {new Date(post.published_at).toLocaleDateString(
-                          lang as Locale,
-                          { year: "numeric", month: "long", day: "numeric" },
-                        )}
-                      </time>
-                    )}
-                    {(tagMap[post.id] ?? []).length > 0 && (
-                      <div className="flex flex-wrap gap-1">
-                        {tagMap[post.id].map((tag) => (
-                          <Badge
-                            key={tag}
-                            variant="secondary"
-                            className="px-1.5 py-0 text-[10px]"
-                          >
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                  <Link
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    href={postHref}
+                  >
+                    <ChevronRight
+                      aria-hidden
+                      className="size-4 shrink-0"
+                      strokeWidth={2}
+                    />
+                    Ler Mais
+                  </Link>
                 </div>
               </article>
-            </Link>
-          ))}
+            );
+          })}
         </div>
       </div>
+      <CtaBannerAlt
+        buttonLabel="Peça o seu orçamento"
+        dialogTitle="Pedido de orçamento"
+        title="Vai construir ou remodelar casa?"
+      />
     </main>
   );
 }

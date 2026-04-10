@@ -5,7 +5,7 @@ import {
   SOBRE_NOS_HERO_IMAGE_SRC,
 } from "@/components/sobre-nos-hero";
 import type { Metadata } from "next";
-import CenterSection from "./components/center-section";
+import CenterSection from "../../../../components/center-section";
 import { CtaBanner } from "@/components/cta-banner";
 import { ImageFull } from "@/components/image-full";
 import { SobreNosDifferentiators } from "@/components/sobre-nos-differentiators";

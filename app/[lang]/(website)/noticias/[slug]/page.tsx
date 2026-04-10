@@ -1,6 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
 import { LexicalRenderer } from "@/components/blog/lexical-renderer";
-import { Badge } from "@/ui/badge";
 import type { Locale } from "@/lib/i18n/locale";
 import type { Metadata } from "next";
 import type { SerializedEditorState } from "lexical";
@@ -20,10 +19,6 @@ type Post = {
   published_at: string | null;
   locale: string;
   status: string;
-};
-
-type PostTag = {
-  tags: { slug: string } | null;
 };
 
 async function getPost(lang: string, slug: string) {
@@ -89,17 +84,6 @@ export default async function NoticiaPostPage({
     notFound();
   }
 
-  const supabase = await createClient();
-  const { data: tagRows } = await supabase
-    .from("blog_post_tags")
-    .select("tags(slug)")
-    .eq("post_id", post.id)
-    .returns<PostTag[]>();
-
-  const tags = (tagRows ?? [])
-    .map((r) => r.tags?.slug)
-    .filter((s): s is string => Boolean(s));
-
   const backLabel = lang === "pt" ? "← Voltar às notícias" : "← Back to news";
 
   return (
@@ -127,8 +111,8 @@ export default async function NoticiaPostPage({
             />
           </div>
         )}
-        <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-          {post.published_at && (
+        {post.published_at && (
+          <div className="text-sm text-muted-foreground">
             <time dateTime={post.published_at}>
               {new Date(post.published_at).toLocaleDateString(lang as Locale, {
                 year: "numeric",
@@ -136,17 +120,8 @@ export default async function NoticiaPostPage({
                 day: "numeric",
               })}
             </time>
-          )}
-          {tags.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {tags.map((tag) => (
-                <Badge key={tag} variant="secondary">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </header>
 
       <LexicalRenderer content={post.body} />
