@@ -6,8 +6,8 @@ import Link from "next/link";
 import { Badge } from "@/ui/badge";
 
 export const metadata: Metadata = {
-  title: "Blog",
-  description: "Latest articles and updates.",
+  title: "Notícias",
+  description: "Últimas notícias e atualizações da SublimePT.",
 };
 
 type Post = {
@@ -25,7 +25,7 @@ type PostTag = {
   tags: { slug: string } | null;
 };
 
-export default async function BlogIndex({
+export default async function NoticiasIndex({
   params,
 }: {
   params: Promise<{ lang: string }>;
@@ -62,25 +62,25 @@ export default async function BlogIndex({
   if (!posts || posts.length === 0) {
     return (
       <div className="py-20 text-center text-muted-foreground">
-        <h1 className="text-3xl font-bold mb-4 text-foreground">Blog</h1>
-        <p>No posts yet. Check back soon!</p>
+        <h1 className="mb-4 text-3xl font-bold text-foreground">Notícias</h1>
+        <p>Ainda não há notícias publicadas.</p>
       </div>
     );
   }
 
   return (
     <div className="py-8">
-      <h1 className="text-3xl font-bold mb-8">Blog</h1>
+      <h1 className="mb-8 text-3xl font-bold">Notícias</h1>
       <div className="grid gap-6 sm:grid-cols-2">
         {posts.map((post) => (
           <Link
             key={post.id}
-            href={`/${lang}/blog/${post.slug}`}
-            className="group block rounded-xl border bg-card overflow-hidden transition-colors hover:border-foreground/20"
+            href={`/${lang}/noticias/${post.slug}`}
+            className="group block overflow-hidden rounded-xl border bg-card transition-colors hover:border-foreground/20"
           >
             <article>
               {post.main_image_url && (
-                <div className="relative aspect-[16/10] w-full bg-muted">
+                <div className="relative aspect-16/10 w-full bg-muted">
                   <Image
                     src={post.main_image_url}
                     alt={post.title}
@@ -91,33 +91,37 @@ export default async function BlogIndex({
                 </div>
               )}
               <div className={post.main_image_url ? "p-6 pt-5" : "p-6"}>
-              <h2 className="text-lg font-semibold group-hover:text-primary transition-colors mb-2">
-                {post.title}
-              </h2>
-              {post.excerpt && (
-                <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
-                  {post.excerpt}
-                </p>
-              )}
-              <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                {post.published_at && (
-                  <time dateTime={post.published_at}>
-                    {new Date(post.published_at).toLocaleDateString(
-                      lang as Locale,
-                      { year: "numeric", month: "long", day: "numeric" },
-                    )}
-                  </time>
+                <h2 className="mb-2 text-lg font-semibold transition-colors group-hover:text-primary">
+                  {post.title}
+                </h2>
+                {post.excerpt && (
+                  <p className="mb-3 line-clamp-2 text-sm text-muted-foreground">
+                    {post.excerpt}
+                  </p>
                 )}
-                {(tagMap[post.id] ?? []).length > 0 && (
-                  <div className="flex gap-1 flex-wrap">
-                    {tagMap[post.id].map((tag) => (
-                      <Badge key={tag} variant="secondary" className="text-[10px] px-1.5 py-0">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                )}
-              </div>
+                <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+                  {post.published_at && (
+                    <time dateTime={post.published_at}>
+                      {new Date(post.published_at).toLocaleDateString(
+                        lang as Locale,
+                        { year: "numeric", month: "long", day: "numeric" },
+                      )}
+                    </time>
+                  )}
+                  {(tagMap[post.id] ?? []).length > 0 && (
+                    <div className="flex flex-wrap gap-1">
+                      {tagMap[post.id].map((tag) => (
+                        <Badge
+                          key={tag}
+                          variant="secondary"
+                          className="px-1.5 py-0 text-[10px]"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </article>
           </Link>

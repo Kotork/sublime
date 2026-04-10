@@ -1,6 +1,7 @@
 import { CtaBanner } from "@/components/cta-banner";
 import { Hero } from "@/components/hero";
 import { HomeAboutIntro } from "@/components/home-about-intro";
+import { HomeNewsIntro } from "@/components/home-news-intro";
 import { HomePartnersIntro } from "@/components/home-partners-intro";
 import { HomeServicesIntro } from "@/components/home-services-intro";
 import { HomeValueProposition } from "@/components/home-value-proposition";
@@ -32,6 +33,7 @@ export default async function Home({
           title="Vai construir ou remodelar casa?"
         />
         <HomePartnersIntro lang={lang} />
+        <HomeNewsIntro lang={lang} />
       </main>
     </div>
   );

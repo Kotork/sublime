@@ -48,7 +48,7 @@ export async function generateMetadata({
   const { lang, slug } = await params;
   const post = await getPost(lang, slug);
   if (!post) {
-    return { title: "Post not found" };
+    return { title: "Notícia não encontrada" };
   }
   const ogImage = post.main_image_url
     ? [{ url: post.main_image_url, alt: post.title }]
@@ -72,12 +72,12 @@ export async function generateMetadata({
       images: post.main_image_url ? [post.main_image_url] : undefined,
     },
     alternates: {
-      canonical: `/${lang}/blog/${slug}`,
+      canonical: `/${lang}/noticias/${slug}`,
     },
   };
 }
 
-export default async function BlogPostPage({
+export default async function NoticiaPostPage({
   params,
 }: {
   params: Promise<Params>;
@@ -100,21 +100,23 @@ export default async function BlogPostPage({
     .map((r) => r.tags?.slug)
     .filter((s): s is string => Boolean(s));
 
+  const backLabel = lang === "pt" ? "← Voltar às notícias" : "← Back to news";
+
   return (
-    <article className="py-8 max-w-3xl mx-auto">
+    <article className="mx-auto max-w-3xl py-8">
       <div className="mb-8">
         <Link
-          href={`/${lang}/blog`}
-          className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          href={`/${lang}/noticias`}
+          className="text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
-          &larr; Back to blog
+          {backLabel}
         </Link>
       </div>
 
       <header className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold mb-3">{post.title}</h1>
+        <h1 className="mb-3 text-3xl font-bold md:text-4xl">{post.title}</h1>
         {post.main_image_url && (
-          <div className="relative aspect-video w-full max-w-3xl mb-6 rounded-xl overflow-hidden bg-muted">
+          <div className="relative mb-6 aspect-video w-full max-w-3xl overflow-hidden rounded-xl bg-muted">
             <Image
               src={post.main_image_url}
               alt={post.title}
@@ -125,7 +127,7 @@ export default async function BlogPostPage({
             />
           </div>
         )}
-        <div className="flex items-center gap-3 text-sm text-muted-foreground flex-wrap">
+        <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
           {post.published_at && (
             <time dateTime={post.published_at}>
               {new Date(post.published_at).toLocaleDateString(lang as Locale, {
@@ -136,7 +138,7 @@ export default async function BlogPostPage({
             </time>
           )}
           {tags.length > 0 && (
-            <div className="flex gap-1.5 flex-wrap">
+            <div className="flex flex-wrap gap-1.5">
               {tags.map((tag) => (
                 <Badge key={tag} variant="secondary">
                   {tag}
