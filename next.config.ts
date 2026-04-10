@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "open-sdg.org",
+        pathname: "/sdg-translations/assets/img/goals/**",
+      },
     ],
   },
 };

@@ -1,5 +1,6 @@
 import { Hero } from "@/components/hero";
 import { HomeAboutIntro } from "@/components/home-about-intro";
+import { HomeServicesIntro } from "@/components/home-services-intro";
 import { HomeValueProposition } from "@/components/home-value-proposition";
 import type { Locale } from "@/lib/i18n/locale";
 import { isValidLocale } from "@/lib/i18n/locale";
@@ -22,6 +23,7 @@ export default async function Home({
       <main className="flex flex-1 flex-col gap-12 md:gap-16">
         <HomeValueProposition />
         <HomeAboutIntro aboutHref={`/${lang}/about-us`} />
+        <HomeServicesIntro lang={lang} />
       </main>
     </div>
   );
