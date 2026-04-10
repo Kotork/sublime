@@ -7,10 +7,10 @@ import { CircleMinus, CirclePlus, type LucideIcon } from "lucide-react";
 const HEADING_ID = "construcao-lsf-comparison-heading";
 
 const COLUMN_TITLE_CLASS =
-  "mb-3 text-sm font-bold uppercase tracking-tight text-foreground md:mb-4 md:text-base";
+  "mb-2 text-sm font-bold uppercase tracking-tight text-foreground md:text-base";
 
 const LIST_CLASS =
-  "list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground marker:text-foreground md:text-base";
+  "list-none space-y-2 text-sm leading-relaxed text-muted-foreground md:text-base";
 
 type ComparisonBlock = {
   categoryId: string;
@@ -67,10 +67,10 @@ function ComparisonTable({
       )}
       role="group"
     >
-      <div className="flex flex-row items-start gap-3 md:flex-col md:gap-4">
+      <div className="flex flex-row items-start gap-2 md:flex-col">
         <Icon
           aria-hidden
-          className="size-9 shrink-0 text-foreground stroke-[1.5] md:size-10"
+          className="size-6 shrink-0 text-foreground stroke-1 "
         />
         <h3
           className="text-sm font-bold uppercase tracking-tight text-foreground md:text-base"

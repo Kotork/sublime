@@ -1,4 +1,5 @@
 import { ConstrucaoLsfComparison } from "@/components/construcao-lsf-comparison";
+import { ConstrucaoLsfDualShowcase } from "@/components/construcao-lsf-dual-showcase";
 import { ConstrucaoLsfIntro } from "@/components/construcao-lsf-intro";
 import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
 import type { Metadata } from "next";
@@ -47,6 +48,7 @@ export default function ConstrucaoLsfPage() {
       />
       <ConstrucaoLsfIntro />
       <ConstrucaoLsfComparison />
+      <ConstrucaoLsfDualShowcase />
     </main>
   );
 }
