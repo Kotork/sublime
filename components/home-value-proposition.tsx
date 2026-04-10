@@ -1,9 +1,6 @@
 import { cn } from "@/lib/utils";
 import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 
-const VALUE_PROPOSITION =
-  "Damos forma ao futuro da construção. Com soluções modernas e eficientes, a SublimePT destaca-se pela inovação, sustentabilidade e compromisso com cada projeto.";
-
 /**
  * Centered value proposition between the hero and subsequent page sections.
  * Uses a screen-reader heading for document outline and accessibility.
@@ -24,7 +21,9 @@ export function HomeValueProposition() {
           Compromisso da SublimePT com a construção sustentável
         </h2>
         <p className="mx-auto max-w-3xl text-pretty text-base leading-relaxed text-foreground md:text-lg">
-          {VALUE_PROPOSITION}
+          Damos forma ao futuro da construção. Com soluções modernas e
+          eficientes, a SublimePT destaca-se pela inovação, sustentabilidade e
+          compromisso com cada projeto.
         </p>
       </div>
     </section>
