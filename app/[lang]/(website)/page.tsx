@@ -1,14 +1,27 @@
 import { Hero } from "@/components/hero";
+import { HomeAboutIntro } from "@/components/home-about-intro";
 import { HomeValueProposition } from "@/components/home-value-proposition";
+import type { Locale } from "@/lib/i18n/locale";
+import { isValidLocale } from "@/lib/i18n/locale";
+import { notFound } from "next/navigation";
 
-export default function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang: langParam } = await params;
+  if (!isValidLocale(langParam)) {
+    notFound();
+  }
+  const lang = langParam as Locale;
+
   return (
     <div className="flex flex-col gap-12 md:gap-16">
       <Hero />
-      <HomeValueProposition />
-      <main className="flex flex-1 flex-col gap-6 px-4">
-        <h2 className="font-medium text-xl mb-4">Next steps</h2>
-        <p>Placeholder</p>
+      <main className="flex flex-1 flex-col gap-12 md:gap-16">
+        <HomeValueProposition />
+        <HomeAboutIntro aboutHref={`/${lang}/about-us`} />
       </main>
     </div>
   );
