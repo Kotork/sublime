@@ -88,7 +88,7 @@ export function WebsiteSplitPageHero({
               HERO_INNER_PADDING
             )}
           >
-            <div className="max-w-[720px]">
+            <div className="max-w-[720px] lg:max-w-[1024px]">
               {otherTitleLines.map((line, index) => (
                 <span
                   className={TITLE_CLASS}
