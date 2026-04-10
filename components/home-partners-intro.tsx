@@ -5,33 +5,9 @@ import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-/** Placeholder imagery evoking construction partners; replace with real logos when available. */
-const PARTNER_PLACEHOLDERS = [
-  {
-    imageSrc:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80",
-    imageAlt:
-      "Imagem representativa de parceiro — edifícios e ambiente corporativo (placeholder de logótipo).",
-  },
-  {
-    imageSrc:
-      "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&q=80",
-    imageAlt:
-      "Imagem representativa de parceiro — obra e equipamento de construção (placeholder de logótipo).",
-  },
-  {
-    imageSrc:
-      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80",
-    imageAlt:
-      "Imagem representativa de parceiro — estruturas e engenharia (placeholder de logótipo).",
-  },
-  {
-    imageSrc:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80",
-    imageAlt:
-      "Imagem representativa de parceiro — projeto residencial (placeholder de logótipo).",
-  },
-] as const;
+/** Placeholder tiles: Sublime logo repeated until real partner logos are available. */
+const PARTNER_LOGO_SRC = "/logo.png";
+const PARTNER_PLACEHOLDER_COUNT = 4;
 
 type HomePartnersIntroProps = {
   lang: Locale;
@@ -60,21 +36,26 @@ export function HomePartnersIntro({ lang }: HomePartnersIntroProps) {
         </h2>
 
         <p className="sr-only">
-          Marcas e organizações parceiras da SublimePT (imagens de exemplo).
+          Marcas e organizações parceiras da SublimePT (logótipo repetido como
+          marcador de posição).
         </p>
 
         <ul className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4 md:gap-6">
-          {PARTNER_PLACEHOLDERS.map((partner, index) => (
-            <li key={partner.imageSrc}>
+          {Array.from({ length: PARTNER_PLACEHOLDER_COUNT }, (_, index) => (
+            <li key={index}>
               <figure className="m-0">
                 <div className="relative aspect-3/2 w-full overflow-hidden rounded-lg bg-muted">
-                  <Image
-                    alt={`${partner.imageAlt} Parceiro ${index + 1} de ${PARTNER_PLACEHOLDERS.length}.`}
-                    className="object-cover"
-                    fill
-                    sizes="(max-width: 640px) 50vw, 25vw"
-                    src={partner.imageSrc}
-                  />
+                  <div className="absolute inset-0 p-4 sm:p-5 md:p-6">
+                    <div className="relative h-full w-full">
+                      <Image
+                        alt={`Logótipo SublimePT (placeholder). Parceiro ${index + 1} de ${PARTNER_PLACEHOLDER_COUNT}.`}
+                        className="object-contain"
+                        fill
+                        sizes="(max-width: 640px) 50vw, 25vw"
+                        src={PARTNER_LOGO_SRC}
+                      />
+                    </div>
+                  </div>
                 </div>
               </figure>
             </li>
