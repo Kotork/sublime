@@ -11,7 +11,8 @@
       "submitting": "Signing in...",
       "noAccount": "Don't have an account?",
       "signUp": "Sign up",
-      "genericError": "Something went wrong"
+      "genericError": "Something went wrong",
+      "backToWebsite": "Back to website"
     },
     "error": {
       "title": "Sorry, something went wrong.",

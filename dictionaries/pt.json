@@ -11,7 +11,8 @@
       "submitting": "A iniciar sessão...",
       "noAccount": "Não tem uma conta?",
       "signUp": "Registar-se",
-      "genericError": "Ocorreu um erro"
+      "genericError": "Ocorreu um erro",
+      "backToWebsite": "Voltar ao site"
     },
     "error": {
       "title": "Desculpe, algo correu mal.",

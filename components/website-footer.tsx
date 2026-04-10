@@ -94,7 +94,7 @@ export function WebsiteFooter({ lang }: { lang: Locale }) {
           </p>
           <Link
             className="justify-self-center text-[10px] font-medium tracking-wide text-white underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:text-xs"
-            href={`${base}/dashboard`}
+            href={`${base}/auth/login`}
           >
             Area reservada
           </Link>
