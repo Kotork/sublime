@@ -1,5 +1,10 @@
+import CenterSection from "@/components/center-section";
+import { ContactosContactSection } from "@/components/contactos-contact-section";
+import { HomeNewsletter } from '@/components/home-newsletter';
 import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
+import { isValidLocale } from "@/lib/i18n/locale";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 export const CONTACTOS_HERO_IMAGE_SRC =
   "https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=1920&q=80";
@@ -33,7 +38,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactosPage() {
+export default async function ContactosPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang: langParam } = await params;
+  if (!isValidLocale(langParam)) {
+    notFound();
+  }
+
   return (
     <main>
       <WebsiteSplitPageHero
@@ -43,11 +57,12 @@ export default function ContactosPage() {
         imageSrc={CONTACTOS_HERO_IMAGE_SRC}
         titleLines={["FALE COM A", "NOSSA EQUIPA"]}
       />
-      <div className="mx-auto w-full max-w-3xl px-4 py-12 sm:px-5 md:py-16">
-        <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-          Conteúdo da página em breve.
-        </p>
-      </div>
+      <CenterSection
+        srTitle="Na SublimePT, valorizamos a proximidade com os nossos clientes. Entre em contacto connosco para obter informações, esclarecer dúvidas ou dar vida ao seu projeto."
+        description="Na SublimePT, valorizamos a proximidade com os nossos clientes. Entre em contacto connosco para obter informações, esclarecer dúvidas ou dar vida ao seu projeto."
+      />
+      <ContactosContactSection />
+      <HomeNewsletter lang={"pt"} />
     </main>
   );
 }

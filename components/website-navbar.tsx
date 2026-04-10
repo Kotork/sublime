@@ -1,5 +1,6 @@
 "use client";
 
+import { WEBSITE_SOCIAL_LINKS } from "@/lib/social-links";
 import { cn } from "@/lib/utils";
 import { getLocaleFromPathname } from "@/lib/utils/pathname";
 import { Menu, X } from "lucide-react";
@@ -24,24 +25,6 @@ const NAV_LINKS = [
   { href: "/noticias", label: "Notícias" },
   { href: "/recrutamento", label: "Recrutamento" },
   { href: "/contactos", label: "Contactos" },
-] as const;
-
-const SOCIAL_LINKS = [
-  {
-    href: "https://example.com/facebook",
-    label: "Facebook",
-    ariaLabel: "Siga-nos no Facebook",
-  },
-  {
-    href: "https://example.com/instagram",
-    label: "Instagram",
-    ariaLabel: "Siga-nos no Instagram",
-  },
-  {
-    href: "https://example.com/linkedin",
-    label: "LinkedIn",
-    ariaLabel: "Siga-nos no LinkedIn",
-  },
 ] as const;
 
 export function WebsiteNavbar() {
@@ -213,7 +196,7 @@ export function WebsiteNavbar() {
                 Siga-nos
               </h2>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                {SOCIAL_LINKS.map((item) => (
+                {WEBSITE_SOCIAL_LINKS.map((item) => (
                   <a
                     aria-label={item.ariaLabel}
                     className="py-2 text-xs font-bold uppercase italic tracking-wide text-neutral-900 no-underline hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
