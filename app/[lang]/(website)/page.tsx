@@ -1,6 +1,7 @@
 import { CtaBanner } from "@/components/cta-banner";
 import { Hero } from "@/components/hero";
 import { HomeAboutIntro } from "@/components/home-about-intro";
+import { HomePartnersIntro } from "@/components/home-partners-intro";
 import { HomeServicesIntro } from "@/components/home-services-intro";
 import { HomeValueProposition } from "@/components/home-value-proposition";
 import type { Locale } from "@/lib/i18n/locale";
@@ -30,6 +31,7 @@ export default async function Home({
           dialogTitle="Pedido de orçamento"
           title="Vai construir ou remodelar casa?"
         />
+        <HomePartnersIntro lang={lang} />
       </main>
     </div>
   );
