@@ -4,11 +4,10 @@ import {
   SOBRE_NOS_HERO_IMAGE_ALT,
   SOBRE_NOS_HERO_IMAGE_SRC,
 } from "@/components/sobre-nos-hero";
-import { cn } from "@/lib/utils";
-import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 import type { Metadata } from "next";
-import CenterSection from './components/center-section';
-import { CtaBanner } from '@/components/cta-banner';
+import CenterSection from "./components/center-section";
+import { CtaBanner } from "@/components/cta-banner";
+import { SobreNosMissionVisionValues } from "@/components/sobre-nos-mission-vision-values";
 
 const PAGE_DESCRIPTION =
   "Conheça a SublimePT: construímos hoje as casas responsáveis de amanhã — construção civil sustentável, moradias e remodelação.";
@@ -54,6 +53,11 @@ export default function AboutUsPage() {
           buttonLabel="Peça o seu orçamento"
           dialogTitle="Pedido de orçamento"
           title="Vai construir ou remodelar casa?"
+        />
+        <SobreNosMissionVisionValues />
+        <CenterSection
+          srTitle="Nossa presença principalmente em Coimbra e na Região Centro de Portugal"
+          description="Com presença principalmente em Coimbra e na Região Centro de Portugal, asseguramos um acompanhamento próximo e um profundo conhecimento do mercado local, criando relações de confiança duradouras com clientes particulares, investidores e empresas"
         />
       </main>
     </div>
