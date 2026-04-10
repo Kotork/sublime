@@ -59,7 +59,7 @@ export async function HomeNewsIntro({ lang }: HomeNewsIntroProps) {
     >
       <div
         className={cn(
-          "mx-auto px-4 pb-16 sm:px-5 md:pb-20 lg:pb-24",
+          "mx-auto px-4",
           WEBSITE_CONTENT_COLUMN_CLASS
         )}
       >
