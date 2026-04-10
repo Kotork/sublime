@@ -7,7 +7,12 @@ import {
 import type { Metadata } from "next";
 import CenterSection from "./components/center-section";
 import { CtaBanner } from "@/components/cta-banner";
+import { ImageFull } from "@/components/image-full";
+import { SobreNosDifferentiators } from "@/components/sobre-nos-differentiators";
 import { SobreNosMissionVisionValues } from "@/components/sobre-nos-mission-vision-values";
+import type { Locale } from "@/lib/i18n/locale";
+import { isValidLocale } from "@/lib/i18n/locale";
+import { notFound } from "next/navigation";
 
 const PAGE_DESCRIPTION =
   "Conheça a SublimePT: construímos hoje as casas responsáveis de amanhã — construção civil sustentável, moradias e remodelação.";
@@ -35,7 +40,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutUsPage() {
+export default async function AboutUsPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang: langParam } = await params;
+  if (!isValidLocale(langParam)) {
+    notFound();
+  }
+  const lang = langParam as Locale;
+
   return (
     <div>
       <SobreNosHero />
@@ -59,6 +74,11 @@ export default function AboutUsPage() {
           srTitle="Nossa presença principalmente em Coimbra e na Região Centro de Portugal"
           description="Com presença principalmente em Coimbra e na Região Centro de Portugal, asseguramos um acompanhamento próximo e um profundo conhecimento do mercado local, criando relações de confiança duradouras com clientes particulares, investidores e empresas"
         />
+        <ImageFull
+          alt="Equipa de trabalhadores da construção com coletes de alta visibilidade e capacetes a trabalhar betão fresco numa grande obra."
+          src="/images/sobre-nos-full-width.png"
+        />
+        <SobreNosDifferentiators contactHref={`/${lang}/contactos`} />
       </main>
     </div>
   );
