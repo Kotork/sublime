@@ -1,6 +1,10 @@
 import { createClient } from "@/lib/supabase/server";
 import { LexicalRenderer } from "@/components/blog/lexical-renderer";
+import { CtaBannerAlt } from "@/components/cta-banner-alt";
 import type { Locale } from "@/lib/i18n/locale";
+import { isValidLocale } from "@/lib/i18n/locale";
+import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
+import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import type { SerializedEditorState } from "lexical";
 import Image from "next/image";
@@ -77,7 +81,12 @@ export default async function NoticiaPostPage({
 }: {
   params: Promise<Params>;
 }) {
-  const { lang, slug } = await params;
+  const { lang: langParam, slug } = await params;
+  if (!isValidLocale(langParam)) {
+    notFound();
+  }
+  const lang = langParam as Locale;
+
   const post = await getPost(lang, slug);
 
   if (!post) {
@@ -87,44 +96,69 @@ export default async function NoticiaPostPage({
   const backLabel = lang === "pt" ? "← Voltar às notícias" : "← Back to news";
 
   return (
-    <article className="mx-auto max-w-3xl py-8">
-      <div className="mb-8">
-        <Link
-          href={`/${lang}/noticias`}
-          className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+    <main className="flex w-full flex-1 flex-col">
+      <article className="w-full bg-background">
+        <div
+          className={cn(
+            "mx-auto w-full px-4 py-12 sm:px-5 md:py-16 lg:py-20",
+            WEBSITE_CONTENT_COLUMN_CLASS
+          )}
         >
-          {backLabel}
-        </Link>
-      </div>
+          <div className="mx-auto max-w-3xl">
+            <nav aria-label={lang === "pt" ? "Navegação da notícia" : "Article"}>
+              <Link
+                className="mb-8 inline-block text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                href={`/${lang}/noticias`}
+              >
+                {backLabel}
+              </Link>
+            </nav>
 
-      <header className="mb-8">
-        <h1 className="mb-3 text-3xl font-bold md:text-4xl">{post.title}</h1>
-        {post.main_image_url && (
-          <div className="relative mb-6 aspect-video w-full max-w-3xl overflow-hidden rounded-xl bg-muted">
-            <Image
-              src={post.main_image_url}
-              alt={post.title}
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, 768px"
-              className="object-cover"
-            />
-          </div>
-        )}
-        {post.published_at && (
-          <div className="text-sm text-muted-foreground">
-            <time dateTime={post.published_at}>
-              {new Date(post.published_at).toLocaleDateString(lang as Locale, {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </time>
-          </div>
-        )}
-      </header>
+            <header className="mb-8 md:mb-10">
+              {post.published_at && (
+                <time
+                  className="mb-2 block text-xs text-muted-foreground md:text-sm"
+                  dateTime={post.published_at}
+                >
+                  {new Date(post.published_at).toLocaleDateString(lang, {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </time>
+              )}
+              <h1 className="text-pretty text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+                {post.title}
+              </h1>
+              {post.excerpt && (
+                <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
+                  {post.excerpt}
+                </p>
+              )}
+              {post.main_image_url && (
+                <div className="relative mt-8 aspect-video w-full overflow-hidden rounded-xl bg-muted">
+                  <Image
+                    src={post.main_image_url}
+                    alt={post.title}
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, 768px"
+                    className="object-cover"
+                  />
+                </div>
+              )}
+            </header>
 
-      <LexicalRenderer content={post.body} />
-    </article>
+            <LexicalRenderer content={post.body} />
+          </div>
+        </div>
+      </article>
+
+      <CtaBannerAlt
+        buttonLabel="Peça o seu orçamento"
+        dialogTitle="Pedido de orçamento"
+        title="Vai construir ou remodelar casa?"
+      />
+    </main>
   );
 }
