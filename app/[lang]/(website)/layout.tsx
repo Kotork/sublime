@@ -16,9 +16,9 @@ export default async function WebsiteLayout({
   const lang = isValidLocale(langParam) ? langParam : defaultLocale;
 
   return (
-    <div className="min-h-screen flex flex-col items-center">
+    <div className="flex min-h-screen min-w-0 flex-col items-center overflow-x-clip">
       <WebsiteNavbar />
-      <div className="flex-1 w-full flex flex-col items-center">
+      <div className="flex min-w-0 w-full flex-1 flex-col items-center overflow-x-clip">
         <div className={cn("flex-1", WEBSITE_CONTENT_COLUMN_CLASS)}>
           {children}
         </div>
