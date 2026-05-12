@@ -1,30 +1,10 @@
 import { Badge } from "@/components/ui/badge";
+import { PartnersIntroCards } from "@/components/home-partners-intro-cards";
 import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 import type { Locale } from "@/lib/i18n/locale";
+import { PARTNERS } from "@/lib/home-partners";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
-
-/** Placeholder logo: Sublime logo repeated until real partner logos are available. */
-const PARTNER_LOGO_SRC = "/logo.png";
-
-type Partner = {
-  readonly name: string;
-  readonly category: string;
-};
-
-const PARTNERS: readonly Partner[] = [
-  { name: "Knauf", category: "LSF / Placas" },
-  { name: "Saint-Gobain", category: "Isolamentos / Gyproc" },
-  { name: "Weber", category: "Argamassas / Etics" },
-  { name: "Sika", category: "Impermeabilização" },
-  { name: "Cimpor / Secil", category: "Betão e Cimento" },
-  { name: "Fassa Bortolo", category: "Revestimentos" },
-  { name: "Hilti", category: "Fixações LSF" },
-  { name: "Mapei", category: "Colas e Selantes" },
-  { name: "Nudura", category: "Blocos ICF" },
-  { name: "Gyproc", category: "Gesso cartonado" },
-] as const;
 
 type HomePartnersIntroProps = {
   lang: Locale;
@@ -71,31 +51,7 @@ export function HomePartnersIntro({ lang }: HomePartnersIntroProps) {
           </Link>
         </header>
 
-        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-5 lg:gap-5">
-          {PARTNERS.map((partner, index) => (
-            <li key={partner.name}>
-              <figure className="m-0 flex h-full flex-col items-center justify-center rounded-xl border border-border bg-card px-4 py-6 text-center shadow-sm transition-shadow hover:shadow-md md:px-5 md:py-7">
-                <div className="relative h-12 w-12 md:h-14 md:w-14">
-                  <Image
-                    alt={`Logótipo SublimePT (placeholder). Parceiro ${index + 1} de ${PARTNERS.length}: ${partner.name}.`}
-                    className="object-contain"
-                    fill
-                    sizes="56px"
-                    src={PARTNER_LOGO_SRC}
-                  />
-                </div>
-                <figcaption className="mt-4 flex flex-col gap-1">
-                  <span className="text-sm font-bold leading-snug text-foreground md:text-base">
-                    {partner.name}
-                  </span>
-                  <span className="text-xs leading-snug text-muted-foreground md:text-sm">
-                    {partner.category}
-                  </span>
-                </figcaption>
-              </figure>
-            </li>
-          ))}
-        </ul>
+        <PartnersIntroCards partners={PARTNERS} />
       </div>
     </section>
   );
