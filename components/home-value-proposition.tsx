@@ -21,9 +21,7 @@ export function HomeValueProposition() {
           Compromisso da SublimePT com a construção sustentável
         </h2>
         <p className="mx-auto max-w-3xl text-pretty text-base leading-relaxed text-foreground md:text-lg">
-          Damos forma ao futuro da construção. Com soluções modernas e
-          eficientes, a SublimePT destaca-se pela inovação, sustentabilidade e
-          compromisso com cada projeto.
+          Os clientes não contratam empresas. Contratam pessoas.
         </p>
       </div>
     </section>
