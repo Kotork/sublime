@@ -38,8 +38,7 @@ const SERVICES: readonly Service[] = [
   },
   {
     slug: "construcao-icf",
-    imageSrc:
-      "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=900&q=80",
+    imageSrc: "/images/services/icf/icf.png",
     imageAlt:
       "Trabalhos de betão e estrutura em obra, alinhados com sistemas como ICF (Insulated Concrete Forms).",
     badge: "ICF — Betão Isolado",
