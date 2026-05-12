@@ -1,9 +1,9 @@
-import { CtaBanner } from "@/components/cta-banner";
 import { Hero } from "@/components/hero";
 import { HomeAboutIntro } from "@/components/home-about-intro";
 import { HomeNewsIntro } from "@/components/home-news-intro";
 import { HomeNewsletter } from "@/components/home-newsletter";
 import { HomePartnersIntro } from "@/components/home-partners-intro";
+import { HomeProcessSteps } from "@/components/home-process-steps";
 import { HomeServicesIntro } from "@/components/home-services-intro";
 import { HomeValueProposition } from "@/components/home-value-proposition";
 import type { Locale } from "@/lib/i18n/locale";
@@ -28,11 +28,7 @@ export default async function Home({
         {/* <HomeValueProposition /> */}
         <HomeServicesIntro lang={lang} />
         <HomeAboutIntro aboutHref={`/${lang}/sobre-nos`} />
-        <CtaBanner
-          buttonLabel="Peça o seu orçamento"
-          dialogTitle="Pedido de orçamento"
-          title="Vai construir ou remodelar casa?"
-        />
+        <HomeProcessSteps />
         <HomePartnersIntro lang={lang} />
         <HomeNewsIntro lang={lang} />
         <HomeNewsletter lang={lang} />
