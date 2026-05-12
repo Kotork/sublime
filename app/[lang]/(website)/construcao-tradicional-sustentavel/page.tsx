@@ -14,13 +14,13 @@ export const CONSTRUCAO_TRADICIONAL_SUSTENTAVEL_HERO_IMAGE_ALT =
   "Alvenaria e acabamentos em obra, representativa de construção tradicional com enfoque sustentável.";
 
 const PAGE_DESCRIPTION =
-  "Construção tradicional com materiais e práticas orientadas para a sustentabilidade — conforto, durabilidade e menor impacto ambiental.";
+  "Construção Alvenaria com materiais e práticas orientadas para a sustentabilidade — conforto, durabilidade e menor impacto ambiental.";
 
 export const metadata: Metadata = {
-  title: "Construção tradicional sustentável",
+  title: "Construção Alvenaria Sustentável",
   description: PAGE_DESCRIPTION,
   openGraph: {
-    title: "Construção tradicional sustentável",
+    title: "Construção Alvenaria Sustentável",
     description: PAGE_DESCRIPTION,
     images: [
       {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Construção tradicional sustentável",
+    title: "Construção Alvenaria Sustentável",
     description: PAGE_DESCRIPTION,
     images: [CONSTRUCAO_TRADICIONAL_SUSTENTAVEL_HERO_IMAGE_SRC],
   },
@@ -47,15 +47,15 @@ export default function ConstrucaoTradicionalSustentavelPage() {
         headingId="construcao-tradicional-sustentavel-hero-heading"
         imageAlt={CONSTRUCAO_TRADICIONAL_SUSTENTAVEL_HERO_IMAGE_ALT}
         imageSrc={CONSTRUCAO_TRADICIONAL_SUSTENTAVEL_HERO_IMAGE_SRC}
-        titleLines={["CONSTRUÇÃO", "TRADICIONAL SUSTENTÁVEL"]}
+        titleLines={["CONSTRUÇÃO", "ALVENARIA SUSTENTÁVEL"]}
       />
       <ConstrucaoCtsIntro />
       <ConstrucaoCtsWhyChoose />
       <ConstrucaoCtsDualShowcase />
       <CtaBanner
         buttonLabel="Começar"
-        dialogTitle="Pedir orçamento para Construção Tradicional Sustentável"
-        title="Pedir orçamento para Construção Tradicional Sustentável"
+        dialogTitle="Pedir orçamento para Construção Alvenaria"
+        title="Pedir orçamento para Construção Alvenaria"
       />
       <ConstrucaoSustainability />
       <ConstrucaoOds />

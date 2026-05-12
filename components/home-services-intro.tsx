@@ -1,62 +1,75 @@
-import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
-import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 import type { Locale } from "@/lib/i18n/locale";
+import { cn } from "@/lib/utils";
+import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
+import { CircleCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const SDG_ICON = (n: number) =>
-  `https://open-sdg.org/sdg-translations/assets/img/goals/en/${n}.png`;
+type Service = {
+  readonly slug: string;
+  readonly imageSrc: string;
+  readonly imageAlt: string;
+  readonly badge: string;
+  readonly tagline: string;
+  readonly description: string;
+  readonly benefits: readonly string[];
+  readonly ctaLabel: string;
+};
 
-const SERVICES = [
+const SERVICES: readonly Service[] = [
   {
-    slug: "construcao-lsf",
-    title: "Construção em LSF",
-    imageSrc: "/images/home/lsf.png",
+    slug: "construcao-tradicional-sustentavel",
+    imageSrc: "/images/home/cts.png",
     imageAlt:
-      "Estrutura metálica de perfis leves em obra, ilustrativa de construção em LSF (Light Steel Frame).",
+      "Alvenaria e acabamentos em obra, representativa de construção tradicional com enfoque sustentável.",
+    badge: "Construção Tradicional",
+    tagline: "Sólida. Familiar. Com eficiência moderna.",
+    description:
+      "Construção em alvenaria de tijolo ou bloco com as melhores práticas de isolamento e eficiência. A escolha de quem valoriza solidez comprovada com benefícios contemporâneos.",
+    benefits: [
+      "Materiais amplamente conhecidos e aprovados",
+      "Excelente resistência e durabilidade",
+      "Compatível com certificação A e A+",
+      "Ideal para ampliações e remodelações",
+    ],
+    ctaLabel: "Saber mais",
   },
   {
     slug: "construcao-icf",
-    title: "Construção em ICF",
     imageSrc:
       "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=900&q=80",
     imageAlt:
       "Trabalhos de betão e estrutura em obra, alinhados com sistemas como ICF (Insulated Concrete Forms).",
+    badge: "ICF — Betão Isolado",
+    tagline: "Performance máxima. Poupança real a longo prazo.",
+    description:
+      "Insulated Concrete Forms: blocos de EPS com núcleo em betão. O sistema com maior isolamento térmico e acústico disponível. Factura energética até 60% mais baixa.",
+    benefits: [
+      "Certificação energética A+ garantida",
+      "Insonorização superior (50+ dB)",
+      "Resistência sísmica excecional",
+      "Payback energético em 7-10 anos",
+    ],
+    ctaLabel: "Saber mais",
   },
   {
-    slug: "construcao-tradicional-sustentavel",
-    title: "Construção Tradicional Sustentável",
-    imageSrc: "/images/home/cts.png",
+    slug: "construcao-lsf",
+    imageSrc: "/images/home/lsf.png",
     imageAlt:
-      "Alvenaria e acabamentos em obra, representativa de construção tradicional com enfoque sustentável.",
-  },
-] as const;
-
-const SDG_GOALS = [
-  {
-    n: 7 as const,
-    label: "7 — Energias renováveis e acessíveis",
-    shortLabel: "7 Energias renováveis e acessíveis",
-  },
-  {
-    n: 9 as const,
-    label: "9 — Indústria, inovação e infraestruturas",
-    shortLabel: "9 Indústria, inovação e infraestruturas",
-  },
-  {
-    n: 11 as const,
-    label: "11 — Cidades e comunidades sustentáveis",
-    shortLabel: "11 Cidades e comunidades sustentáveis",
-  },
-  {
-    n: 12 as const,
-    label: "12 — Produção e consumo sustentáveis",
-    shortLabel: "12 Produção e consumo sustentáveis",
-  },
-  {
-    n: 13 as const,
-    label: "13 — Ação climática",
-    shortLabel: "13 Ação climática",
+      "Estrutura metálica de perfis leves em obra, ilustrativa de construção em LSF (Light Steel Frame).",
+    badge: "LSF — Estrutura Metálica",
+    tagline: "Rápido. Preciso. Tecnologicamente superior.",
+    description:
+      "Light Steel Framing: estrutura em aço galvanizado de precisão milimétrica. Construção até 40% mais rápida que o método tradicional, com controlo total de prazos e custos.",
+    benefits: [
+      "Prazo de construção 30-40% mais curto",
+      "Estrutura calculada ao milímetro (software BIM)",
+      "Leveza — sem sobrecarregar fundações",
+      "Ideal para ampliações e pisos adicionais",
+    ],
+    ctaLabel: "Saber mais",
   },
 ] as const;
 
@@ -77,77 +90,87 @@ export function HomeServicesIntro({ lang }: HomeServicesIntroProps) {
           WEBSITE_CONTENT_COLUMN_CLASS
         )}
       >
-        <h2
-          className="mb-8 text-left text-lg font-bold uppercase tracking-tight text-foreground md:mb-10 md:text-xl"
-          id="home-services-heading"
-        >
-          02 / SERVIÇOS
-        </h2>
+        <header className="mb-10 max-w-3xl md:mb-14">
+          <Badge
+            className="mb-5 rounded-full border-border bg-secondary px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground"
+            variant="outline"
+          >
+            Os nossos sistemas construtivos
+          </Badge>
+          <h2
+            className="text-pretty text-3xl font-bold leading-tight tracking-tight text-foreground md:text-4xl lg:text-5xl"
+            id="home-services-heading"
+          >
+            Três abordagens. Uma garantia de qualidade.
+          </h2>
+          <p className="mt-5 max-w-2xl text-pretty text-sm leading-relaxed text-muted-foreground md:text-base">
+            Em cada projeto, optamos pelo sistema construtivo que melhor se
+            adequa. Sempre em linha com o orçamento, prazo e objetivos de
+            eficiência energética.
+          </p>
+        </header>
 
-        <ul className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 lg:gap-10">
-          {SERVICES.map((s) => (
-            <li key={s.slug}>
-              <Link
-                className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                href={`/${lang}/${s.slug}`}
-              >
-                <article className="flex flex-col">
-                  <div className="relative aspect-square w-full overflow-hidden bg-muted">
-                    <Image
-                      alt={s.imageAlt}
-                      className="object-cover transition-transform duration-300 group-hover:scale-[1.02] rounded-lg"
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      src={s.imageSrc}
-                    />
-                  </div>
-                  <h3 className="mt-4 text-center text-base font-medium text-foreground md:text-lg">
-                    {s.title}
+        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
+          {SERVICES.map((service) => (
+            <li className="flex" key={service.slug}>
+              <Card className="flex w-full flex-col overflow-hidden rounded-xl border-border bg-card p-0 shadow-sm transition-shadow hover:shadow-md">
+                <div className="relative aspect-4/3 w-full overflow-hidden bg-muted">
+                  <Image
+                    alt={service.imageAlt}
+                    className="object-cover"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    src={service.imageSrc}
+                  />
+                </div>
+
+                <div className="flex flex-1 flex-col p-6 md:p-7">
+                  <Badge
+                    className="mb-5 self-start rounded-full border-border bg-secondary px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground"
+                    variant="outline"
+                  >
+                    {service.badge}
+                  </Badge>
+
+                  <h3 className="text-pretty text-xl font-bold leading-snug tracking-tight text-foreground md:text-2xl">
+                    {service.tagline}
                   </h3>
-                </article>
-              </Link>
+
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {service.description}
+                  </p>
+
+                  <ul className="mt-5 space-y-2.5">
+                    {service.benefits.map((benefit) => (
+                      <li
+                        className="flex items-start gap-2.5 text-sm leading-relaxed text-foreground"
+                        key={benefit}
+                      >
+                        <CircleCheck
+                          aria-hidden
+                          className="mt-0.5 size-4 shrink-0 text-primary"
+                          strokeWidth={2}
+                        />
+                        <span>{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-auto pt-6">
+                    <Link
+                      aria-label={`${service.ctaLabel} — ${service.tagline}`}
+                      className="inline-flex items-center gap-1 rounded-sm text-sm font-semibold text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      href={`/${lang}/${service.slug}`}
+                    >
+                      {service.ctaLabel}
+                      <span aria-hidden>→</span>
+                    </Link>
+                  </div>
+                </div>
+              </Card>
             </li>
           ))}
         </ul>
-
-        {/* <div
-          aria-labelledby="home-sdg-heading"
-          className="mt-14 pt-12 md:mt-16 md:pt-14"
-        >
-          <ul className="mx-auto grid max-w-5xl grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-5 md:gap-4 lg:gap-6">
-            {SDG_GOALS.map((goal) => (
-              <li key={goal.n}>
-                <figure className="flex flex-col items-center text-center">
-                  <div className="relative size-24 shrink-0 sm:size-28 md:size-24 lg:size-28">
-                    <Image
-                      alt={`Ícone ODS ${goal.n}: ${goal.label}`}
-                      className="object-contain"
-                      fill
-                      sizes="(max-width: 768px) 112px, 112px"
-                      src={SDG_ICON(goal.n)}
-                    />
-                  </div>
-                  <figcaption className="mt-3 max-w-44 text-pretty text-xs font-medium leading-snug text-foreground sm:text-sm md:text-xs lg:text-sm">
-                    {goal.shortLabel}
-                  </figcaption>
-                </figure>
-              </li>
-            ))}
-          </ul>
-          <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-relaxed text-muted-foreground">
-            Ícones alinhados com os{" "}
-            <a
-              className="underline underline-offset-2 hover:text-foreground"
-              href="https://www.un.org/sustainabledevelopment"
-              rel="noreferrer"
-              target="_blank"
-            >
-              Objetivos de Desenvolvimento Sustentável da Organização das Nações
-              Unidas
-            </a>
-            . A SublimePT articula a sua atuação com os ODS indicados.
-          </p>
-        </div> */}
       </div>
     </section>
   );

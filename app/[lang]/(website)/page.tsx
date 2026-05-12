@@ -25,9 +25,9 @@ export default async function Home({
     <div className="flex flex-col gap-12 md:gap-16">
       <Hero />
       <main className="flex flex-1 flex-col gap-12 md:gap-16">
-        <HomeValueProposition />
-        <HomeAboutIntro aboutHref={`/${lang}/sobre-nos`} />
+        {/* <HomeValueProposition /> */}
         <HomeServicesIntro lang={lang} />
+        <HomeAboutIntro aboutHref={`/${lang}/sobre-nos`} />
         <CtaBanner
           buttonLabel="Peça o seu orçamento"
           dialogTitle="Pedido de orçamento"
