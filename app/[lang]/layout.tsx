@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import "../../globals.css";
 import { Toaster } from "@/components/ui/sonner";
@@ -27,6 +27,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Landing Page Generator",
   description: "Create and manage SEO/AEO optimized landing pages",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  interactiveWidget: "resizes-content",
 };
 
 export default async function RootLayout({
