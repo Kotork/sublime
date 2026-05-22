@@ -54,6 +54,7 @@ export default function ConstrucaoIcfPage() {
       <ConstrucaoIcfDualShowcase />
       <CtaBanner
         buttonLabel="Começar"
+        defaultWorkType="Construção ICF"
         dialogTitle="Pedir orçamento para Construção em ICF"
         title="Pedir orçamento para Construção em ICF"
       />

@@ -21,6 +21,8 @@ export type CtaBannerProps = {
   dialogTitle?: string;
   dialogDescription?: string;
   dialogBody?: ReactNode;
+  /** Pre-fill work type in the default quote form. */
+  defaultWorkType?: string;
   /** Extra classes for the outer full-bleed strip (default: primary background). */
   className?: string;
 };
@@ -32,6 +34,7 @@ export function CtaBanner({
   dialogTitle,
   dialogDescription,
   dialogBody,
+  defaultWorkType,
   className,
 }: CtaBannerProps) {
   const titleId = useId().replace(/:/g, "");
@@ -42,6 +45,7 @@ export function CtaBanner({
     </Button>
   ) : (
     <WebsiteQuoteDialog
+      defaultWorkType={defaultWorkType}
       description={dialogDescription}
       title={dialogTitle ?? buttonLabel}
       trigger={

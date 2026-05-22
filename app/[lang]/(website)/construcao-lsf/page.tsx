@@ -54,6 +54,7 @@ export default function ConstrucaoLsfPage() {
       <ConstrucaoLsfDualShowcase />
       <CtaBanner
         buttonLabel="Começar"
+        defaultWorkType="Construção LSF"
         dialogTitle="Pedir orçamento para Construção em LSF"
         title="Pedir orçamento para Construção em LSF"
       />

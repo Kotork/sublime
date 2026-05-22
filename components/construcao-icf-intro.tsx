@@ -57,6 +57,7 @@ export function ConstrucaoIcfIntro() {
             </div>
             <div className="pt-1">
               <WebsiteQuoteDialog
+                defaultWorkType="Construção ICF"
                 title="Pedir orçamento"
                 trigger={
                   <button className={CTA_CLASS} type="button">
