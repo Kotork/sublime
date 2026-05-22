@@ -333,7 +333,7 @@ export function WebsiteQuoteForm({
           >
             política de privacidade
           </Link>
-          . Nunca partilhamos os seus dados com terceiros.
+          .
         </p>
       </form>
     </div>

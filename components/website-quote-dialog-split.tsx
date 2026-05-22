@@ -2,9 +2,39 @@
 
 import { Badge } from "@/components/ui/badge";
 import { WebsiteQuoteForm } from "@/components/website-quote-form";
-import { QUOTE_FORM_GUARANTEES } from "@/lib/website-quote-form";
 import { getLocaleFromPathname } from "@/lib/utils/pathname";
+import {
+  Clock,
+  FileCheck,
+  MapPin,
+  ShieldCheck,
+  type LucideIcon,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
+
+type QuoteFormGuarantee = {
+  readonly icon: LucideIcon;
+  readonly text: string;
+};
+
+const QUOTE_FORM_GUARANTEES: readonly QuoteFormGuarantee[] = [
+  {
+    icon: Clock,
+    text: "Resposta em até 24 horas úteis",
+  },
+  {
+    icon: MapPin,
+    text: "Visita ao local totalmente gratuita",
+  },
+  {
+    icon: FileCheck,
+    text: "Orçamento detalhado sem compromisso",
+  },
+  {
+    icon: ShieldCheck,
+    text: "Os seus dados estão protegidos",
+  },
+] as const;
 
 export type WebsiteQuoteDialogSplitProps = {
   defaultWorkType?: string;
@@ -35,17 +65,19 @@ export function WebsiteQuoteDialogSplit({
           começam com um bom encontro.
         </p>
         <ul className="mt-8 space-y-5">
-          {QUOTE_FORM_GUARANTEES.map((item) => (
-            <li className="flex items-start gap-3" key={item.text}>
-              <span
-                aria-hidden
-                className={`mt-0.5 size-3 shrink-0 rounded-sm ${item.accentClass}`}
-              />
-              <span className="text-sm leading-relaxed text-primary-foreground/90 md:text-base">
-                {item.text}
-              </span>
-            </li>
-          ))}
+          {QUOTE_FORM_GUARANTEES.map((item) => {
+            const Icon = item.icon;
+            return (
+              <li className="flex items-center gap-4" key={item.text}>
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-white/10 text-primary">
+                  <Icon aria-hidden className="size-5 text-white" strokeWidth={1.75} />
+                </span>
+                <span className="text-sm leading-relaxed text-primary-foreground/90 md:text-base">
+                  {item.text}
+                </span>
+              </li>
+            );
+          })}
         </ul>
       </aside>
 
