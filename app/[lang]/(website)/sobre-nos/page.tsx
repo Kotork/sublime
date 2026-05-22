@@ -56,6 +56,7 @@ export default async function AboutUsPage({
       <SobreNosHero />
       <main className="flex flex-1 flex-col gap-12 md:gap-16">
         <CenterSection
+          variant="featured"
           srTitle="Compromisso da SublimePT com a construção sustentável"
           description="Construímos o presente com inovação, eficiência e foco no futuro. Desde 2021, a SublimePT afirma-se como uma alternativa moderna na construção civil, aliando sustentabilidade, rapidez e qualidade em cada projeto."
         />
