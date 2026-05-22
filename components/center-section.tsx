@@ -7,13 +7,28 @@ interface CenterSectionProps {
   description: string;
   /** Makes the section visually prominent — visible title, accent bar, larger type. */
   variant?: "default" | "featured";
+  /** Position of the gold accent bar in featured sections. Defaults to top. */
+  accentPosition?: "top" | "bottom";
   className?: string;
+}
+
+function FeaturedAccentBar({ position }: { position: "top" | "bottom" }) {
+  return (
+    <div
+      aria-hidden
+      className={cn(
+        "mx-auto h-1 w-14 rounded-full bg-ring",
+        position === "top" ? "mb-6 md:mb-8" : "mt-6 md:mt-8"
+      )}
+    />
+  );
 }
 
 const CenterSection = ({
   srTitle,
   description,
   variant = "default",
+  accentPosition = "top",
   className,
 }: CenterSectionProps) => {
   const headingId = useId().replace(/:/g, "");
@@ -39,10 +54,9 @@ const CenterSection = ({
       >
         {isFeatured ? (
           <>
-            <div
-              aria-hidden
-              className="mx-auto mb-6 h-1 w-14 rounded-full bg-ring md:mb-8"
-            />
+            {accentPosition === "top" ? (
+              <FeaturedAccentBar position="top" />
+            ) : null}
             <h2
               className="mx-auto max-w-2xl text-pretty text-sm font-semibold uppercase tracking-[0.15em] text-primary md:text-base"
               id={headingId}
@@ -52,6 +66,9 @@ const CenterSection = ({
             <p className="mx-auto mt-5 max-w-3xl text-pretty text-lg font-medium leading-relaxed text-foreground md:mt-6 md:text-xl lg:text-2xl lg:leading-snug">
               {description}
             </p>
+            {accentPosition === "bottom" ? (
+              <FeaturedAccentBar position="bottom" />
+            ) : null}
           </>
         ) : (
           <>

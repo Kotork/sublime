@@ -62,6 +62,8 @@ export default async function AboutUsPage({
         />
         <SobreNosCompanyStory />
         <CenterSection
+          variant="featured"
+          accentPosition="bottom"
           srTitle="Apostamos em métodos construtivos inovadores"
           description="Apostamos em métodos construtivos inovadores, como LSF (Light Steel Framing) e ICF (Insulated Concrete Forms), que nos permitem oferecer soluções mais rápidas, eficientes do ponto de vista energético e com menor impacto ambiental."
         />
