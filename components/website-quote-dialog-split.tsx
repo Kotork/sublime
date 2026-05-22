@@ -72,7 +72,7 @@ export function WebsiteQuoteDialogSplit({
                 <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-white/10 text-primary">
                   <Icon aria-hidden className="size-5 text-white" strokeWidth={1.75} />
                 </span>
-                <span className="text-sm leading-relaxed text-primary-foreground/90 md:text-base">
+                <span className="text-sm leading-relaxed text-primary-foreground md:text-base">
                   {item.text}
                 </span>
               </li>
