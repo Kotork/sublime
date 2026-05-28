@@ -79,7 +79,7 @@ export default async function AboutUsPage({
         />
         <ImageFull
           alt="Equipa de trabalhadores da construção com coletes de alta visibilidade e capacetes a trabalhar betão fresco numa grande obra."
-          src="/images/sobre-nos-full-width.png"
+          src="/images/sobre-nos/sobre-nos-full-width.png"
         />
         <SobreNosDifferentiators contactHref={`/${lang}/contactos`} />
       </main>
