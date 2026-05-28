@@ -17,6 +17,10 @@ import { notFound } from "next/navigation";
 const PAGE_DESCRIPTION =
   "Conheça a SublimePT: construímos hoje as casas responsáveis de amanhã — construção civil sustentável, moradias e remodelação.";
 
+const SOBRE_NOS_CTA_TITLE = "Vai construir ou remodelar casa?";
+const SOBRE_NOS_CTA_DESCRIPTION =
+  "Conte-nos o seu projeto e receba um orçamento gratuito e personalizado.";
+
 export const metadata: Metadata = {
   title: "Sobre nós",
   description: PAGE_DESCRIPTION,
@@ -69,8 +73,9 @@ export default async function AboutUsPage({
         />
         <CtaBanner
           buttonLabel="Peça o seu orçamento"
+          description={SOBRE_NOS_CTA_DESCRIPTION}
           dialogTitle="Pedido de orçamento"
-          title="Vai construir ou remodelar casa?"
+          title={SOBRE_NOS_CTA_TITLE}
         />
         <SobreNosMissionVisionValues />
         <CenterSection
