@@ -38,7 +38,7 @@ export function SobreNosCompanyStory() {
           </figure>
           <div
             className={cn(
-              "flex min-w-0 flex-col gap-4 md:gap-16 md:self-center",
+              "flex min-w-0 flex-col gap-5 border-l-4 border-ring pl-5 md:gap-6 md:pl-6 md:self-center",
               BODY_CLASS
             )}
           >
