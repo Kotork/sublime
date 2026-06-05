@@ -53,7 +53,7 @@ export type WebsiteSocialLink = {
   Icon: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
-const WHATSAPP_HREF = "https://example.com/whatsapp";
+const WHATSAPP_HREF = "https://wa.me/351963412090";
 
 export const WEBSITE_SOCIAL_LINKS_WITH_ICONS: readonly WebsiteSocialLink[] = [
   {
@@ -73,7 +73,7 @@ export const WEBSITE_SOCIAL_LINKS_WITH_ICONS: readonly WebsiteSocialLink[] = [
   },
   {
     href: WHATSAPP_HREF,
-    ariaLabel: "WhatsApp (ligação de exemplo)",
+    ariaLabel: "WhatsApp Sublime",
     Icon: MessageCircle,
   },
 ] as const;
