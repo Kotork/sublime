@@ -4,6 +4,7 @@ import { RecrutamentoBenefits } from "@/components/recrutamento-benefits";
 import { RecrutamentoSpontaneousCta } from "@/components/recrutamento-spontaneous-cta";
 import { RecrutamentoSubempreiteiro } from "@/components/recrutamento-subempreiteiro";
 import { RecrutamentoSubempreiteiroCta } from "@/components/recrutamento-subempreiteiro-cta";
+import { CONTACT_FORM_ID } from "@/lib/contact-form";
 import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
 import type { Locale } from "@/lib/i18n/locale";
 import { isValidLocale } from "@/lib/i18n/locale";
@@ -91,7 +92,9 @@ export default async function RecrutamentoPage({
         description=""
       />
       <RecrutamentoSubempreiteiro />
-      <RecrutamentoSubempreiteiroCta contactHref={`/${lang}/contactos#contact-form`} />
+      <RecrutamentoSubempreiteiroCta
+        contactHref={`/${lang}/contactos#${CONTACT_FORM_ID}`}
+      />
     </main>
   );
 }

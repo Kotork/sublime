@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { CONTACT_FORM_ID } from "@/lib/contact-form";
 import { z } from "zod";
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { toast } from "sonner";
 
 const contactFormSchema = z.object({
@@ -35,6 +36,21 @@ const FORM_HEADING_ID = "contactos-form-heading";
 export function ContactosContactForm() {
   const formId = useId().replace(/:/g, "");
   const [errors, setErrors] = useState<ContactFormFieldErrors>({});
+
+  useEffect(() => {
+    if (window.location.hash !== `#${CONTACT_FORM_ID}`) {
+      return;
+    }
+
+    const scrollToForm = () => {
+      document.getElementById(CONTACT_FORM_ID)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    };
+
+    requestAnimationFrame(scrollToForm);
+  }, []);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -69,7 +85,10 @@ export function ContactosContactForm() {
   }
 
   return (
-    <div className="rounded-xl bg-gray-100 p-6 md:p-8">
+    <div
+      className="scroll-mt-24 rounded-xl bg-gray-100 p-6 md:p-8"
+      id={CONTACT_FORM_ID}
+    >
       <h3
         className="sr-only"
         id={FORM_HEADING_ID}

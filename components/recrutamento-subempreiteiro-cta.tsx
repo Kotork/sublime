@@ -49,7 +49,11 @@ export function RecrutamentoSubempreiteiroCta({
           contactamos conforme as necessidades de obra.
         </p>
         <div className="mt-10 md:mt-12">
-          <Link className={CTA_LINK_CLASS} href={contactHref}>
+          <Link
+            className={CTA_LINK_CLASS}
+            href={contactHref}
+            scroll={contactHref.includes("#") ? false : undefined}
+          >
             {MAIL_SUBJECT}
           </Link>
         </div>
