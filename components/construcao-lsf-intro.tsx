@@ -1,5 +1,6 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { WebsiteQuoteDialog } from "@/components/website-quote-dialog";
 import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
@@ -34,14 +35,20 @@ export function ConstrucaoLsfIntro() {
               src={SECTION_IMAGE_SRC}
             />
           </div>
-          <div className="flex flex-col gap-5 md:gap-6">
+          <div className="flex min-w-0 flex-col md:self-center">
+            <Badge
+              className="mb-5 self-start rounded-full border-border bg-secondary px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground"
+              variant="outline"
+            >
+              Estrutura Metálica
+            </Badge>
             <h2
-              className="text-pretty text-xl font-bold uppercase tracking-tight text-foreground md:text-2xl"
+              className="text-pretty text-3xl font-bold leading-tight tracking-tight text-foreground md:text-4xl"
               id={HEADING_ID}
             >
-              LSF (LIGHT STEEL FRAMING)
+              Light Steel Framing (LSF)
             </h2>
-            <div className="space-y-4 text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
+            <div className="mt-5 space-y-4 text-pretty text-base leading-relaxed text-foreground md:text-lg">
               <p>
                 O Light Steel Framing é um sistema construtivo industrializado
                 que utiliza perfis de aço galvanizado de alta resistência como
@@ -52,7 +59,7 @@ export function ConstrucaoLsfIntro() {
                 É ideal para moradias unifamiliares, ampliações e reabilitações.
               </p>
             </div>
-            <div className="pt-1">
+            <div className="mt-8">
               <WebsiteQuoteDialog
                 defaultWorkType="Construção LSF"
                 title="Pedir orçamento"
