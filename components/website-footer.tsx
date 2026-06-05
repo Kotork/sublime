@@ -126,6 +126,7 @@ export function WebsiteFooter({ lang }: { lang: Locale }) {
               <br />
               Tradição, inovação e pessoas — no Distrito de Coimbra desde 2009.
             </p>
+            <p className="text-sm text-white/70">Alvará 112885 - PAR</p>
             <ul className="flex flex-wrap gap-2">
               {SOCIAL_LINKS.map(({ href, ariaLabel, Icon }) => (
                 <li key={href}>
