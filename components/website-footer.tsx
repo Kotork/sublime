@@ -178,12 +178,17 @@ export function WebsiteFooter({ lang }: { lang: Locale }) {
             <ul className="flex flex-col gap-3 text-sm text-white/70">
               <li className="flex items-start gap-3">
                 <Phone aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-white/60" />
-                <a
-                  className="underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                  href="tel:+351000000000"
-                >
-                  +351 XXX XXX XXX
-                </a>
+                <div className="flex flex-col gap-0.5">
+                  <a
+                    className="underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                    href="tel:+351000000000"
+                  >
+                    +351 963 412 090
+                  </a>
+                  <span className="text-[10px] leading-tight text-white/50">
+                    (Chamada para rede móvel nacional)
+                  </span>
+                </div>
               </li>
               <li className="flex items-start gap-3">
                 <Mail aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-white/60" />

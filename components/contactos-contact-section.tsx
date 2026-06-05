@@ -38,12 +38,17 @@ export function ContactosContactSection() {
             >
               {CONTACT_EMAIL}
             </a>
-            <a
-              className="text-foreground underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              href="tel:+351963412090"
-            >
-              {CONTACT_PHONE_DISPLAY}
-            </a>
+            <div className="flex flex-col gap-0.5">
+              <a
+                className="text-foreground underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                href="tel:+351963412090"
+              >
+                {CONTACT_PHONE_DISPLAY}
+              </a>
+              <span className="text-[10px] leading-tight text-muted-foreground">
+                (Chamada para rede móvel nacional)
+              </span>
+            </div>
             <nav aria-label="Redes sociais">
               <ul className="flex flex-col">
                 {WEBSITE_SOCIAL_LINKS.map((item) => (
