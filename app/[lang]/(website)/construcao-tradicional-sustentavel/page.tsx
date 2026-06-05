@@ -16,6 +16,11 @@ export const CONSTRUCAO_TRADICIONAL_SUSTENTAVEL_HERO_IMAGE_ALT =
 const PAGE_DESCRIPTION =
   "Construção Alvenaria com materiais e práticas orientadas para a sustentabilidade — conforto, durabilidade e menor impacto ambiental.";
 
+const CONSTRUCAO_CTS_CTA_TITLE =
+  "Interessado em construir com alvenaria sustentável?";
+const CONSTRUCAO_CTS_CTA_DESCRIPTION =
+  "Analisamos o terreno, prazos e requisitos para lhe apresentar a solução mais adequada em construção tradicional sustentável.";
+
 export const metadata: Metadata = {
   title: "Construção Alvenaria Sustentável",
   description: PAGE_DESCRIPTION,
@@ -53,10 +58,11 @@ export default function ConstrucaoTradicionalSustentavelPage() {
       <ConstrucaoCtsWhyChoose />
       <ConstrucaoCtsDualShowcase />
       <CtaBanner
-        buttonLabel="Começar"
+        buttonLabel="Peça o seu orçamento gratuito"
         defaultWorkType="Construção Tradicional Sustentável"
-        dialogTitle="Pedir orçamento para Construção Alvenaria"
-        title="Pedir orçamento para Construção Alvenaria"
+        description={CONSTRUCAO_CTS_CTA_DESCRIPTION}
+        dialogTitle="Pedido de orçamento — Construção Alvenaria Sustentável"
+        title={CONSTRUCAO_CTS_CTA_TITLE}
       />
       <ConstrucaoSustainability />
       <ConstrucaoOds />

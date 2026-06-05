@@ -60,7 +60,7 @@ function ProsConsBlockView({
       <div className="flex flex-row items-start gap-2 md:flex-col">
         <Icon
           aria-hidden
-          className="size-6 shrink-0 stroke-1 text-foreground"
+          className="size-6 shrink-0 stroke-1 text-primary"
         />
         <h3
           className="text-sm font-bold uppercase tracking-tight text-foreground md:text-base"

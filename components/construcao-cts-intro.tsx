@@ -5,6 +5,7 @@ import { WebsiteQuoteDialog } from "@/components/website-quote-dialog";
 import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { Badge } from './ui/badge';
 
 /** Distinct from hero art; steel / light-frame construction context. */
 const SECTION_IMAGE_SRC =
@@ -35,6 +36,12 @@ export function ConstrucaoCtsIntro() {
             />
           </div>
           <div className="flex flex-col gap-5 md:gap-6">
+            <Badge
+              className="self-start rounded-full border-border bg-secondary px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground"
+              variant="outline"
+            >
+              Alvenaria em tijolo
+            </Badge>
             <h2
               className="text-pretty text-xl font-bold uppercase tracking-tight text-foreground md:text-2xl"
               id={HEADING_ID}
