@@ -70,7 +70,7 @@ function ProsConsBlockView({
       <div className="flex flex-row items-start gap-2 md:flex-col">
         <Icon
           aria-hidden
-          className="size-6 shrink-0 stroke-1 text-foreground"
+          className="size-6 shrink-0 stroke-1 text-primary"
         />
         <h3
           className="text-sm font-bold uppercase tracking-tight text-foreground md:text-base"
@@ -93,7 +93,7 @@ export function RecrutamentoBenefits() {
     <section aria-labelledby={HEADING_ID} className="w-full bg-background">
       <div
         className={cn(
-          "mx-auto w-full px-4 py-12 sm:px-5 md:py-16 lg:py-20",
+          "mx-auto w-full px-4 pb-12 sm:px-5 md:pb-16 lg:pb-20",
           WEBSITE_CONTENT_COLUMN_CLASS
         )}
       >

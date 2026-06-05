@@ -63,8 +63,9 @@ export default async function RecrutamentoPage({
         titleLines={["TRABALHE", "CONNOSCO"]}
       />
       <CenterSection
-        srTitle="Junte-se a uma equipa jovem, motivada e em crescimento."
-        description="Junte-se a uma equipa jovem, motivada e em crescimento. Estamos sempre atentos a profissionais que queiram construir connosco."
+        variant="featured"
+        srTitle="Junte-se a uma equipa jovem, motivada e em crescimento. Estamos sempre atentos a profissionais que queiram construir connosco."
+        description=""
       />
       <RecrutamentoBenefits />
       <RecrutamentoSpontaneousCta />
