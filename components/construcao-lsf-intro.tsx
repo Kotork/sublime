@@ -56,6 +56,7 @@ export function ConstrucaoLsfIntro() {
             </div>
             <div className="pt-1">
               <WebsiteQuoteDialog
+                defaultWorkType="Construção LSF"
                 title="Pedir orçamento"
                 trigger={
                   <button className={CTA_CLASS} type="button">

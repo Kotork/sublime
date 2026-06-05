@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { WebsiteQuoteDialogSplit } from "@/components/website-quote-dialog-split";
 import { cn } from "@/lib/utils";
 
 export type WebsiteQuoteDialogProps = {
@@ -16,36 +17,62 @@ export type WebsiteQuoteDialogProps = {
   /** Accessible dialog title (required for screen readers). */
   title: string;
   description?: string;
-  /** Form or other body; placeholder copy is shown when omitted. */
+  /** Pre-fill the work type dropdown when opened from a service page. */
+  defaultWorkType?: string;
+  /** Form or other body; split quote form is shown when omitted. */
   children?: ReactNode;
   contentClassName?: string;
 };
 
 /**
- * Reusable shell for quote / contact flows. Pass a `trigger` (usually a button)
- * and later replace the default body with a form.
+ * Reusable shell for quote / contact flows. Pass a `trigger` (usually a button).
+ * Renders the split quote form by default; pass `children` to override the body.
  */
 export function WebsiteQuoteDialog({
   trigger,
   title,
-  description = "Brevemente poderá enviar o seu pedido através deste formulário.",
+  description,
+  defaultWorkType,
   children,
   contentClassName,
 }: WebsiteQuoteDialogProps) {
+  const hasCustomBody = children !== undefined;
+
   return (
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className={cn(contentClassName)}>
-        <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          {description ? (
-            <DialogDescription>{description}</DialogDescription>
-          ) : null}
-        </DialogHeader>
-        {children ?? (
-          <p className="text-sm text-muted-foreground">
-            Formulário em preparação.
-          </p>
+      <DialogContent
+        className={cn(
+          hasCustomBody
+            ? undefined
+            : "max-h-[90vh] max-w-5xl gap-0 overflow-hidden p-0 sm:rounded-xl [&>button]:z-10 [&>button]:text-primary-foreground md:[&>button]:text-muted-foreground",
+          contentClassName
+        )}
+      >
+        {hasCustomBody ? (
+          <>
+            <DialogHeader>
+              <DialogTitle>{title}</DialogTitle>
+              {description ? (
+                <DialogDescription>{description}</DialogDescription>
+              ) : null}
+            </DialogHeader>
+            {children}
+          </>
+        ) : (
+          <>
+            <DialogHeader className="sr-only">
+              <DialogTitle>{title}</DialogTitle>
+              {description ? (
+                <DialogDescription>{description}</DialogDescription>
+              ) : (
+                <DialogDescription>
+                  Preencha o formulário para pedir um orçamento gratuito.
+                </DialogDescription>
+              )}
+            </DialogHeader>
+            <WebsiteQuoteDialogSplit defaultWorkType={defaultWorkType} />
+          </>
         )}
       </DialogContent>
     </Dialog>

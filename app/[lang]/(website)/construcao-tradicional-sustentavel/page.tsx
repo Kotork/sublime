@@ -54,6 +54,7 @@ export default function ConstrucaoTradicionalSustentavelPage() {
       <ConstrucaoCtsDualShowcase />
       <CtaBanner
         buttonLabel="Começar"
+        defaultWorkType="Construção Tradicional Sustentável"
         dialogTitle="Pedir orçamento para Construção Alvenaria"
         title="Pedir orçamento para Construção Alvenaria"
       />

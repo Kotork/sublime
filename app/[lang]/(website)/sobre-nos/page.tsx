@@ -17,6 +17,10 @@ import { notFound } from "next/navigation";
 const PAGE_DESCRIPTION =
   "Conheça a SublimePT: construímos hoje as casas responsáveis de amanhã — construção civil sustentável, moradias e remodelação.";
 
+const SOBRE_NOS_CTA_TITLE = "Vai construir ou remodelar casa?";
+const SOBRE_NOS_CTA_DESCRIPTION =
+  "Conte-nos o seu projeto e receba um orçamento gratuito e personalizado.";
+
 export const metadata: Metadata = {
   title: "Sobre nós",
   description: PAGE_DESCRIPTION,
@@ -56,18 +60,22 @@ export default async function AboutUsPage({
       <SobreNosHero />
       <main className="flex flex-1 flex-col gap-12 md:gap-16">
         <CenterSection
+          variant="featured"
           srTitle="Compromisso da SublimePT com a construção sustentável"
           description="Construímos o presente com inovação, eficiência e foco no futuro. Desde 2021, a SublimePT afirma-se como uma alternativa moderna na construção civil, aliando sustentabilidade, rapidez e qualidade em cada projeto."
         />
         <SobreNosCompanyStory />
         <CenterSection
+          variant="featured"
+          accentPosition="bottom"
           srTitle="Apostamos em métodos construtivos inovadores"
           description="Apostamos em métodos construtivos inovadores, como LSF (Light Steel Framing) e ICF (Insulated Concrete Forms), que nos permitem oferecer soluções mais rápidas, eficientes do ponto de vista energético e com menor impacto ambiental."
         />
         <CtaBanner
           buttonLabel="Peça o seu orçamento"
+          description={SOBRE_NOS_CTA_DESCRIPTION}
           dialogTitle="Pedido de orçamento"
-          title="Vai construir ou remodelar casa?"
+          title={SOBRE_NOS_CTA_TITLE}
         />
         <SobreNosMissionVisionValues />
         <CenterSection
@@ -76,7 +84,7 @@ export default async function AboutUsPage({
         />
         <ImageFull
           alt="Equipa de trabalhadores da construção com coletes de alta visibilidade e capacetes a trabalhar betão fresco numa grande obra."
-          src="/images/sobre-nos-full-width.png"
+          src="/images/sobre-nos/sobre-nos-full-width.png"
         />
         <SobreNosDifferentiators contactHref={`/${lang}/contactos`} />
       </main>

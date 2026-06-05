@@ -12,6 +12,8 @@ const BUTTON_CLASSES =
 
 export type CtaBannerProps = {
   title: string;
+  /** Supporting copy below the title; improves conversion and on-page SEO when set. */
+  description?: string;
   buttonLabel: string;
   /**
    * When set, the button is a link to this URL instead of opening the dialog.
@@ -21,20 +23,25 @@ export type CtaBannerProps = {
   dialogTitle?: string;
   dialogDescription?: string;
   dialogBody?: ReactNode;
+  /** Pre-fill work type in the default quote form. */
+  defaultWorkType?: string;
   /** Extra classes for the outer full-bleed strip (default: primary background). */
   className?: string;
 };
 
 export function CtaBanner({
   title,
+  description,
   buttonLabel,
   href,
   dialogTitle,
   dialogDescription,
   dialogBody,
+  defaultWorkType,
   className,
 }: CtaBannerProps) {
   const titleId = useId().replace(/:/g, "");
+  const descriptionId = useId().replace(/:/g, "");
 
   const button = href ? (
     <Button asChild className={BUTTON_CLASSES} variant="secondary">
@@ -42,6 +49,7 @@ export function CtaBanner({
     </Button>
   ) : (
     <WebsiteQuoteDialog
+      defaultWorkType={defaultWorkType}
       description={dialogDescription}
       title={dialogTitle ?? buttonLabel}
       trigger={
@@ -56,6 +64,7 @@ export function CtaBanner({
 
   return (
     <section
+      aria-describedby={description ? descriptionId : undefined}
       aria-labelledby={titleId}
       className={cn(
         "relative w-screen max-w-[100vw] left-1/2 -translate-x-1/2 overflow-hidden bg-primary px-0 py-10 text-primary-foreground sm:py-12 md:py-14",
@@ -68,9 +77,22 @@ export function CtaBanner({
           WEBSITE_CONTENT_COLUMN_CLASS
         )}
       >
-        <p className="text-center text-base font-medium leading-snug sm:text-lg md:text-left md:text-2xl">
-          {title}
-        </p>
+        <div className="max-w-2xl text-pretty text-center md:text-left">
+          <h2
+            className="text-base font-semibold leading-snug sm:text-lg md:text-2xl"
+            id={titleId}
+          >
+            {title}
+          </h2>
+          {description ? (
+            <p
+              className="mx-auto mt-2 max-w-prose text-sm leading-relaxed text-primary-foreground/90 sm:text-base md:mx-0 md:mt-3"
+              id={descriptionId}
+            >
+              {description}
+            </p>
+          ) : null}
+        </div>
         <div className="flex shrink-0 justify-center md:justify-end">
           {button}
         </div>

@@ -56,13 +56,11 @@ const ITEMS: readonly {
   },
 ] as const;
 
-const ICON_CLASS =
-  "size-9 shrink-0 text-foreground stroke-[1.5] md:size-10";
-
 const TITLE_CLASS =
-  "text-sm font-bold uppercase tracking-tight text-foreground md:text-base";
+  "text-sm font-bold uppercase leading-snug tracking-tight text-foreground md:text-base";
 
-const BODY_CLASS = "text-pretty text-sm leading-relaxed text-foreground md:text-base";
+const BODY_CLASS =
+  "text-pretty text-sm leading-relaxed text-muted-foreground md:text-base";
 
 const CTA_CLASS =
   "inline-flex h-11 items-center justify-center rounded-md bg-[#165A72] px-8 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-[#124a5f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
@@ -91,18 +89,23 @@ export function SobreNosDifferentiators({
         >
           O QUE NOS DIFERENCIA
         </h2>
-        <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-12">
+        <ul className="mt-10 grid list-none grid-cols-1 gap-10 p-0 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-12">
           {ITEMS.map(({ icon: Icon, title, description }) => (
-            <article
-              className="flex flex-col items-center gap-3 text-center sm:items-start sm:text-left"
-              key={title}
-            >
-              <Icon aria-hidden className={ICON_CLASS} />
-              <h3 className={TITLE_CLASS}>{title}</h3>
-              <p className={BODY_CLASS}>{description}</p>
-            </article>
+            <li className="flex items-start gap-4" key={title}>
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary text-primary md:size-10">
+                <Icon
+                  aria-hidden
+                  className="size-5 md:size-[1.35rem]"
+                  strokeWidth={1.75}
+                />
+              </span>
+              <div className="min-w-0 flex-1">
+                <h3 className={TITLE_CLASS}>{title}</h3>
+                <p className={cn(BODY_CLASS, "mt-1")}>{description}</p>
+              </div>
+            </li>
           ))}
-        </div>
+        </ul>
         <div className="mt-12 flex justify-center lg:mt-16">
           <Link className={CTA_CLASS} href={contactHref}>
             Contacte-nos

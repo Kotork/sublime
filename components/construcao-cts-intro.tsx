@@ -61,6 +61,7 @@ export function ConstrucaoCtsIntro() {
             </div>
             <div className="pt-1">
               <WebsiteQuoteDialog
+                defaultWorkType="Construção Tradicional Sustentável"
                 title="Pedir orçamento"
                 trigger={
                   <button className={CTA_CLASS} type="button">

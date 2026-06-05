@@ -25,7 +25,7 @@ export function ImageFull({
   priority = false,
   sizes = "100vw",
   className,
-  heightClassName = "aspect-[6/1] min-h-[120px] max-h-[360px] sm:min-h-[140px] sm:max-h-[400px]",
+  heightClassName = "aspect-[6/1] min-h-[120px] max-h-[360px] sm:min-h-[200px] sm:max-h-[600px]",
 }: ImageFullProps) {
   return (
     <figure
@@ -39,6 +39,7 @@ export function ImageFull({
           alt={alt}
           className="object-cover"
           fill
+          loading="eager"
           priority={priority}
           sizes={sizes}
           src={src}
