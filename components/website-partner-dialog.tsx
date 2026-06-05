@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { WebsitePartnerDialogSplit } from "@/components/website-partner-dialog-split";
 import { cn } from "@/lib/utils";
 
 export type WebsitePartnerDialogProps = {
@@ -16,35 +17,59 @@ export type WebsitePartnerDialogProps = {
   /** Accessible dialog title (required for screen readers). */
   title: string;
   description?: string;
-  /** Form or other body; placeholder copy is shown when omitted. */
+  /** Form or other body; split partner form is shown when omitted. */
   children?: ReactNode;
   contentClassName?: string;
 };
 
 /**
- * Shell for partner / candidatura flows. Replace the default body with a form when ready.
+ * Shell for partner / candidatura flows. Pass a `trigger` (usually a button).
+ * Renders the split partner form by default; pass `children` to override the body.
  */
 export function WebsitePartnerDialog({
   trigger,
   title,
-  description = "Brevemente poderá enviar a sua candidatura a parceiro através deste formulário.",
+  description,
   children,
   contentClassName,
 }: WebsitePartnerDialogProps) {
+  const hasCustomBody = children !== undefined;
+
   return (
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className={cn(contentClassName)}>
-        <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          {description ? (
-            <DialogDescription>{description}</DialogDescription>
-          ) : null}
-        </DialogHeader>
-        {children ?? (
-          <p className="text-sm text-muted-foreground">
-            Formulário em preparação.
-          </p>
+      <DialogContent
+        className={cn(
+          hasCustomBody
+            ? undefined
+            : "max-h-[90vh] max-w-5xl gap-0 overflow-hidden p-0 sm:rounded-xl [&>button]:z-10 [&>button]:text-primary-foreground md:[&>button]:text-muted-foreground",
+          contentClassName
+        )}
+      >
+        {hasCustomBody ? (
+          <>
+            <DialogHeader>
+              <DialogTitle>{title}</DialogTitle>
+              {description ? (
+                <DialogDescription>{description}</DialogDescription>
+              ) : null}
+            </DialogHeader>
+            {children}
+          </>
+        ) : (
+          <>
+            <DialogHeader className="sr-only">
+              <DialogTitle>{title}</DialogTitle>
+              {description ? (
+                <DialogDescription>{description}</DialogDescription>
+              ) : (
+                <DialogDescription>
+                  Preencha o formulário para enviar a sua candidatura a parceiro.
+                </DialogDescription>
+              )}
+            </DialogHeader>
+            <WebsitePartnerDialogSplit />
+          </>
         )}
       </DialogContent>
     </Dialog>

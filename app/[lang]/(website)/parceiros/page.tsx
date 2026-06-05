@@ -1,6 +1,7 @@
 import { ImageFull } from "@/components/image-full";
 import { ParceirosPartnerCta } from "@/components/parceiros-partner-cta";
 import { ParceirosPartnersIntro } from "@/components/parceiros-partners-intro";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
 import type { Metadata } from "next";
 
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
 
 export default function ParceirosPage() {
   return (
-    <main>
+    <div>
       <WebsiteSplitPageHero
         eyebrow="PARCEIROS /"
         headingId="parceiros-hero-heading"
@@ -46,12 +47,20 @@ export default function ParceirosPage() {
         imageSrc={PARCEIROS_HERO_IMAGE_SRC}
         titleLines={["RELAÇÕES", "DE CONFIANÇA"]}
       />
-      <ParceirosPartnersIntro />
-      <ImageFull
-        alt="Imagem de pessoas a trabalhar numa obra em equipa."
-        src="/images/parceiros/parceiros-full-width.png"
-      />
-      <ParceirosPartnerCta />
-    </main>
+      <main className="flex flex-1 flex-col gap-12 md:gap-16">
+        <ScrollReveal>
+          <ParceirosPartnersIntro />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ImageFull
+            alt="Imagem de pessoas a trabalhar numa obra em equipa."
+            src="/images/parceiros/parceiros-full-width.png"
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ParceirosPartnerCta />
+        </ScrollReveal>
+      </main>
+    </div>
   );
 }
