@@ -1,9 +1,10 @@
-import { ConstrucaoCtsDualShowcase } from '@/components/construcao-cts-dual-showcase';
-import { ConstrucaoCtsIntro } from '@/components/construcao-cts-intro';
-import { ConstrucaoCtsWhyChoose } from '@/components/construcao-cts-why-choose';
-import { ConstrucaoOds } from '@/components/construcao-ods';
-import { ConstrucaoSustainability } from '@/components/construcao-sustainability';
-import { CtaBanner } from '@/components/cta-banner';
+import { ConstrucaoCtsDualShowcase } from "@/components/construcao-cts-dual-showcase";
+import { ConstrucaoCtsIntro } from "@/components/construcao-cts-intro";
+import { ConstrucaoCtsWhyChoose } from "@/components/construcao-cts-why-choose";
+import { ConstrucaoOds } from "@/components/construcao-ods";
+import { ConstrucaoSustainability } from "@/components/construcao-sustainability";
+import { CtaBanner } from "@/components/cta-banner";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
 import type { Metadata } from "next";
 
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
 
 export default function ConstrucaoTradicionalSustentavelPage() {
   return (
-    <main>
+    <div>
       <WebsiteSplitPageHero
         eyebrow="SERVIÇOS /"
         headingId="construcao-tradicional-sustentavel-hero-heading"
@@ -54,18 +55,32 @@ export default function ConstrucaoTradicionalSustentavelPage() {
         imageSrc={CONSTRUCAO_TRADICIONAL_SUSTENTAVEL_HERO_IMAGE_SRC}
         titleLines={["CONSTRUÇÃO", "ALVENARIA SUSTENTÁVEL"]}
       />
-      <ConstrucaoCtsIntro />
-      <ConstrucaoCtsWhyChoose />
-      <ConstrucaoCtsDualShowcase />
-      <CtaBanner
-        buttonLabel="Peça o seu orçamento gratuito"
-        defaultWorkType="Construção Tradicional Sustentável"
-        description={CONSTRUCAO_CTS_CTA_DESCRIPTION}
-        dialogTitle="Pedido de orçamento — Construção Alvenaria Sustentável"
-        title={CONSTRUCAO_CTS_CTA_TITLE}
-      />
-      <ConstrucaoSustainability />
-      <ConstrucaoOds />
-    </main>
+      <main className="flex flex-1 flex-col gap-12 md:gap-16">
+        <ScrollReveal>
+          <ConstrucaoCtsIntro />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ConstrucaoCtsWhyChoose />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ConstrucaoCtsDualShowcase />
+        </ScrollReveal>
+        <ScrollReveal>
+          <CtaBanner
+            buttonLabel="Peça o seu orçamento gratuito"
+            defaultWorkType="Construção Tradicional Sustentável"
+            description={CONSTRUCAO_CTS_CTA_DESCRIPTION}
+            dialogTitle="Pedido de orçamento — Construção Alvenaria Sustentável"
+            title={CONSTRUCAO_CTS_CTA_TITLE}
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ConstrucaoSustainability />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ConstrucaoOds />
+        </ScrollReveal>
+      </main>
+    </div>
   );
 }
