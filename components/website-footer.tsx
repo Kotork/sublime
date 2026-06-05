@@ -1,80 +1,8 @@
 import type { Locale } from "@/lib/i18n/locale";
-import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { WebsiteSocialLinks } from "@/components/website-social-links";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import type { ComponentType, SVGProps } from "react";
-
-function FacebookIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      fill="currentColor"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <path d="M13.5 9H15.5V6.5H13.5C11.84 6.5 10.5 7.84 10.5 9.5V11H8.5V13.5H10.5V19.5H13V13.5H15L15.5 11H13V9.75C13 9.34 13.22 9 13.5 9Z" />
-    </svg>
-  );
-}
-
-function InstagramIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <rect height="18" rx="5" ry="5" width="18" x="3" y="3" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-    </svg>
-  );
-}
-
-function LinkedinIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      fill="currentColor"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
-    </svg>
-  );
-}
-
-const SOCIAL_LINKS: ReadonlyArray<{
-  href: string;
-  ariaLabel: string;
-  Icon: ComponentType<SVGProps<SVGSVGElement>>;
-}> = [
-  {
-    href: "https://www.facebook.com/pt.sublime/",
-    ariaLabel: "Facebook Sublime",
-    Icon: FacebookIcon,
-  },
-  {
-    href: "https://www.instagram.com/sublimeportugal/",
-    ariaLabel: "Instagram Sublime",
-    Icon: InstagramIcon,
-  },
-  {
-    href: "https://www.linkedin.com/in/jose-ferramenta-17979569/",
-    ariaLabel: "LinkedIn Sublime",
-    Icon: LinkedinIcon,
-  },
-  {
-    href: "https://example.com/whatsapp",
-    ariaLabel: "WhatsApp (ligação de exemplo)",
-    Icon: MessageCircle,
-  },
-];
 
 const columnHeadingClass =
   "text-xs font-semibold uppercase tracking-[0.18em] text-white";
@@ -127,21 +55,7 @@ export function WebsiteFooter({ lang }: { lang: Locale }) {
               Tradição, inovação e pessoas — no Distrito de Coimbra desde 2009.
             </p>
             <p className="text-sm text-white/70">Alvará 112885 - PAR</p>
-            <ul className="flex flex-wrap gap-2">
-              {SOCIAL_LINKS.map(({ href, ariaLabel, Icon }) => (
-                <li key={href}>
-                  <a
-                    aria-label={ariaLabel}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                    href={href}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <Icon aria-hidden className="h-4 w-4" />
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <WebsiteSocialLinks variant="dark" />
           </div>
 
           <nav aria-labelledby="footer-sistemas-heading" className="flex flex-col gap-4">

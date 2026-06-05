@@ -1,6 +1,6 @@
 import { ContactosContactForm } from "@/components/contactos-contact-form";
+import { WebsiteSocialLinks } from "@/components/website-social-links";
 import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
-import { WEBSITE_SOCIAL_LINKS } from "@/lib/social-links";
 import { cn } from "@/lib/utils";
 
 const CONTACT_EMAIL = "info@sublime-pt.com";
@@ -50,21 +50,7 @@ export function ContactosContactSection() {
               </span>
             </div>
             <nav aria-label="Redes sociais">
-              <ul className="flex flex-col">
-                {WEBSITE_SOCIAL_LINKS.map((item) => (
-                  <li key={item.href}>
-                    <a
-                      aria-label={item.ariaLabel}
-                      className="text-sm font-normal uppercase tracking-wide text-foreground underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                      href={item.href}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <WebsiteSocialLinks variant="light" />
             </nav>
           </div>
           <ContactosContactForm />
