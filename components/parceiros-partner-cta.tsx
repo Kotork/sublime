@@ -2,14 +2,13 @@
 
 import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 import { WebsitePartnerDialog } from "@/components/website-partner-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const HEADING_ID = "parceiros-partner-cta-heading";
 
 const PARTNER_EMAIL = "info@sublime-pt.com";
-
-const CTA_BUTTON_CLASS =
-  "inline-flex h-11 shrink-0 items-center justify-center rounded-md bg-[#165A72] px-8 text-sm font-bold text-white transition-colors hover:bg-[#124a5f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:h-12 sm:px-10 sm:text-base";
 
 export function ParceirosPartnerCta() {
   return (
@@ -24,6 +23,12 @@ export function ParceirosPartnerCta() {
         )}
       >
         <div className="mx-auto text-left">
+          <Badge
+            className="mb-5 self-start rounded-full border-border bg-secondary px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground"
+            variant="outline"
+          >
+            Parceiros e Fornecedores
+          </Badge>
           <h2
             className="text-pretty text-lg font-bold uppercase tracking-tight text-foreground md:text-xl"
             id={HEADING_ID}
@@ -56,9 +61,14 @@ export function ParceirosPartnerCta() {
           <WebsitePartnerDialog
             title="Candidatura a parceiro"
             trigger={
-              <button className={CTA_BUTTON_CLASS} type="button">
+              <Button
+                className="font-bold sm:h-12 sm:px-10 sm:text-base"
+                size="lg"
+                type="button"
+                variant="default"
+              >
                 Quero ser parceiro
-              </button>
+              </Button>
             }
           />
         </div>

@@ -1,6 +1,8 @@
 import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { PartnersIntroCards } from './home-partners-intro-cards';
+import { PARTNERS } from '@/lib/home-partners';
 
 /** Placeholder tiles: Sublime logo repeated until real partner logos are available. */
 const PARTNER_LOGO_SRC = "/logo.png";
@@ -34,27 +36,7 @@ export function ParceirosPartnersIntro() {
           SublimePT até existirem imagens definitivas).
         </p>
 
-        <ul className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4 md:gap-6">
-          {Array.from({ length: PARTNER_PLACEHOLDER_COUNT }, (_, index) => (
-            <li key={index}>
-              <figure className="m-0">
-                <div className="relative aspect-3/2 w-full overflow-hidden rounded-lg bg-muted">
-                  <div className="absolute inset-0 p-4 sm:p-5 md:p-6">
-                    <div className="relative h-full w-full">
-                      <Image
-                        alt={`Logótipo SublimePT (placeholder). Parceiro ${index + 1} de ${PARTNER_PLACEHOLDER_COUNT}.`}
-                        className="object-contain"
-                        fill
-                        sizes="(max-width: 640px) 50vw, 25vw"
-                        src={PARTNER_LOGO_SRC}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </figure>
-            </li>
-          ))}
-        </ul>
+        <PartnersIntroCards partners={PARTNERS} />
       </div>
     </section>
   );
