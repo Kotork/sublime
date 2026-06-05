@@ -1,9 +1,10 @@
 import { ConstrucaoIcfComparison } from "@/components/construcao-icf-comparison";
 import { ConstrucaoIcfDualShowcase } from "@/components/construcao-icf-dual-showcase";
 import { ConstrucaoIcfIntro } from "@/components/construcao-icf-intro";
-import { ConstrucaoOds } from '@/components/construcao-ods';
-import { ConstrucaoSustainability } from '@/components/construcao-sustainability';
+import { ConstrucaoOds } from "@/components/construcao-ods";
+import { ConstrucaoSustainability } from "@/components/construcao-sustainability";
 import { CtaBanner } from "@/components/cta-banner";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
 import type { Metadata } from "next";
 
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
 
 export default function ConstrucaoIcfPage() {
   return (
-    <main>
+    <div>
       <WebsiteSplitPageHero
         eyebrow="SERVIÇOS /"
         headingId="construcao-icf-hero-heading"
@@ -53,18 +54,32 @@ export default function ConstrucaoIcfPage() {
         imageSrc={CONSTRUCAO_ICF_HERO_IMAGE_SRC}
         titleLines={["CONSTRUÇÃO", "EM ICF"]}
       />
-      <ConstrucaoIcfIntro />
-      <ConstrucaoIcfComparison />
-      <ConstrucaoIcfDualShowcase />
-      <CtaBanner
-        buttonLabel="Peça o seu orçamento gratuito"
-        defaultWorkType="Construção ICF"
-        description={CONSTRUCAO_ICF_CTA_DESCRIPTION}
-        dialogTitle="Pedido de orçamento — Construção em ICF"
-        title={CONSTRUCAO_ICF_CTA_TITLE}
-      />
-      <ConstrucaoSustainability />
-      <ConstrucaoOds />
-    </main>
+      <main className="flex flex-1 flex-col gap-12 md:gap-16">
+        <ScrollReveal>
+          <ConstrucaoIcfIntro />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ConstrucaoIcfComparison />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ConstrucaoIcfDualShowcase />
+        </ScrollReveal>
+        <ScrollReveal>
+          <CtaBanner
+            buttonLabel="Peça o seu orçamento gratuito"
+            defaultWorkType="Construção ICF"
+            description={CONSTRUCAO_ICF_CTA_DESCRIPTION}
+            dialogTitle="Pedido de orçamento — Construção em ICF"
+            title={CONSTRUCAO_ICF_CTA_TITLE}
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ConstrucaoSustainability />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ConstrucaoOds />
+        </ScrollReveal>
+      </main>
+    </div>
   );
 }
