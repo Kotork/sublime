@@ -77,8 +77,9 @@ export default async function RecrutamentoPage({
         SUBEMPREITEIROS
       </h2>
       <CenterSection
+        variant="featured"
         srTitle="Colaboramos regularmente com subempreiteiros especializados para garantir a máxima qualidade e eficiência nas obras."
-        description="Colaboramos regularmente com subempreiteiros especializados para garantir a máxima qualidade e eficiência nas obras. Se é um profissional ou empresa com experiência comprovada, gostaríamos de tê-lo na nossa rede."
+        description=""
       />
       <RecrutamentoSubempreiteiro />
       <RecrutamentoSubempreiteiroCta contactHref={`/${lang}/contactos`} />
