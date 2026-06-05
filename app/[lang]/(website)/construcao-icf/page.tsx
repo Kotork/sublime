@@ -16,6 +16,10 @@ export const CONSTRUCAO_ICF_HERO_IMAGE_ALT =
 const PAGE_DESCRIPTION =
   "Construção com formulários de betão isolados (ICF) para conforto térmico, eficiência energética e estruturas duradouras.";
 
+const CONSTRUCAO_ICF_CTA_TITLE = "Interessado em construir com ICF?";
+const CONSTRUCAO_ICF_CTA_DESCRIPTION =
+  "Analisamos o terreno, prazos e requisitos para lhe apresentar a solução mais adequada em betão isolado.";
+
 export const metadata: Metadata = {
   title: "Construção em ICF",
   description: PAGE_DESCRIPTION,
@@ -53,10 +57,11 @@ export default function ConstrucaoIcfPage() {
       <ConstrucaoIcfComparison />
       <ConstrucaoIcfDualShowcase />
       <CtaBanner
-        buttonLabel="Começar"
+        buttonLabel="Peça o seu orçamento gratuito"
         defaultWorkType="Construção ICF"
-        dialogTitle="Pedir orçamento para Construção em ICF"
-        title="Pedir orçamento para Construção em ICF"
+        description={CONSTRUCAO_ICF_CTA_DESCRIPTION}
+        dialogTitle="Pedido de orçamento — Construção em ICF"
+        title={CONSTRUCAO_ICF_CTA_TITLE}
       />
       <ConstrucaoSustainability />
       <ConstrucaoOds />

@@ -70,7 +70,7 @@ function ComparisonTable({
       <div className="flex flex-row items-start gap-2 md:flex-col">
         <Icon
           aria-hidden
-          className="size-6 shrink-0 text-foreground stroke-1 "
+          className="size-6 shrink-0 text-primary stroke-1"
         />
         <h3
           className="text-sm font-bold uppercase tracking-tight text-foreground md:text-base"
