@@ -4,6 +4,7 @@ import { ConstrucaoLsfIntro } from "@/components/construcao-lsf-intro";
 import { ConstrucaoOds } from "@/components/construcao-ods";
 import { ConstrucaoSustainability } from "@/components/construcao-sustainability";
 import { CtaBanner } from "@/components/cta-banner";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
 import type { Metadata } from "next";
 
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
 
 export default function ConstrucaoLsfPage() {
   return (
-    <main>
+    <div>
       <WebsiteSplitPageHero
         eyebrow="SERVIÇOS /"
         headingId="construcao-lsf-hero-heading"
@@ -53,18 +54,32 @@ export default function ConstrucaoLsfPage() {
         imageSrc={CONSTRUCAO_LSF_HERO_IMAGE_SRC}
         titleLines={["CONSTRUÇÃO", "EM LSF"]}
       />
-      <ConstrucaoLsfIntro />
-      <ConstrucaoLsfComparison />
-      <ConstrucaoLsfDualShowcase />
-      <CtaBanner
-        buttonLabel="Peça o seu orçamento gratuito"
-        defaultWorkType="Construção LSF"
-        description={CONSTRUCAO_LSF_CTA_DESCRIPTION}
-        dialogTitle="Pedido de orçamento — Construção em LSF"
-        title={CONSTRUCAO_LSF_CTA_TITLE}
-      />
-      <ConstrucaoSustainability />
-      <ConstrucaoOds />
-    </main>
+      <main className="flex flex-1 flex-col gap-12 md:gap-16">
+        <ScrollReveal>
+          <ConstrucaoLsfIntro />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ConstrucaoLsfComparison />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ConstrucaoLsfDualShowcase />
+        </ScrollReveal>
+        <ScrollReveal>
+          <CtaBanner
+            buttonLabel="Peça o seu orçamento gratuito"
+            defaultWorkType="Construção LSF"
+            description={CONSTRUCAO_LSF_CTA_DESCRIPTION}
+            dialogTitle="Pedido de orçamento — Construção em LSF"
+            title={CONSTRUCAO_LSF_CTA_TITLE}
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ConstrucaoSustainability />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ConstrucaoOds />
+        </ScrollReveal>
+      </main>
+    </div>
   );
 }
