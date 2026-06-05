@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { WebsiteQuoteDialog } from "@/components/website-quote-dialog";
 import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 import { cn } from "@/lib/utils";
@@ -13,9 +14,6 @@ const SECTION_IMAGE_ALT =
   " ICF (Cofragem de Betão Isolamento) combina a solidez do betão armado com o isolamento térmico integrado";
 
 const HEADING_ID = "construcao-icf-intro-heading";
-
-const CTA_CLASS =
-  "inline-flex h-11 w-full items-center justify-center rounded-md bg-[#165A72] px-8 text-sm font-bold text-white transition-colors hover:bg-[#124a5f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:h-12 sm:w-auto sm:px-10 sm:text-base";
 
 export function ConstrucaoIcfIntro() {
   return (
@@ -60,9 +58,14 @@ export function ConstrucaoIcfIntro() {
                 defaultWorkType="Construção ICF"
                 title="Pedir orçamento"
                 trigger={
-                  <button className={CTA_CLASS} type="button">
+                  <Button
+                    className="w-full font-bold sm:h-12 sm:w-auto sm:px-10 sm:text-base"
+                    size="lg"
+                    type="button"
+                    variant="default"
+                  >
                     Pedir orçamento
-                  </button>
+                  </Button>
                 }
               />
             </div>
