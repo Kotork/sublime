@@ -8,6 +8,7 @@ import type { Metadata } from "next";
 import CenterSection from "../../../../components/center-section";
 import { CtaBanner } from "@/components/cta-banner";
 import { ImageFull } from "@/components/image-full";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { SobreNosDifferentiators } from "@/components/sobre-nos-differentiators";
 import { SobreNosMissionVisionValues } from "@/components/sobre-nos-mission-vision-values";
 import type { Locale } from "@/lib/i18n/locale";
@@ -59,34 +60,50 @@ export default async function AboutUsPage({
     <div>
       <SobreNosHero />
       <main className="flex flex-1 flex-col gap-12 md:gap-16">
-        <CenterSection
-          variant="featured"
-          srTitle="Compromisso da SublimePT com a construção sustentável"
-          description="Construímos o presente com inovação, eficiência e foco no futuro. Desde 2021, a SublimePT afirma-se como uma alternativa moderna na construção civil, aliando sustentabilidade, rapidez e qualidade em cada projeto."
-        />
-        <SobreNosCompanyStory />
-        <CenterSection
-          variant="featured"
-          accentPosition="bottom"
-          srTitle="Apostamos em métodos construtivos inovadores"
-          description="Apostamos em métodos construtivos inovadores, como LSF (Light Steel Framing) e ICF (Insulated Concrete Forms), que nos permitem oferecer soluções mais rápidas, eficientes do ponto de vista energético e com menor impacto ambiental."
-        />
-        <CtaBanner
-          buttonLabel="Peça o seu orçamento"
-          description={SOBRE_NOS_CTA_DESCRIPTION}
-          dialogTitle="Pedido de orçamento"
-          title={SOBRE_NOS_CTA_TITLE}
-        />
-        <SobreNosMissionVisionValues />
-        <CenterSection
-          srTitle="Nossa presença principalmente em Coimbra e na Região Centro de Portugal"
-          description="Com presença principalmente em Coimbra e na Região Centro de Portugal, asseguramos um acompanhamento próximo e um profundo conhecimento do mercado local, criando relações de confiança duradouras com clientes particulares, investidores e empresas"
-        />
-        <ImageFull
-          alt="Equipa de trabalhadores da construção com coletes de alta visibilidade e capacetes a trabalhar betão fresco numa grande obra."
-          src="/images/sobre-nos/sobre-nos-full-width.png"
-        />
-        <SobreNosDifferentiators contactHref={`/${lang}/contactos`} />
+        <ScrollReveal>
+          <CenterSection
+            variant="featured"
+            srTitle="Compromisso da SublimePT com a construção sustentável"
+            description="Construímos o presente com inovação, eficiência e foco no futuro. Desde 2021, a SublimePT afirma-se como uma alternativa moderna na construção civil, aliando sustentabilidade, rapidez e qualidade em cada projeto."
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <SobreNosCompanyStory />
+        </ScrollReveal>
+        <ScrollReveal>
+          <CenterSection
+            variant="featured"
+            accentPosition="bottom"
+            srTitle="Apostamos em métodos construtivos inovadores"
+            description="Apostamos em métodos construtivos inovadores, como LSF (Light Steel Framing) e ICF (Insulated Concrete Forms), que nos permitem oferecer soluções mais rápidas, eficientes do ponto de vista energético e com menor impacto ambiental."
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <CtaBanner
+            buttonLabel="Peça o seu orçamento"
+            description={SOBRE_NOS_CTA_DESCRIPTION}
+            dialogTitle="Pedido de orçamento"
+            title={SOBRE_NOS_CTA_TITLE}
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <SobreNosMissionVisionValues />
+        </ScrollReveal>
+        <ScrollReveal>
+          <CenterSection
+            srTitle="Nossa presença principalmente em Coimbra e na Região Centro de Portugal"
+            description="Com presença principalmente em Coimbra e na Região Centro de Portugal, asseguramos um acompanhamento próximo e um profundo conhecimento do mercado local, criando relações de confiança duradouras com clientes particulares, investidores e empresas"
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ImageFull
+            alt="Equipa de trabalhadores da construção com coletes de alta visibilidade e capacetes a trabalhar betão fresco numa grande obra."
+            src="/images/sobre-nos/sobre-nos-full-width.png"
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <SobreNosDifferentiators contactHref={`/${lang}/contactos`} />
+        </ScrollReveal>
       </main>
     </div>
   );
