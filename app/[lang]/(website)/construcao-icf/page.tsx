@@ -8,8 +8,7 @@ import { ScrollReveal } from "@/components/scroll-reveal";
 import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
 import type { Metadata } from "next";
 
-export const CONSTRUCAO_ICF_HERO_IMAGE_SRC =
-  "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1920&q=80";
+export const CONSTRUCAO_ICF_HERO_IMAGE_SRC = "/images/services/icf/icf.png";
 
 export const CONSTRUCAO_ICF_HERO_IMAGE_ALT =
   "Trabalhos de betão e estrutura em obra, alinhados com sistemas como ICF (Insulated Concrete Forms).";

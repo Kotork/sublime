@@ -6,7 +6,7 @@ const HEADING_ID = "construcao-icf-showcase-heading";
 
 /** Interior metal stud / framing — residential-scale ICF context (Unsplash). */
 const SHOWCASE_LEFT_SRC =
-  "https://images.unsplash.com/photo-1768321911446-baeb6c1a673f?w=1200&q=80";
+  "/images/services/icf/icf.png";
 
 const SHOWCASE_LEFT_ALT =
   "Vista interior de um edifício em construção com estrutura de betão e cofragem de betão isolado, ilustrativa de construção em ICF em contexto residencial.";
