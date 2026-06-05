@@ -11,12 +11,12 @@ const SHOWCASE_LEFT_SRC =
 const SHOWCASE_LEFT_ALT =
   "Vista interior de um edifício em construção com estrutura de betão e cofragem de betão isolado, ilustrativa de construção em ICF em contexto residencial.";
 
-/** Large-scale steel framework against sky — industrial / engineered steel (Unsplash). */
+/** Worker pouring concrete with a pump hose on site (Unsplash). */
 const SHOWCASE_RIGHT_SRC =
-  "https://images.unsplash.com/photo-1706552128399-43e2baff0fe5?w=1200&q=80";
+  "https://images.unsplash.com/photo-1685464196332-ed9c9da28d9a?w=1200&q=80";
 
 const SHOWCASE_RIGHT_ALT =
-  "Estrutura metálica de grande dimensão em obra, vista de baixo para cima com céu azul de fundo, ilustrativa de engenharia e montagem estrutural em aço.";
+  "Operário a despejar betão com uma bomba de betão em obra, ilustrativo do processo de betonagem em construção.";
 
 export function ConstrucaoIcfDualShowcase() {
   return (

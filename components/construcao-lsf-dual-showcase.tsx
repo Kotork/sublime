@@ -10,11 +10,12 @@ const SHOWCASE_LEFT_SRC = "/images/services/lsf/detail1.png";
 const SHOWCASE_LEFT_ALT =
   "Vista interior de um edifício em construção com estrutura metálica e perfis de enquadramento, ilustrativa de construção leve em aço (LSF) em contexto residencial.";
 
-/** Large-scale steel framework against sky — industrial / engineered steel (Unsplash). */
-const SHOWCASE_RIGHT_SRC = "/images/services/lsf/detail2.png";
+/** Aerial view of a construction site with concrete blocks (Unsplash). */
+const SHOWCASE_RIGHT_SRC =
+  "https://images.unsplash.com/photo-1686358244616-aed9e9a1d827?w=1200&q=80";
 
 const SHOWCASE_RIGHT_ALT =
-  "Estrutura metálica de grande dimensão em obra, vista de baixo para cima com céu azul de fundo, ilustrativa de engenharia e montagem estrutural em aço.";
+  "Vista aérea de um estaleiro de construção com blocos de betão, ilustrativa de obra e preparação de estruturas em contexto de construção.";
 
 export function ConstrucaoLsfDualShowcase() {
   return (

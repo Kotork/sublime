@@ -7,12 +7,12 @@ import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-/** Distinct from hero art; steel / light-frame construction context. */
+/** Aerial view of a building under construction (Unsplash). */
 const SECTION_IMAGE_SRC =
-  "/images/services/lsf/lsf.png";
+  "https://images.unsplash.com/photo-1691890878510-34ed28f185fc?w=1200&q=80";
 
 const SECTION_IMAGE_ALT =
-  "Estrutura metálica em perfis de aço galvanizado em obra, representativa de Light Steel Framing (LSF).";
+  "Vista aérea de um edifício em construção, representativa de obra e estrutura em fase de montagem.";
 
 const HEADING_ID = "construcao-lsf-intro-heading";
 

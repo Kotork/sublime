@@ -8,8 +8,7 @@ import { ScrollReveal } from "@/components/scroll-reveal";
 import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
 import type { Metadata } from "next";
 
-export const CONSTRUCAO_LSF_HERO_IMAGE_SRC =
-  "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=80";
+export const CONSTRUCAO_LSF_HERO_IMAGE_SRC = "/images/services/lsf/detail1.png";
 
 export const CONSTRUCAO_LSF_HERO_IMAGE_ALT =
   "Estrutura metálica de perfis leves em obra, ilustrativa de construção em LSF (Light Steel Frame).";
