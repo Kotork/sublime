@@ -1,12 +1,13 @@
 import { createClient } from "@/lib/supabase/server";
-import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
 import type { Locale } from "@/lib/i18n/locale";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import CenterSection from "@/components/center-section";
 import { ChevronRight } from "lucide-react";
 import { CtaBannerAlt } from "@/components/cta-banner-alt";
+import CenterSection from "@/components/center-section";
+import { ScrollReveal } from "@/components/scroll-reveal";
+import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
 
 export const NOTICIAS_HERO_IMAGE_SRC =
   "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1920&q=80";
@@ -78,85 +79,97 @@ export default async function NoticiasIndex({
 
   if (!posts || posts.length === 0) {
     return (
-      <main>
+      <div>
         {hero}
-        <div className="py-20 text-center text-muted-foreground">
-          <p>Ainda não há notícias publicadas.</p>
-        </div>
-      </main>
+        <main className="flex flex-1 flex-col gap-12 md:gap-16">
+          <ScrollReveal>
+            <div className="py-20 text-center text-muted-foreground">
+              <p>Ainda não há notícias publicadas.</p>
+            </div>
+          </ScrollReveal>
+        </main>
+      </div>
     );
   }
 
   return (
-    <main>
+    <div>
       {hero}
-      <CenterSection
-        variant="featured"
-        srTitle="Na SublimePT, cada projeto conta uma história. Aqui partilhamos novidades, conquistas e evolução contínua num setor em constante transformação."
-        description=""
-      />
-      <div className="py-8">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => {
-            const postHref = `/${lang}/noticias/${post.slug}`;
-            return (
-              <article
-                key={post.id}
-                className="overflow-hidden rounded-xl border bg-card transition-colors hover:border-foreground/20"
-              >
-                {post.main_image_url && (
-                  <div className="relative aspect-16/10 w-full bg-muted">
-                    <Image
-                      src={post.main_image_url}
-                      alt={post.title}
-                      fill
-                      sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
-                      className="object-cover"
-                    />
-                  </div>
-                )}
-                <div className={post.main_image_url ? "p-6 pt-5" : "p-6"}>
-                  {post.published_at && (
-                    <time
-                      className="mb-2 block text-xs text-muted-foreground"
-                      dateTime={post.published_at}
-                    >
-                      {new Date(post.published_at).toLocaleDateString(
-                        lang as Locale,
-                        { year: "numeric", month: "long", day: "numeric" }
-                      )}
-                    </time>
-                  )}
-                  <h2 className="mb-2 text-lg font-semibold text-foreground">
-                    {post.title}
-                  </h2>
-                  {post.excerpt && (
-                    <p className="mb-4 line-clamp-2 text-sm text-muted-foreground">
-                      {post.excerpt}
-                    </p>
-                  )}
-                  <Link
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    href={postHref}
+      <main className="flex flex-1 flex-col gap-12 md:gap-16">
+        <ScrollReveal>
+          <CenterSection
+            variant="featured"
+            srTitle="Na SublimePT, cada projeto conta uma história. Aqui partilhamos novidades, conquistas e evolução contínua num setor em constante transformação."
+            description=""
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <div className="py-8">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {posts.map((post) => {
+                const postHref = `/${lang}/noticias/${post.slug}`;
+                return (
+                  <article
+                    key={post.id}
+                    className="overflow-hidden rounded-xl border bg-card transition-colors hover:border-foreground/20"
                   >
-                    <ChevronRight
-                      aria-hidden
-                      className="size-4 shrink-0"
-                      strokeWidth={2}
-                    />
-                    Ler Mais
-                  </Link>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </div>
-      <CtaBannerAlt
-        buttonLabel="Peça o seu orçamento"
-        dialogTitle="Pedido de orçamento"
-        title="Vai construir ou remodelar casa?"
-      />
-    </main>
+                    {post.main_image_url && (
+                      <div className="relative aspect-16/10 w-full bg-muted">
+                        <Image
+                          src={post.main_image_url}
+                          alt={post.title}
+                          fill
+                          sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className={post.main_image_url ? "p-6 pt-5" : "p-6"}>
+                      {post.published_at && (
+                        <time
+                          className="mb-2 block text-xs text-muted-foreground"
+                          dateTime={post.published_at}
+                        >
+                          {new Date(post.published_at).toLocaleDateString(
+                            lang as Locale,
+                            { year: "numeric", month: "long", day: "numeric" }
+                          )}
+                        </time>
+                      )}
+                      <h2 className="mb-2 text-lg font-semibold text-foreground">
+                        {post.title}
+                      </h2>
+                      {post.excerpt && (
+                        <p className="mb-4 line-clamp-2 text-sm text-muted-foreground">
+                          {post.excerpt}
+                        </p>
+                      )}
+                      <Link
+                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        href={postHref}
+                      >
+                        <ChevronRight
+                          aria-hidden
+                          className="size-4 shrink-0"
+                          strokeWidth={2}
+                        />
+                        Ler Mais
+                      </Link>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </ScrollReveal>
+        <ScrollReveal>
+          <CtaBannerAlt
+            buttonLabel="Peça o seu orçamento"
+            dialogTitle="Pedido de orçamento"
+            title="Vai construir ou remodelar casa?"
+          />
+        </ScrollReveal>
+      </main>
+    </div>
   );
 }
