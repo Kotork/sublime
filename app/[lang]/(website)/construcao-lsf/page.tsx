@@ -16,6 +16,10 @@ export const CONSTRUCAO_LSF_HERO_IMAGE_ALT =
 const PAGE_DESCRIPTION =
   "Soluções em Light Steel Frame (LSF) para construção civil eficiente e sustentável — estruturas leves, precisas e adaptadas ao seu projeto.";
 
+const CONSTRUCAO_LSF_CTA_TITLE = "Interessado em construir com LSF?";
+const CONSTRUCAO_LSF_CTA_DESCRIPTION =
+  "Analisamos o terreno, prazos e requisitos para lhe apresentar a solução mais adequada em LSF.";
+
 export const metadata: Metadata = {
   title: "Construção em LSF",
   description: PAGE_DESCRIPTION,
@@ -53,10 +57,11 @@ export default function ConstrucaoLsfPage() {
       <ConstrucaoLsfComparison />
       <ConstrucaoLsfDualShowcase />
       <CtaBanner
-        buttonLabel="Começar"
+        buttonLabel="Peça o seu orçamento gratuito"
         defaultWorkType="Construção LSF"
-        dialogTitle="Pedir orçamento para Construção em LSF"
-        title="Pedir orçamento para Construção em LSF"
+        description={CONSTRUCAO_LSF_CTA_DESCRIPTION}
+        dialogTitle="Pedido de orçamento — Construção em LSF"
+        title={CONSTRUCAO_LSF_CTA_TITLE}
       />
       <ConstrucaoSustainability />
       <ConstrucaoOds />
