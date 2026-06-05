@@ -4,8 +4,9 @@ import { RecrutamentoBenefits } from "@/components/recrutamento-benefits";
 import { RecrutamentoSpontaneousCta } from "@/components/recrutamento-spontaneous-cta";
 import { RecrutamentoSubempreiteiro } from "@/components/recrutamento-subempreiteiro";
 import { RecrutamentoSubempreiteiroCta } from "@/components/recrutamento-subempreiteiro-cta";
-import { CONTACT_FORM_ID } from "@/lib/contact-form";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { WebsiteSplitPageHero } from "@/components/website-split-page-hero";
+import { CONTACT_FORM_ID } from "@/lib/contact-form";
 import type { Locale } from "@/lib/i18n/locale";
 import { isValidLocale } from "@/lib/i18n/locale";
 import { cn } from "@/lib/utils";
@@ -57,7 +58,7 @@ export default async function RecrutamentoPage({
   const lang = langParam as Locale;
 
   return (
-    <main>
+    <div>
       <WebsiteSplitPageHero
         eyebrow="RECRUTAMENTO /"
         headingId="recrutamento-hero-heading"
@@ -65,36 +66,54 @@ export default async function RecrutamentoPage({
         imageSrc={RECRUTAMENTO_HERO_IMAGE_SRC}
         titleLines={["TRABALHE", "CONNOSCO"]}
       />
-      <CenterSection
-        variant="featured"
-        srTitle="Junte-se a uma equipa jovem, motivada e em crescimento. Estamos sempre atentos a profissionais que queiram construir connosco."
-        description=""
-      />
-      <RecrutamentoBenefits />
-      <RecrutamentoSpontaneousCta />
-      <ImageFull
-        alt="Imagem de pessoas a trabalhar numa obra em equipa."
-        src="/images/parceiros/parceiros-full-width.png"
-      />
-      <div
-        className={cn(
-          "mx-auto w-full px-4 pt-12 sm:px-5 md:pt-16",
-          WEBSITE_CONTENT_COLUMN_CLASS
-        )}
-      >
-        <h2 className="text-center text-xl font-bold uppercase tracking-tight text-foreground md:text-2xl">
-          SUBEMPREITEIROS
-        </h2>
-      </div>
-      <CenterSection
-        variant="featured"
-        srTitle="Colaboramos regularmente com subempreiteiros especializados para garantir a máxima qualidade e eficiência nas obras."
-        description=""
-      />
-      <RecrutamentoSubempreiteiro />
-      <RecrutamentoSubempreiteiroCta
-        contactHref={`/${lang}/contactos#${CONTACT_FORM_ID}`}
-      />
-    </main>
+      <main className="flex flex-1 flex-col gap-12 md:gap-16">
+        <ScrollReveal>
+          <CenterSection
+            variant="featured"
+            srTitle="Junte-se a uma equipa jovem, motivada e em crescimento. Estamos sempre atentos a profissionais que queiram construir connosco."
+            description=""
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <RecrutamentoBenefits />
+        </ScrollReveal>
+        <ScrollReveal>
+          <RecrutamentoSpontaneousCta />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ImageFull
+            alt="Imagem de pessoas a trabalhar numa obra em equipa."
+            src="/images/parceiros/parceiros-full-width.png"
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <div
+            className={cn(
+              "mx-auto w-full px-4 pt-12 sm:px-5 md:pt-16",
+              WEBSITE_CONTENT_COLUMN_CLASS
+            )}
+          >
+            <h2 className="text-center text-xl font-bold uppercase tracking-tight text-foreground md:text-2xl">
+              SUBEMPREITEIROS
+            </h2>
+          </div>
+        </ScrollReveal>
+        <ScrollReveal>
+          <CenterSection
+            variant="featured"
+            srTitle="Colaboramos regularmente com subempreiteiros especializados para garantir a máxima qualidade e eficiência nas obras."
+            description=""
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <RecrutamentoSubempreiteiro />
+        </ScrollReveal>
+        <ScrollReveal>
+          <RecrutamentoSubempreiteiroCta
+            contactHref={`/${lang}/contactos#${CONTACT_FORM_ID}`}
+          />
+        </ScrollReveal>
+      </main>
+    </div>
   );
 }
