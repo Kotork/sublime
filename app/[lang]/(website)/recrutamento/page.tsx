@@ -91,7 +91,7 @@ export default async function RecrutamentoPage({
         description=""
       />
       <RecrutamentoSubempreiteiro />
-      <RecrutamentoSubempreiteiroCta contactHref={`/${lang}/contactos`} />
+      <RecrutamentoSubempreiteiroCta contactHref={`/${lang}/contactos#contact-form`} />
     </main>
   );
 }
