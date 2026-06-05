@@ -58,8 +58,9 @@ export default async function ContactosPage({
         titleLines={["FALE COM A", "NOSSA EQUIPA"]}
       />
       <CenterSection
-        srTitle="Na SublimePT, valorizamos a proximidade com os nossos clientes. Entre em contacto connosco para obter informações, esclarecer dúvidas ou dar vida ao seu projeto."
-        description="Na SublimePT, valorizamos a proximidade com os nossos clientes. Entre em contacto connosco para obter informações, esclarecer dúvidas ou dar vida ao seu projeto."
+        variant="featured"
+        srTitle="Na SublimePT, valorizamos a proximidade com os nossos clientes."
+        description="Entre em contacto connosco para obter informações, esclarecer dúvidas ou dar vida ao seu projeto."
       />
       <ContactosContactSection />
       <HomeNewsletter lang={"pt"} />

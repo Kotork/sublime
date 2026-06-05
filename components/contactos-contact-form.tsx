@@ -10,10 +10,7 @@ import { useEffect, useId, useState } from "react";
 import { toast } from "sonner";
 
 const contactFormSchema = z.object({
-  nome: z
-    .string()
-    .trim()
-    .min(3, "Indique pelo menos 3 caracteres."),
+  nome: z.string().trim().min(3, "Indique pelo menos 3 caracteres."),
   telemovel: z.string().trim(),
   email: z
     .string()
@@ -21,10 +18,7 @@ const contactFormSchema = z.object({
     .min(1, "O email é obrigatório.")
     .email("Indique um email válido."),
   assunto: z.string().trim(),
-  mensagem: z
-    .string()
-    .trim()
-    .min(1, "A mensagem é obrigatória."),
+  mensagem: z.string().trim().min(1, "A mensagem é obrigatória."),
 });
 
 type ContactFormFieldErrors = Partial<
@@ -89,10 +83,7 @@ export function ContactosContactForm() {
       className="scroll-mt-24 rounded-xl bg-gray-100 p-6 md:p-8"
       id={CONTACT_FORM_ID}
     >
-      <h3
-        className="sr-only"
-        id={FORM_HEADING_ID}
-      >
+      <h3 className="sr-only" id={FORM_HEADING_ID}>
         Formulário de contacto
       </h3>
       <form
