@@ -5,9 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { CONTACT_FORM_ID } from "@/lib/contact-form";
-import { z } from "zod";
+import { getLocaleFromPathname } from "@/lib/utils/pathname";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import { toast } from "sonner";
+import { z } from "zod";
 
 const contactFormSchema = z.object({
   nome: z.string().trim().min(3, "Indique pelo menos 3 caracteres."),
@@ -26,8 +30,13 @@ type ContactFormFieldErrors = Partial<
 >;
 
 const FORM_HEADING_ID = "contactos-form-heading";
+const LABEL_CLASS =
+  "text-xs font-bold uppercase tracking-wide text-primary";
 
 export function ContactosContactForm() {
+  const pathname = usePathname();
+  const lang = getLocaleFromPathname(pathname);
+  const privacyPolicyHref = `/${lang}/politica-de-privacidade`;
   const formId = useId().replace(/:/g, "");
   const [errors, setErrors] = useState<ContactFormFieldErrors>({});
 
@@ -43,7 +52,8 @@ export function ContactosContactForm() {
       });
     };
 
-    requestAnimationFrame(scrollToForm);
+    const timeoutId = window.setTimeout(scrollToForm, 100);
+    return () => window.clearTimeout(timeoutId);
   }, []);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -79,13 +89,19 @@ export function ContactosContactForm() {
   }
 
   return (
-    <div
-      className="scroll-mt-24 rounded-xl bg-gray-100 p-6 md:p-8"
-      id={CONTACT_FORM_ID}
-    >
-      <h3 className="sr-only" id={FORM_HEADING_ID}>
-        Formulário de contacto
-      </h3>
+    <div className="scroll-mt-24" id={CONTACT_FORM_ID}>
+      <header className="mb-6">
+        <h3
+          className="text-xl font-bold text-primary md:text-2xl"
+          id={FORM_HEADING_ID}
+        >
+          Envie-nos uma mensagem
+        </h3>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Preencha o formulário e entraremos em contacto brevemente.
+        </p>
+      </header>
+
       <form
         aria-labelledby={FORM_HEADING_ID}
         id={formId}
@@ -94,8 +110,8 @@ export function ContactosContactForm() {
       >
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label className="font-semibold" htmlFor={`${formId}-nome`}>
-              Nome
+            <Label className={LABEL_CLASS} htmlFor={`${formId}-nome`}>
+              Nome *
             </Label>
             <Input
               aria-describedby={
@@ -104,7 +120,7 @@ export function ContactosContactForm() {
               aria-invalid={Boolean(errors.nome)}
               aria-required
               autoComplete="name"
-              className="bg-background"
+              className="bg-input"
               id={`${formId}-nome`}
               name="nome"
               placeholder="João Silva"
@@ -120,7 +136,7 @@ export function ContactosContactForm() {
             ) : null}
           </div>
           <div className="space-y-2">
-            <Label className="font-semibold" htmlFor={`${formId}-telemovel`}>
+            <Label className={LABEL_CLASS} htmlFor={`${formId}-telemovel`}>
               Telemóvel
             </Label>
             <Input
@@ -129,7 +145,7 @@ export function ContactosContactForm() {
               }
               aria-invalid={Boolean(errors.telemovel)}
               autoComplete="tel"
-              className="bg-background"
+              className="bg-input"
               id={`${formId}-telemovel`}
               name="telemovel"
               placeholder="912 345 678"
@@ -146,8 +162,8 @@ export function ContactosContactForm() {
             ) : null}
           </div>
           <div className="space-y-2">
-            <Label className="font-semibold" htmlFor={`${formId}-email`}>
-              Email
+            <Label className={LABEL_CLASS} htmlFor={`${formId}-email`}>
+              Email *
             </Label>
             <Input
               aria-describedby={
@@ -156,7 +172,7 @@ export function ContactosContactForm() {
               aria-invalid={Boolean(errors.email)}
               aria-required
               autoComplete="email"
-              className="bg-background"
+              className="bg-input"
               id={`${formId}-email`}
               name="email"
               placeholder="joao@exemplo.pt"
@@ -173,7 +189,7 @@ export function ContactosContactForm() {
             ) : null}
           </div>
           <div className="space-y-2">
-            <Label className="font-semibold" htmlFor={`${formId}-assunto`}>
+            <Label className={LABEL_CLASS} htmlFor={`${formId}-assunto`}>
               Assunto
             </Label>
             <Input
@@ -181,7 +197,7 @@ export function ContactosContactForm() {
                 errors.assunto ? `${formId}-assunto-error` : undefined
               }
               aria-invalid={Boolean(errors.assunto)}
-              className="bg-background"
+              className="bg-input"
               id={`${formId}-assunto`}
               name="assunto"
               placeholder="Pedido de orçamento"
@@ -199,8 +215,8 @@ export function ContactosContactForm() {
         </div>
 
         <div className="mt-4 space-y-2">
-          <Label className="font-semibold" htmlFor={`${formId}-mensagem`}>
-            Mensagem
+          <Label className={LABEL_CLASS} htmlFor={`${formId}-mensagem`}>
+            Mensagem *
           </Label>
           <Textarea
             aria-describedby={
@@ -208,7 +224,7 @@ export function ContactosContactForm() {
             }
             aria-invalid={Boolean(errors.mensagem)}
             aria-required
-            className="bg-background"
+            className="min-h-28 bg-input"
             id={`${formId}-mensagem`}
             name="mensagem"
             placeholder="Escreva aqui a sua mensagem"
@@ -224,11 +240,26 @@ export function ContactosContactForm() {
           ) : null}
         </div>
 
-        <div className="mt-6 flex justify-start">
-          <Button type="submit" variant="default">
-            Enviar
+        <div className="mt-6">
+          <Button
+            className="h-12 w-full rounded-md border-0 bg-[#c9942e] text-base font-bold text-white hover:bg-[#b88428]"
+            type="submit"
+          >
+            Enviar mensagem
+            <ArrowRight aria-hidden className="size-4" />
           </Button>
         </div>
+
+        <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground">
+          Ao submeter este formulário, aceita a nossa{" "}
+          <Link
+            className="underline underline-offset-2 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            href={privacyPolicyHref}
+          >
+            política de privacidade
+          </Link>
+          .
+        </p>
       </form>
     </div>
   );
