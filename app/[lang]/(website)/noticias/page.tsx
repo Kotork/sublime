@@ -91,8 +91,9 @@ export default async function NoticiasIndex({
     <main>
       {hero}
       <CenterSection
+        variant="featured"
         srTitle="Na SublimePT, cada projeto conta uma história. Aqui partilhamos novidades, conquistas e evolução contínua num setor em constante transformação."
-        description="Na SublimePT, cada projeto conta uma história. Aqui partilhamos novidades, conquistas e evolução contínua num setor em constante transformação."
+        description=""
       />
       <div className="py-8">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
