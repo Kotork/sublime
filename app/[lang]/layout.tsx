@@ -25,8 +25,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Landing Page Generator",
-  description: "Create and manage SEO/AEO optimized landing pages",
+  title: "Sublime",
+  description: "Empresa de construção e remodelação de casas em Coimbra",
 };
 
 export const viewport: Viewport = {
