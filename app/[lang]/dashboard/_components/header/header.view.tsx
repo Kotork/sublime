@@ -19,11 +19,11 @@ export function HeaderView({ homePath, isDashboardRoute }: HeaderViewProps) {
       <div className="flex w-full items-center gap-3">
         <Link href={homePath} aria-label="Home">
           <Image
-            src="/logo.svg"
+            src="/logo.png"
             alt="Sublime Logo"
-            width={32}
-            height={32}
-            className="h-8 w-8"
+            width={1185}
+            height={300}
+            className="h-8 w-auto"
           />
         </Link>
         <Separator
