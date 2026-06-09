@@ -248,5 +248,17 @@
     "noPosts": "Ainda não há publicações. Volte em breve!",
     "postNotFound": "A publicação que procura não existe ou foi removida.",
     "backToBlog": "Voltar ao blog"
+  },
+  "website": {
+    "notFound": {
+      "eyebrow": "404 /",
+      "titleLines": ["PÁGINA NÃO", "ENCONTRADA"],
+      "heroImageAlt": "Estrutura de construção em fase inicial, evocando novos caminhos a explorar.",
+      "sectionTitle": "Este endereço não existe ou foi movido",
+      "sectionDescription": "O link pode estar desatualizado ou a página pode ter sido removida. Volte ao início ou fale com a nossa equipa — estamos aqui para ajudar.",
+      "homeButton": "Voltar à página inicial",
+      "contactButton": "Contactar a equipa",
+      "ctaTitle": "Precisa de ajuda com o seu projeto?"
+    }
   }
 }
