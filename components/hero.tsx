@@ -25,7 +25,7 @@ const SLIDES = [
     description:
       "Com a solução de LSF, estamos a construir uma nova geração de edifícios que combinam eficiência e sustentabilidade.",
     ctaLabel: "Descubra a nossa abordagem",
-    ctaHref: "#about",
+    ctaHref: "/pt/construcao-lsf",
     imageSrc:
       "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920&q=80",
     imageAlt:
@@ -37,7 +37,7 @@ const SLIDES = [
     description:
       "O nosso compromisso com o meio ambiente impulsiona cada projeto. Desde materiais sustentáveis até projetos eficientes em energia, a sustentabilidade é o nosso núcleo.",
     ctaLabel: "Sabe mais sobre a nossa abordagem",
-    ctaHref: "#projects",
+    ctaHref: "/pt/sobre-nos",
     imageSrc:
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
     imageAlt:
