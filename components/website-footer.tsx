@@ -43,10 +43,10 @@ export function WebsiteFooter({ lang }: { lang: Locale }) {
             >
               <Image
                 alt=""
-                className="h-9 w-auto"
-                height={56}
+                className="h-16 xl:h-20 w-auto"
+                height={300}
                 src="/logo-alt.png"
-                width={188}
+                width={1185}
               />
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-white/70">

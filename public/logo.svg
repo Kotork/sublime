@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1185 300" width="1185" height="300">
-<defs><style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,400;1,800&amp;display=swap');
-.w{font-family:'Montserrat','Poppins',sans-serif;font-weight:800;font-style:italic;font-size:200px;fill:#1B7A8A;}
-.p{font-family:'Montserrat','Poppins',sans-serif;font-weight:400;font-style:italic;font-size:200px;fill:#1B7A8A;}
-.d{font-family:'Montserrat','Poppins',sans-serif;font-weight:500;font-size:27px;fill:#2D2D2D;}</style></defs>
-
-<text x="60" y="240" class="w">Sublime<tspan class="p">PT</tspan></text>
-<text x="60" y="290" class="d" textLength="848" lengthAdjust="spacing">CONSTRUÇÃO E REABILITAÇÃO</text>
-</svg>

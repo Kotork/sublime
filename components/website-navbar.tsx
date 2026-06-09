@@ -118,7 +118,7 @@ export function WebsiteNavbar() {
         ref={shellRef}
       >
         <div className="flex items-center justify-between gap-6 px-4 py-3.5 md:justify-start md:gap-4 md:px-5 md:py-4">
-          <div className="order-1 flex min-w-0 flex-1 items-center gap-6 md:order-2 md:flex-initial">
+          <div className="order-1 flex min-w-0 flex-1 items-center justify-center gap-6 md:order-2 md:flex-initial">
             <Link
               aria-label="Sublime — Início"
               className="flex shrink-0 items-center no-underline hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
@@ -126,19 +126,11 @@ export function WebsiteNavbar() {
               onClick={closeMenu}
             >
               <Image
-                alt="Sublime"
-                className="h-8 w-8 shrink-0 object-contain md:hidden"
-                height={32}
-                priority
-                src="/favicon_32.png"
-                width={32}
-              />
-              <Image
                 alt="Sublime Logo"
-                className="hidden h-8 w-auto shrink-0 object-contain md:block"
+                className="h-10 w-auto shrink-0 object-contain -translate-y-1"
                 height={LOGO_VIEWBOX.height}
                 priority
-                src="/logo.svg"
+                src="/logo.png"
                 width={LOGO_VIEWBOX.width}
               />
             </Link>
