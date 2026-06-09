@@ -40,20 +40,19 @@ export function ConstrucaoLsfIntro() {
               className="mb-5 self-start rounded-full border-border bg-secondary px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground"
               variant="outline"
             >
-              Estrutura Metálica
+              Light Steel Framing
             </Badge>
             <h2
               className="text-pretty text-3xl font-bold leading-tight tracking-tight text-foreground md:text-4xl"
               id={HEADING_ID}
             >
-              Light Steel Framing (LSF)
+              Construção em LSF
             </h2>
             <div className="mt-5 space-y-4 text-pretty text-base leading-relaxed text-foreground md:text-lg">
               <p>
-                O Light Steel Framing é um sistema construtivo industrializado
-                que utiliza perfis de aço galvanizado de alta resistência como
-                estrutura principal. É uma solução leve, rápida e altamente
-                eficiente do ponto de vista energético.
+                Estrutura em aço galvanizado para obra mais rápida, leve e
+                eficiente para moradias, ampliações e reabilitações no
+                Distrito de Coimbra.
               </p>
               <p>
                 É ideal para moradias unifamiliares, ampliações e reabilitações.
