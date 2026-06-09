@@ -43,10 +43,11 @@ function LocalePreferenceBannerInner({
   const querySuffix = search ? `?${search}` : "";
   const href = getPathForLocale(pathname, savedLocale) + querySuffix;
 
-  const localeName =
-    savedLocale === "en"
-      ? dict.components.languageSwitcher.english
-      : dict.components.languageSwitcher.portuguese;
+  // const localeName =
+  //   savedLocale === "en"
+  //     ? dict.components.languageSwitcher.english
+  //     : dict.components.languageSwitcher.portuguese;
+  const localeName = dict.components.languageSwitcher.portuguese;
 
   const message = dict.components.localePreferenceBanner.message.replace(
     "{locale}",

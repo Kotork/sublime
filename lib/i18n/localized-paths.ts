@@ -24,14 +24,14 @@ const LOCALIZED_TO_CANONICAL: Record<
   Locale,
   Record<string, DashboardCanonicalSegment>
 > = {
-  en: {
-    users: "users",
-    /** Portuguese slug under `/en/...` redirects to `users`. */
-    utilizadores: "users",
-    website: "website",
-    contacts: "contacts",
-    "form-submissions": "form-submissions",
-  },
+  // en: {
+  //   users: "users",
+  //   /** Portuguese slug under `/en/...` redirects to `users`. */
+  //   utilizadores: "users",
+  //   website: "website",
+  //   contacts: "contacts",
+  //   "form-submissions": "form-submissions",
+  // },
   pt: {
     utilizadores: "users",
     users: "users",
@@ -48,12 +48,12 @@ const CANONICAL_TO_LOCALIZED: Record<
   Locale,
   Record<DashboardCanonicalSegment, string>
 > = {
-  en: {
-    users: "users",
-    website: "website",
-    contacts: "contacts",
-    "form-submissions": "form-submissions",
-  },
+  // en: {
+  //   users: "users",
+  //   website: "website",
+  //   contacts: "contacts",
+  //   "form-submissions": "form-submissions",
+  // },
   pt: {
     users: "utilizadores",
     website: "website",

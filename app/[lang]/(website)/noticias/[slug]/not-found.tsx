@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 
 export default function NoticiaPostNotFound() {
   const params = useParams<{ lang?: string }>();
-  const lang = params?.lang ?? "en";
+  const lang = params?.lang ?? "pt";
   const listHref = `/${lang}/noticias`;
   const isPt = lang === "pt";
 

@@ -12,7 +12,8 @@ const sidebarBehaviorZod = z.enum([
 
 const upsertInput = z
   .object({
-    locale: z.enum(["en", "pt"]).optional(),
+    // locale: z.enum(["en", "pt"]).optional(),
+    locale: z.enum(["pt"]).optional(),
     theme: z.enum(["light", "dark", "system"]).optional(),
     sidebar_behavior: sidebarBehaviorZod.optional(),
   })
@@ -58,7 +59,7 @@ export const preferencesRouter = createTRPCRouter({
       .eq("user_id", user.id)
       .maybeSingle();
 
-    const locale = input.locale ?? existing?.locale ?? "en";
+    const locale = input.locale ?? existing?.locale ?? "pt";
     const theme = input.theme ?? existing?.theme ?? "light";
     const sidebar_behavior =
       input.sidebar_behavior ??
