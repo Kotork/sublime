@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 import { CircleMinus, CirclePlus, type LucideIcon } from "lucide-react";
+import { Badge } from "./ui/badge";
 
 const HEADING_ID = "construcao-lsf-comparison-heading";
 
@@ -68,10 +69,7 @@ function ComparisonTable({
       role="group"
     >
       <div className="flex flex-row items-start gap-2 md:flex-col">
-        <Icon
-          aria-hidden
-          className="size-6 shrink-0 text-primary stroke-1"
-        />
+        <Icon aria-hidden className="size-6 shrink-0 text-primary stroke-1" />
         <h3
           className="text-sm font-bold uppercase tracking-tight text-foreground md:text-base"
           id={categoryId}
@@ -101,33 +99,37 @@ function ComparisonTable({
 
 export function ConstrucaoLsfComparison() {
   return (
-    <section
-      aria-labelledby={HEADING_ID}
-      className="w-full"
-    >
+    <section aria-labelledby={HEADING_ID} className="w-full">
       <div
         className={cn(
-          "mx-auto w-full px-4 py-12 sm:px-5 md:py-16 lg:py-20",
+          "mx-auto w-full px-4 pb-12 sm:px-5 md:pb-16 lg:pb-20",
           WEBSITE_CONTENT_COLUMN_CLASS
         )}
       >
+        <Badge
+          className="mb-5 self-start rounded-full border-border bg-secondary px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground"
+          variant="outline"
+        >
+          Light Steel Framing
+        </Badge>
         <h2
           className="text-pretty text-xl font-bold uppercase tracking-tight text-foreground md:text-2xl"
           id={HEADING_ID}
         >
-          LSF vs CONSTRUÇÃO TRADICIONAL SUSTENTÁVEL
+          O que é o LSF
         </h2>
         <div className="mt-6 max-w-4xl space-y-4 text-pretty text-base leading-relaxed text-muted-foreground md:mt-8 md:text-lg">
           <p>
-            A escolha do sistema construtivo influencia diretamente o tempo de
-            execução, a eficiência energética e o desempenho global da
-            construção. O LSF destaca-se por ser uma solução leve, rápida e
-            tecnologicamente avançada, diferenciando-se claramente dos métodos
-            tradicionais.
+            O Light Steel Framing (LSF) é um sistema construtivo industrializado
+            que utiliza perfis de aço galvanizado de alta resistência como
+            estrutura principal. Os perfis são calculados e produzidos à medida
+            com rigor milimétrico, o que torna a obra mais rápida, mais limpa e
+            mais previsível do que a construção convencional.
           </p>
           <p>
-            Aqui estão os principais pontos de comparação para o ajudar a
-            compreender melhor as diferenças e tomar uma decisão informada.
+            É especialmente indicado para moradias unifamiliares, ampliações
+            (incluindo pisos adicionais) e reabilitações por ser leve, não
+            sobrecarrega as fundações nem as estruturas existentes.
           </p>
         </div>
 
