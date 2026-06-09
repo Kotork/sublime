@@ -123,11 +123,11 @@ export function WebsiteNavbar() {
               onClick={closeMenu}
             >
               <Image
-                alt=""
+                alt="Sublime Logo"
                 className="h-7 w-auto shrink-0 md:h-8"
                 height={56}
                 priority
-                src="/logo.png"
+                src="/logo.svg"
                 // unoptimized
                 width={188}
               />

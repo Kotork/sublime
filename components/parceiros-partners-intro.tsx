@@ -1,12 +1,7 @@
-import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-import { PartnersIntroCards } from './home-partners-intro-cards';
 import { PARTNERS } from '@/lib/home-partners';
-
-/** Placeholder tiles: Sublime logo repeated until real partner logos are available. */
-const PARTNER_LOGO_SRC = "/logo.png";
-const PARTNER_PLACEHOLDER_COUNT = 8;
+import { cn } from "@/lib/utils";
+import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
+import { PartnersIntroCards } from './home-partners-intro-cards';
 
 const INTRO_COPY =
   "A SublimePT trabalha com um conjunto criterioso de parceiros que partilham os mesmos valores de qualidade, inovação e compromisso. As parcerias são construídas com base na confiança mútua e na complementaridade de competências.";

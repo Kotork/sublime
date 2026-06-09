@@ -20,7 +20,7 @@ export function HeaderView({ homePath, isDashboardRoute }: HeaderViewProps) {
         <Link href={homePath} aria-label="Home">
           <Image
             src="/logo.svg"
-            alt="Buzzapy Logo"
+            alt="Sublime Logo"
             width={32}
             height={32}
             className="h-8 w-8"
