@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "../../globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/lib/client/providers/theme-provider";
@@ -13,15 +13,10 @@ import { LocalePreferenceBanner } from "@/components/shared/locale-preference-ba
 import { LocalePreferenceSync } from "@/components/shared/locale-preference-sync";
 import { getUserPreferencesForLayout } from "@/lib/user-preferences/get-user-preferences-for-layout";
 
-const inter = Inter({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-montserrat",
   display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -64,7 +59,7 @@ export default async function RootLayout({
   return (
     <html lang={lang} suppressHydrationWarning>
            <body
-        className={`${inter.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`${montserrat.variable} font-sans antialiased`}
       >
         <ThemeProvider
           attribute="class"

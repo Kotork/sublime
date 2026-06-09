@@ -122,8 +122,6 @@ export function WebsiteFooter({ lang }: { lang: Locale }) {
                 <Clock aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-white/60" />
                 <span>
                   Seg–Sex: 9h–18h
-                  <br />
-                  Emergências: 24h
                 </span>
               </li>
             </ul>
