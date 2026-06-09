@@ -52,7 +52,7 @@ export function WebsiteFooter({ lang }: { lang: Locale }) {
             <p className="max-w-xs text-sm leading-relaxed text-white/70">
               Construímos hoje as casas responsáveis de amanhã.
               <br />
-              Tradição, inovação e pessoas — no Distrito de Coimbra desde 2009.
+              Tradição, inovação e pessoas — no Distrito de Coimbra desde 2021.
             </p>
             <p className="text-sm text-white/70">Alvará 112885 - PAR</p>
             <WebsiteSocialLinks variant="dark" />

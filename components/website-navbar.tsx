@@ -12,6 +12,9 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 const MOBILE_MAX = 767;
 const SCROLL_DELTA = 6;
 
+/** Full logo viewBox — width must stay ≥ ~120px or use the SPT icon instead. */
+const LOGO_VIEWBOX = { width: 1185, height: 300 } as const;
+
 const NAV_LINKS = [
   { href: "", label: "Início" },
   { href: "/sobre-nos", label: "Sobre nós" },
@@ -114,22 +117,29 @@ export function WebsiteNavbar() {
         className="bg-white shadow-md md:inline-block md:min-w-0"
         ref={shellRef}
       >
-        <div className="flex items-center justify-between gap-3 px-4 py-3.5 md:justify-start md:gap-4 md:px-5 md:py-4">
-          <div className="order-1 flex min-w-0 flex-1 items-center gap-2 md:order-2 md:flex-initial md:gap-3">
+        <div className="flex items-center justify-between gap-6 px-4 py-3.5 md:justify-start md:gap-4 md:px-5 md:py-4">
+          <div className="order-1 flex min-w-0 flex-1 items-center gap-6 md:order-2 md:flex-initial">
             <Link
               aria-label="Sublime — Início"
-              className="flex min-w-0 items-center no-underline hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              className="flex shrink-0 items-center no-underline hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               href={base}
               onClick={closeMenu}
             >
               <Image
+                alt="Sublime"
+                className="h-8 w-8 shrink-0 object-contain md:hidden"
+                height={32}
+                priority
+                src="/favicon_32.png"
+                width={32}
+              />
+              <Image
                 alt="Sublime Logo"
-                className="h-7 w-auto shrink-0 md:h-8"
-                height={56}
+                className="hidden h-8 w-auto shrink-0 object-contain md:block"
+                height={LOGO_VIEWBOX.height}
                 priority
                 src="/logo.svg"
-                // unoptimized
-                width={188}
+                width={LOGO_VIEWBOX.width}
               />
             </Link>
 
@@ -139,7 +149,7 @@ export function WebsiteNavbar() {
             />
 
             <p className="hidden max-w-36 text-[10px] font-medium leading-tight text-neutral-800 md:block md:text-[11px]">
-              Construção sustentável
+              Construção e Reabilitação
             </p>
           </div>
 
