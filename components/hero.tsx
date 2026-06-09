@@ -33,15 +33,15 @@ const SLIDES = [
   },
   {
     id: "green-innovation",
-    title: "Construindo um futuro mais sustentável",
+    title: "Construção e Reabilitação no Distrito de Coimbra",
     description:
-      "O nosso compromisso com o meio ambiente impulsiona cada projeto. Desde materiais sustentáveis até projetos eficientes em energia, a sustentabilidade é o nosso núcleo.",
-    ctaLabel: "Sabe mais sobre a nossa abordagem",
-    ctaHref: "/pt/sobre-nos",
+      "Obra com rigor, prazos cumpridos e orçamento transparente. Convencional, LSF e ICF. O sistema certo para cada projeto.",
+    ctaLabel: "Pedir orçamento",
+    ctaHref: "https://wa.me/351963412090",
     imageSrc:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
+      "/images/hero/2.jpg",
     imageAlt:
-      "Arquitetura sustentável residencial moderna com paisagens naturais",
+      "Obra com rigor, prazos cumpridos e orçamento transparente. Convencional, LSF e ICF. O sistema certo para cada projeto.",
   },
 ] as const;
 
