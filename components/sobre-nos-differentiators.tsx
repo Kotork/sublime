@@ -63,7 +63,7 @@ const BODY_CLASS =
   "text-pretty text-sm leading-relaxed text-muted-foreground md:text-base";
 
 const CTA_CLASS =
-  "inline-flex h-11 items-center justify-center rounded-md bg-[#165A72] px-8 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-[#124a5f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
+  "inline-flex h-11 items-center justify-center rounded-md bg-primary px-8 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
 
 export type SobreNosDifferentiatorsProps = {
   contactHref: string;

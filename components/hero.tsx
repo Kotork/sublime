@@ -16,7 +16,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const BRAND = "#0F5E7F";
 const AUTOPLAY_MS = 6000;
 
 const SLIDES = [
@@ -151,7 +150,6 @@ export function Hero() {
                           asChild
                           className="mt-6 w-full border-0 text-white shadow-md hover:opacity-90 sm:w-auto"
                           size="lg"
-                          style={{ backgroundColor: BRAND }}
                         >
                           <Link href={slide.ctaHref}>{slide.ctaLabel}</Link>
                         </Button>

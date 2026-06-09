@@ -18,7 +18,7 @@ export function HomeNewsletter({ lang }: HomeNewsletterProps) {
   return (
     <section
       aria-labelledby="home-newsletter-heading"
-      className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 overflow-hidden bg-[#0f5e7f]"
+      className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 overflow-hidden bg-primary"
       id="newsletter"
     >
       {/* <NewsletterBackdrop /> */}

@@ -86,7 +86,7 @@ export function HomeAboutIntro({ aboutHref }: HomeAboutIntroProps) {
             />
 
             <figure className="absolute inset-x-4 bottom-4 md:inset-x-6 md:bottom-6">
-              <blockquote className="relative max-w-xs rounded-md bg-[#c9942e]/95 p-4 text-white shadow-md md:max-w-sm md:p-5">
+              <blockquote className="relative max-w-xs rounded-md bg-tertiary/95 p-4 text-white shadow-md md:max-w-sm md:p-5">
                 <span
                   aria-hidden
                   className="absolute left-3 top-2 font-serif text-2xl leading-none text-white/80 md:text-3xl"

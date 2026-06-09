@@ -302,7 +302,7 @@ export function WebsitePartnerForm({
 
         <div className="mt-6">
           <Button
-            className="h-12 w-full rounded-md border-0 bg-[#c9942e] text-base font-bold text-white hover:bg-[#b88428]"
+            className="h-12 w-full rounded-md border-0 bg-tertiary text-base font-bold text-white hover:bg-tertiary/90"
             type="submit"
           >
             Enviar candidatura
