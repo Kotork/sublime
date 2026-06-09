@@ -13,18 +13,21 @@ export const CONSTRUCAO_LSF_HERO_IMAGE_SRC = "/images/services/lsf/detail1.png";
 export const CONSTRUCAO_LSF_HERO_IMAGE_ALT =
   "Estrutura metálica de perfis leves em obra, ilustrativa de construção em LSF (Light Steel Frame).";
 
+const PAGE_TITLE =
+  "Construção em LSF (Light Steel Framing) em Coimbra | SublimePT";
+
 const PAGE_DESCRIPTION =
-  "Soluções em Light Steel Frame (LSF) para construção civil eficiente e sustentável — estruturas leves, precisas e adaptadas ao seu projeto.";
+  "Construímos e reabilitamos em Light Steel Framing no Distrito de Coimbra: estrutura de aço galvanizado, obra mais rápida e elevado desempenho térmico. Peça orçamento.";
 
 const CONSTRUCAO_LSF_CTA_TITLE = "Interessado em construir com LSF?";
 const CONSTRUCAO_LSF_CTA_DESCRIPTION =
   "Analisamos o terreno, prazos e requisitos para lhe apresentar a solução mais adequada em LSF.";
 
 export const metadata: Metadata = {
-  title: "Construção em LSF",
+  title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   openGraph: {
-    title: "Construção em LSF",
+    title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,
     images: [
       {
@@ -37,7 +40,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Construção em LSF",
+    title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,
     images: [CONSTRUCAO_LSF_HERO_IMAGE_SRC],
   },
