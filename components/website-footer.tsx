@@ -96,7 +96,7 @@ export function WebsiteFooter({ lang }: { lang: Locale }) {
                 <div className="flex flex-col gap-0.5">
                   <a
                     className="underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                    href="tel:+351000000000"
+                    href="tel:+351963412090"
                   >
                     +351 963 412 090
                   </a>
