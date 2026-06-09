@@ -31,7 +31,7 @@ const ODS_ITEMS: readonly OdsItem[] = [
     imageSrc: "/images/ODS/ODS11.png",
     imageAlt:
       "Logótipo do Objetivo de Desenvolvimento Sustentável 11 das Nações Unidas: cidades e comunidades sustentáveis.",
-    text: "Sistema construtivo moderno, eficiente e industrializado.",
+    text: "Soluções habitacionais adaptadas a contextos urbanos e rurais",
   },
   {
     id: "12",
