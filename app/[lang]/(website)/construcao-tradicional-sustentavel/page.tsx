@@ -59,7 +59,7 @@ export default function ConstrucaoTradicionalSustentavelPage() {
         headingId="construcao-tradicional-sustentavel-hero-heading"
         imageAlt={CONSTRUCAO_TRADICIONAL_SUSTENTAVEL_HERO_IMAGE_ALT}
         imageSrc={CONSTRUCAO_TRADICIONAL_SUSTENTAVEL_HERO_IMAGE_SRC}
-        titleLines={["CONSTRUÇÃO", "ALVENARIA SUSTENTÁVEL"]}
+        titleLines={["CONSTRUÇÃO", "CONVENCIONAL E REABILITAÇÃO"]}
       />
       <main className="flex flex-1 flex-col gap-12 md:gap-16">
         <ScrollReveal>

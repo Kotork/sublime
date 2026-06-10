@@ -46,17 +46,16 @@ export function ConstrucaoCtsIntro() {
               className="text-pretty text-3xl font-bold leading-tight tracking-tight text-foreground md:text-4xl"
               id={HEADING_ID}
             >
-              Construção Alvenaria Sustentável
+              Construção Convencional e Reabilitação
             </h2>
             <div className="mt-5 space-y-4 text-pretty text-base leading-relaxed text-foreground md:text-lg">
               <p>
-                Alvenaria de tijolo e betão armado com soluções de isolamento e
-                eficiência energética para moradias, ampliações e reabilitações
-                no Distrito de Coimbra.
+                A solidez comprovada da alvenaria e do betão armado, executada
+                com rigor e eficiência atuais.
               </p>
               <p>
-                É ideal para remodelações, reabilitações e construção de raiz em
-                contexto urbano.
+                A nossa especialidade em reabilitação e obra de raiz no Distrito
+                de Coimbra.
               </p>
             </div>
             <div className="mt-8">
