@@ -1,9 +1,8 @@
-import { ConstrucaoIcfComparison } from "@/components/construcao-icf-comparison";
 import { ConstrucaoIcfApproach } from "@/components/construcao-icf-approach";
 import { ConstrucaoIcfCertification } from "@/components/construcao-icf-certification";
-import { ConstrucaoIcfRegion } from "@/components/construcao-icf-region";
-import { ConstrucaoIcfProcessSteps } from "@/components/construcao-icf-process-steps";
+import { ConstrucaoIcfComparison } from "@/components/construcao-icf-comparison";
 import { ConstrucaoIcfIntro } from "@/components/construcao-icf-intro";
+import { ConstrucaoIcfProcessSteps } from "@/components/construcao-icf-process-steps";
 import { ConstrucaoOds } from "@/components/construcao-ods";
 import { ConstrucaoSustainability } from "@/components/construcao-sustainability";
 import { CtaBanner } from "@/components/cta-banner";
@@ -24,7 +23,7 @@ const PAGE_DESCRIPTION =
 const CONSTRUCAO_ICF_CTA_TITLE = "Interessado em construir com ICF?";
 
 const CONSTRUCAO_ICF_CTA_DESCRIPTION =
-  "Analisamos o terreno, prazos e requisitos para lhe apresentar a solução mais adequada em betão isolado.";
+  "Apresentamos a solução mais adequada em betão isolado.";
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,
@@ -79,10 +78,6 @@ export default function ConstrucaoIcfPage() {
 
         <ScrollReveal>
           <ConstrucaoIcfCertification />
-        </ScrollReveal>
-
-        <ScrollReveal>
-          <ConstrucaoIcfRegion />
         </ScrollReveal>
 
         <ScrollReveal>

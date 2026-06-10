@@ -9,7 +9,7 @@ import { Badge } from "./ui/badge";
 
 /** Distinct from hero art; steel / light-frame construction context. */
 const SECTION_IMAGE_SRC =
-  "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80";
+  "/images/services/icf/icf.png";
 
 const SECTION_IMAGE_ALT =
   " ICF (Cofragem de Betão Isolamento) combina a solidez do betão armado com o isolamento térmico integrado";
