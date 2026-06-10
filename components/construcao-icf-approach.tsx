@@ -26,11 +26,10 @@ export function ConstrucaoIcfApproach() {
           O sistema certo com a combinação certa
         </h2>
         <p className="mt-6 max-w-4xl text-pretty text-base leading-relaxed text-muted-foreground md:mt-8 md:text-lg">
-          Raramente uma obra precisa de um só sistema. Trabalhamos o betão
-          isolado (ICF), o Light Steel Framing (LSF) e a construção convencional
-          como soluções complementares e combinamo-las quando faz sentido (por
-          exemplo, uma ampliação em LSF sobre uma construção em ICF existente).
-          O compromisso é com o resultado, não com um sistema.
+          O ICF não compete com os outros sistemas: complementa-os. Combinamos o
+          betão isolado, o LSF e a construção convencional conforme o que cada
+          parte da obra exige. Propomos sempre a solução, única ou combinada,
+          mais adequada ao seu projeto.
         </p>
       </div>
     </section>
