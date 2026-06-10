@@ -23,15 +23,13 @@ export function ConstrucaoCtsApproach() {
           className="text-pretty text-xl font-bold tracking-tight text-foreground md:text-2xl"
           id={HEADING_ID}
         >
-          Tradição com critérios de desempenho
+          Tradição e inovação - combinação de sistemas
         </h2>
         <p className="mt-6 max-w-4xl text-pretty text-base leading-relaxed text-muted-foreground md:mt-8 md:text-lg">
-          Na SublimePT, a construção em alvenaria não é apenas convencional —
-          integramos desde o projeto soluções de isolamento, eficiência
-          energética e seleção de materiais que elevam o desempenho da obra.
-          Quando faz sentido, combinamos este método com LSF ou ICF para
-          responder ao terreno, ao prazo e ao orçamento. O compromisso é com o
-          resultado final, não com um único sistema construtivo.
+          A construção convencional combina-se naturalmente com o LSF e o ICF.
+          Numa reabilitação, mantemos e reforçamos a estrutura existente e
+          podemos ampliar em LSF; numa obra nova, escolhemos o sistema, ou a
+          combinação, que melhor serve o projeto.
         </p>
       </div>
     </section>
