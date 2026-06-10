@@ -39,9 +39,9 @@ export default async function Home({
         <ScrollReveal>
           <HomePartnersIntro lang={lang} />
         </ScrollReveal>
-        <ScrollReveal>
+        {/* <ScrollReveal>
           <HomeNewsIntro lang={lang} />
-        </ScrollReveal>
+        </ScrollReveal> */}
         <ScrollReveal>
           <HomeNewsletter lang={lang} />
         </ScrollReveal>

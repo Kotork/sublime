@@ -26,7 +26,7 @@ export function WebsiteFooter({ lang }: { lang: Locale }) {
   const empresaLinks = [
     { href: `${base}/sobre-nos`, label: "Sobre Nós" },
     { href: `${base}/parceiros`, label: "Parceiros" },
-    { href: `${base}/noticias`, label: "Notícias" },
+    // { href: `${base}/noticias`, label: "Notícias" }, // v1: not launching yet
     { href: `${base}/recrutamento`, label: "Recrutamento" },
     { href: `${base}/contactos`, label: "Contactos" },
   ];

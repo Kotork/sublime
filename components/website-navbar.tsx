@@ -25,7 +25,7 @@ const NAV_LINKS = [
     label: "Construção Tradicional",
   },
   { href: "/parceiros", label: "Parceiros" },
-  { href: "/noticias", label: "Notícias" },
+  // { href: "/noticias", label: "Notícias" }, // v1: not launching yet
   { href: "/recrutamento", label: "Recrutamento" },
   { href: "/contactos", label: "Contactos" },
 ] as const;
