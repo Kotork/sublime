@@ -40,20 +40,18 @@ export function ConstrucaoIcfIntro() {
               className="self-start rounded-full border-border bg-secondary px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground"
               variant="outline"
             >
-              Betão Isolado
+              INSULATED CONCRETE FORMS
             </Badge>
             <h2
               className="text-pretty text-xl font-bold uppercase tracking-tight text-foreground md:text-2xl"
               id={HEADING_ID}
             >
-              ICF (INSULATED CONCRETE FORMS)
+              Construção em ICF — Betão Isolado
             </h2>
             <div className="space-y-4 text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
               <p>
-                O ICF (Cofragem de Betão Isolamento) combina a solidez do betão
-                armado com o isolamento térmico integrado, através de blocos de
-                poliestireno expandido que funcionam simultaneamente como
-                cofragem e isolante.
+                A solidez do betão armado com isolamento térmico integrado.
+                Conforto, eficiência e durabilidade.
               </p>
               <p>
                 É ideal para moradias, edifícios multifamiliares e construção em

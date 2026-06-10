@@ -1,5 +1,8 @@
 import { ConstrucaoIcfComparison } from "@/components/construcao-icf-comparison";
-import { ConstrucaoIcfDualShowcase } from "@/components/construcao-icf-dual-showcase";
+import { ConstrucaoIcfApproach } from "@/components/construcao-icf-approach";
+import { ConstrucaoIcfCertification } from "@/components/construcao-icf-certification";
+import { ConstrucaoIcfRegion } from "@/components/construcao-icf-region";
+import { ConstrucaoIcfProcessSteps } from "@/components/construcao-icf-process-steps";
 import { ConstrucaoIcfIntro } from "@/components/construcao-icf-intro";
 import { ConstrucaoOds } from "@/components/construcao-ods";
 import { ConstrucaoSustainability } from "@/components/construcao-sustainability";
@@ -13,18 +16,21 @@ export const CONSTRUCAO_ICF_HERO_IMAGE_SRC = "/images/services/icf/icf.png";
 export const CONSTRUCAO_ICF_HERO_IMAGE_ALT =
   "Trabalhos de betão e estrutura em obra, alinhados com sistemas como ICF (Insulated Concrete Forms).";
 
+const PAGE_TITLE = "Construção em ICF (Betão Isolado) em Coimbra | SublimePT";
+
 const PAGE_DESCRIPTION =
-  "Construção com formulários de betão isolados (ICF) para conforto térmico, eficiência energética e estruturas duradouras.";
+  "Construção em ICF — cofragem de betão isolado — no Distrito de Coimbra: a robustez do betão armado com isolamento térmico integrado. Peça orçamento.";
 
 const CONSTRUCAO_ICF_CTA_TITLE = "Interessado em construir com ICF?";
+
 const CONSTRUCAO_ICF_CTA_DESCRIPTION =
   "Analisamos o terreno, prazos e requisitos para lhe apresentar a solução mais adequada em betão isolado.";
 
 export const metadata: Metadata = {
-  title: "Construção em ICF",
+  title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   openGraph: {
-    title: "Construção em ICF",
+    title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,
     images: [
       {
@@ -37,7 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Construção em ICF",
+    title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,
     images: [CONSTRUCAO_ICF_HERO_IMAGE_SRC],
   },
@@ -53,16 +59,32 @@ export default function ConstrucaoIcfPage() {
         imageSrc={CONSTRUCAO_ICF_HERO_IMAGE_SRC}
         titleLines={["CONSTRUÇÃO", "EM ICF"]}
       />
+
       <main className="flex flex-1 flex-col gap-12 md:gap-16">
         <ScrollReveal>
           <ConstrucaoIcfIntro />
         </ScrollReveal>
+
         <ScrollReveal>
           <ConstrucaoIcfComparison />
         </ScrollReveal>
+
         <ScrollReveal>
-          <ConstrucaoIcfDualShowcase />
+          <ConstrucaoIcfApproach />
         </ScrollReveal>
+
+        <ScrollReveal>
+          <ConstrucaoIcfProcessSteps />
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <ConstrucaoIcfCertification />
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <ConstrucaoIcfRegion />
+        </ScrollReveal>
+
         <ScrollReveal>
           <CtaBanner
             buttonLabel="Peça o seu orçamento gratuito"
@@ -72,9 +94,11 @@ export default function ConstrucaoIcfPage() {
             title={CONSTRUCAO_ICF_CTA_TITLE}
           />
         </ScrollReveal>
+
         <ScrollReveal>
           <ConstrucaoSustainability />
         </ScrollReveal>
+
         <ScrollReveal>
           <ConstrucaoOds />
         </ScrollReveal>
