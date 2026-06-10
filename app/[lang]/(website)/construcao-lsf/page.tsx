@@ -1,6 +1,7 @@
 import { ConstrucaoLsfComparison } from "@/components/construcao-lsf-comparison";
 import { ConstrucaoLsfApproach } from "@/components/construcao-lsf-approach";
 import { ConstrucaoLsfCertification } from "@/components/construcao-lsf-certification";
+import { ConstrucaoLsfRegion } from "@/components/construcao-lsf-region";
 import { ConstrucaoLsfProcessSteps } from "@/components/construcao-lsf-process-steps";
 import { ConstrucaoLsfIntro } from "@/components/construcao-lsf-intro";
 import { ConstrucaoOds } from "@/components/construcao-ods";
@@ -73,6 +74,9 @@ export default function ConstrucaoLsfPage() {
         </ScrollReveal>
         <ScrollReveal>
           <ConstrucaoLsfCertification />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ConstrucaoLsfRegion />
         </ScrollReveal>
         <ScrollReveal>
           <CtaBanner
