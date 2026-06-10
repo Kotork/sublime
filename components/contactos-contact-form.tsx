@@ -5,28 +5,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { CONTACT_FORM_ID } from "@/lib/contact-form";
+import { contactContentSchema } from "@/lib/forms/schemas";
 import { getLocaleFromPathname } from "@/lib/utils/pathname";
+import { useTRPC } from "@/trpc/client";
+import { useMutation } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import { toast } from "sonner";
-import { z } from "zod";
-
-const contactFormSchema = z.object({
-  nome: z.string().trim().min(3, "Indique pelo menos 3 caracteres."),
-  telemovel: z.string().trim(),
-  email: z
-    .string()
-    .trim()
-    .min(1, "O email é obrigatório.")
-    .email("Indique um email válido."),
-  assunto: z.string().trim(),
-  mensagem: z.string().trim().min(1, "A mensagem é obrigatória."),
-});
+import type { z } from "zod";
 
 type ContactFormFieldErrors = Partial<
-  Record<keyof z.infer<typeof contactFormSchema>, string>
+  Record<keyof z.infer<typeof contactContentSchema>, string>
 >;
 
 const FORM_HEADING_ID = "contactos-form-heading";
@@ -38,6 +29,8 @@ export function ContactosContactForm() {
   const lang = getLocaleFromPathname(pathname);
   const privacyPolicyHref = `/${lang}/politica-de-privacidade`;
   const formId = useId().replace(/:/g, "");
+  const trpc = useTRPC();
+  const submit = useMutation(trpc.forms.submit.mutationOptions());
   const [errors, setErrors] = useState<ContactFormFieldErrors>({});
 
   useEffect(() => {
@@ -56,7 +49,7 @@ export function ContactosContactForm() {
     return () => window.clearTimeout(timeoutId);
   }, []);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);
@@ -68,7 +61,7 @@ export function ContactosContactForm() {
       mensagem: String(fd.get("mensagem") ?? ""),
     };
 
-    const parsed = contactFormSchema.safeParse(raw);
+    const parsed = contactContentSchema.safeParse(raw);
     if (!parsed.success) {
       const fieldErrors = parsed.error.flatten().fieldErrors;
       setErrors({
@@ -82,10 +75,20 @@ export function ContactosContactForm() {
     }
 
     setErrors({});
-    form.reset();
-    toast.success(
-      "O formulário ainda não envia mensagens — integração em breve."
-    );
+
+    try {
+      await submit.mutateAsync({
+        formType: "contact",
+        ...parsed.data,
+        origin: pathname,
+      });
+      form.reset();
+      toast.success(
+        "Mensagem enviada com sucesso. Entraremos em contacto brevemente."
+      );
+    } catch {
+      toast.error("Não foi possível enviar. Tente novamente.");
+    }
   }
 
   return (
@@ -243,9 +246,10 @@ export function ContactosContactForm() {
         <div className="mt-6">
           <Button
             className="h-12 w-full rounded-md border-0 bg-tertiary text-base font-bold text-white hover:bg-tertiary/90"
+            disabled={submit.isPending}
             type="submit"
           >
-            Enviar mensagem
+            {submit.isPending ? "A enviar…" : "Enviar mensagem"}
             <ArrowRight aria-hidden className="size-4" />
           </Button>
         </div>

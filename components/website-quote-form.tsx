@@ -11,46 +11,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { quoteContentSchema } from "@/lib/forms/schemas";
 import {
   isQuoteWorkType,
   QUOTE_WORK_TYPE_OPTIONS,
   QUOTE_WORK_TYPE_PLACEHOLDER,
 } from "@/lib/website-quote-form";
+import { useTRPC } from "@/trpc/client";
+import { useMutation } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import { toast } from "sonner";
-import { z } from "zod";
-
-const quoteFormSchema = z.object({
-  nome: z
-    .string()
-    .trim()
-    .min(2, "Indique o seu nome."),
-  telefone: z
-    .string()
-    .trim()
-    .min(9, "Indique um número de telefone válido."),
-  email: z
-    .string()
-    .trim()
-    .refine((value) => value === "" || z.string().email().safeParse(value).success, {
-      message: "Indique um email válido.",
-    }),
-  tipoObra: z
-    .string()
-    .trim()
-    .min(1, "Selecione o tipo de obra.")
-    .refine(isQuoteWorkType, "Selecione o tipo de obra."),
-  localizacao: z
-    .string()
-    .trim()
-    .min(2, "Indique a localização da obra."),
-  mensagem: z.string().trim(),
-});
+import type { z } from "zod";
 
 type QuoteFormFieldErrors = Partial<
-  Record<keyof z.infer<typeof quoteFormSchema>, string>
+  Record<keyof z.infer<typeof quoteContentSchema>, string>
 >;
 
 const FORM_HEADING_ID = "website-quote-form-heading";
@@ -67,6 +44,9 @@ export function WebsiteQuoteForm({
   privacyPolicyHref,
 }: WebsiteQuoteFormProps) {
   const formId = useId().replace(/:/g, "");
+  const pathname = usePathname();
+  const trpc = useTRPC();
+  const submit = useMutation(trpc.forms.submit.mutationOptions());
   const [errors, setErrors] = useState<QuoteFormFieldErrors>({});
   const [tipoObra, setTipoObra] = useState(
     defaultWorkType && isQuoteWorkType(defaultWorkType) ? defaultWorkType : ""
@@ -78,7 +58,15 @@ export function WebsiteQuoteForm({
     }
   }, [defaultWorkType]);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function resetTipoObra() {
+    if (defaultWorkType && isQuoteWorkType(defaultWorkType)) {
+      setTipoObra(defaultWorkType);
+    } else {
+      setTipoObra("");
+    }
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);
@@ -91,7 +79,7 @@ export function WebsiteQuoteForm({
       mensagem: String(fd.get("mensagem") ?? ""),
     };
 
-    const parsed = quoteFormSchema.safeParse(raw);
+    const parsed = quoteContentSchema.safeParse(raw);
     if (!parsed.success) {
       const fieldErrors = parsed.error.flatten().fieldErrors;
       setErrors({
@@ -106,15 +94,21 @@ export function WebsiteQuoteForm({
     }
 
     setErrors({});
-    form.reset();
-    if (defaultWorkType && isQuoteWorkType(defaultWorkType)) {
-      setTipoObra(defaultWorkType);
-    } else {
-      setTipoObra("");
+
+    try {
+      await submit.mutateAsync({
+        formType: "quote",
+        ...parsed.data,
+        origin: pathname,
+      });
+      form.reset();
+      resetTipoObra();
+      toast.success(
+        "Pedido enviado com sucesso. Entraremos em contacto brevemente."
+      );
+    } catch {
+      toast.error("Não foi possível enviar. Tente novamente.");
     }
-    toast.success(
-      "O formulário ainda não envia mensagens — integração em breve."
-    );
   }
 
   return (
@@ -318,9 +312,10 @@ export function WebsiteQuoteForm({
         <div className="mt-6">
           <Button
             className="h-12 w-full rounded-md border-0 bg-tertiary text-base font-bold text-white hover:bg-tertiary/90"
+            disabled={submit.isPending}
             type="submit"
           >
-            Enviar pedido de orçamento
+            {submit.isPending ? "A enviar…" : "Enviar pedido de orçamento"}
             <ArrowRight aria-hidden className="size-4" />
           </Button>
         </div>

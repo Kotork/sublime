@@ -4,43 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { partnerContentSchema } from "@/lib/forms/schemas";
+import { useTRPC } from "@/trpc/client";
+import { useMutation } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useId, useState } from "react";
 import { toast } from "sonner";
-import { z } from "zod";
-
-const partnerFormSchema = z.object({
-  nome: z
-    .string()
-    .trim()
-    .min(2, "Indique o seu nome."),
-  empresa: z
-    .string()
-    .trim()
-    .min(2, "Indique o nome da empresa."),
-  nif: z
-    .string()
-    .trim()
-    .transform((value) => value.replace(/\s/g, ""))
-    .refine((value) => /^\d{9}$/.test(value), {
-      message: "Indique um NIF válido (9 dígitos).",
-    }),
-  email: z
-    .string()
-    .trim()
-    .min(1, "O email é obrigatório.")
-    .email("Indique um email válido."),
-  telefone: z
-    .string()
-    .trim()
-    .min(9, "Indique um número de telefone válido."),
-  localizacao: z.string().trim(),
-  mensagem: z.string().trim(),
-});
+import type { z } from "zod";
 
 type PartnerFormFieldErrors = Partial<
-  Record<keyof z.infer<typeof partnerFormSchema>, string>
+  Record<keyof z.infer<typeof partnerContentSchema>, string>
 >;
 
 const FORM_HEADING_ID = "website-partner-form-heading";
@@ -55,9 +30,12 @@ export function WebsitePartnerForm({
   privacyPolicyHref,
 }: WebsitePartnerFormProps) {
   const formId = useId().replace(/:/g, "");
+  const pathname = usePathname();
+  const trpc = useTRPC();
+  const submit = useMutation(trpc.forms.submit.mutationOptions());
   const [errors, setErrors] = useState<PartnerFormFieldErrors>({});
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);
@@ -71,7 +49,7 @@ export function WebsitePartnerForm({
       mensagem: String(fd.get("mensagem") ?? ""),
     };
 
-    const parsed = partnerFormSchema.safeParse(raw);
+    const parsed = partnerContentSchema.safeParse(raw);
     if (!parsed.success) {
       const fieldErrors = parsed.error.flatten().fieldErrors;
       setErrors({
@@ -87,10 +65,20 @@ export function WebsitePartnerForm({
     }
 
     setErrors({});
-    form.reset();
-    toast.success(
-      "O formulário ainda não envia mensagens — integração em breve."
-    );
+
+    try {
+      await submit.mutateAsync({
+        formType: "partnership",
+        ...parsed.data,
+        origin: pathname,
+      });
+      form.reset();
+      toast.success(
+        "Candidatura enviada com sucesso. Entraremos em contacto brevemente."
+      );
+    } catch {
+      toast.error("Não foi possível enviar. Tente novamente.");
+    }
   }
 
   return (
@@ -303,9 +291,10 @@ export function WebsitePartnerForm({
         <div className="mt-6">
           <Button
             className="h-12 w-full rounded-md border-0 bg-tertiary text-base font-bold text-white hover:bg-tertiary/90"
+            disabled={submit.isPending}
             type="submit"
           >
-            Enviar candidatura
+            {submit.isPending ? "A enviar…" : "Enviar candidatura"}
             <ArrowRight aria-hidden className="size-4" />
           </Button>
         </div>

@@ -1,5 +1,6 @@
 import type { Locale } from "@/lib/i18n/locale";
 import { getDictionary } from "../../dictionaries";
+import { ContactsTable } from "./contacts-table";
 
 export default async function DashboardContactsPage({
   params,
@@ -10,8 +11,11 @@ export default async function DashboardContactsPage({
   const dict = await getDictionary(lang as Locale);
 
   return (
-    <h1 className="text-2xl font-semibold tracking-tight">
-      {dict.navigation.contacts}
-    </h1>
+    <div className="flex flex-col gap-6">
+      <h1 className="text-2xl font-semibold tracking-tight">
+        {dict.navigation.contacts}
+      </h1>
+      <ContactsTable />
+    </div>
   );
 }
