@@ -15,4 +15,9 @@ export const WEBSITE_SOCIAL_LINKS = [
     label: "LinkedIn",
     ariaLabel: "Siga-nos no LinkedIn",
   },
+  {
+    href: "https://wa.me/351963412090",
+    label: "WhatsApp",
+    ariaLabel: "Contacte-nos no WhatsApp",
+  },
 ] as const;
