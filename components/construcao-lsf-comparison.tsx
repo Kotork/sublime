@@ -2,98 +2,93 @@
 
 import { cn } from "@/lib/utils";
 import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
-import { CircleMinus, CirclePlus, type LucideIcon } from "lucide-react";
+import {
+  Feather,
+  Sparkles,
+  Target,
+  Thermometer,
+  Timer,
+  type LucideIcon,
+} from "lucide-react";
 import { Badge } from "./ui/badge";
 
 const HEADING_ID = "construcao-lsf-comparison-heading";
+const ADVANTAGES_HEADING_ID = "construcao-lsf-advantages-heading";
 
-const COLUMN_TITLE_CLASS =
-  "mb-2 text-sm font-bold uppercase tracking-tight text-foreground md:text-base";
-
-const LIST_CLASS =
-  "list-none space-y-2 text-sm leading-relaxed text-muted-foreground md:text-base";
-
-type ComparisonBlock = {
-  categoryId: string;
-  categoryLabel: string;
-  Icon: LucideIcon;
-  lsfItems: readonly string[];
-  tradicionalItems: readonly string[];
+type Advantage = {
+  id: string;
+  icon: LucideIcon;
+  title: string;
+  description: string;
 };
 
-const BLOCKS: readonly ComparisonBlock[] = [
+const ADVANTAGES: readonly Advantage[] = [
   {
-    categoryId: "construcao-lsf-vantagens",
-    categoryLabel: "VANTAGENS",
-    Icon: CirclePlus,
-    lsfItems: [
-      "Construção até 40% mais rápida",
-      "Excelente desempenho térmico e acústico",
-      "Elevada resistência estrutural",
-      "Menor desperdício de materiais em obra",
-      "Baixa manutenção",
-    ],
-    tradicionalItems: [
-      "Eficiência energética (classe A ou superior)",
-      "Melhor isolamento acústico",
-      "Redução do impacto ambiental",
-      "Tecnologia testada e aceite pelo mercado",
-      "Flexibilidade de design e adaptação ao terreno",
-    ],
+    id: "obra-rapida",
+    icon: Timer,
+    title: "Obra mais rápida",
+    description:
+      "O prazo de construção pode reduzir-se em cerca de 30 a 40% face ao método convencional.",
   },
   {
-    categoryId: "construcao-lsf-desvantagens",
-    categoryLabel: "DESVANTAGENS",
-    Icon: CircleMinus,
-    lsfItems: ["Estabilidade da estrutura"],
-    tradicionalItems: ["Custo inicial mais elevado", "Tempo de operação"],
+    id: "leveza",
+    icon: Feather,
+    title: "Leveza",
+    description:
+      "Estrutura leve, ideal para ampliar ou acrescentar pisos sem sobrecarregar fundações.",
+  },
+  {
+    id: "precisao",
+    icon: Target,
+    title: "Precisão",
+    description:
+      "Estrutura calculada em projeto e produzida com rigor, com menos desperdício em obra.",
+  },
+  {
+    id: "conforto",
+    icon: Thermometer,
+    title: "Conforto térmico e acústico",
+    description:
+      "O sistema integra isolamento contínuo, com boa eficiência energética.",
+  },
+  {
+    id: "obra-limpa",
+    icon: Sparkles,
+    title: "Obra limpa e controlada",
+    description: "Montagem a seco, menos resíduos e menos imprevistos.",
   },
 ] as const;
 
-function ComparisonTable({
-  block,
-  isFirst,
+const CARD_TITLE_CLASS =
+  "text-sm font-bold leading-snug text-foreground md:text-base";
+
+const CARD_BODY_CLASS =
+  "text-pretty text-sm leading-relaxed text-muted-foreground md:text-base";
+
+function AdvantageCard({
+  advantage,
+  className,
 }: {
-  block: ComparisonBlock;
-  isFirst: boolean;
+  advantage: Advantage;
+  className?: string;
 }) {
-  const { categoryId, categoryLabel, Icon, lsfItems, tradicionalItems } = block;
+  const { icon: Icon, title, description } = advantage;
 
   return (
-    <div
-      aria-labelledby={categoryId}
+    <li
       className={cn(
-        "grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,10.5rem)_1fr_1fr] md:gap-10 lg:gap-12",
-        !isFirst && "pt-10 md:pt-16"
+        "flex items-start gap-4 rounded-lg bg-muted p-5 md:p-6",
+        className
       )}
-      role="group"
     >
-      <div className="flex flex-row items-start gap-2 md:flex-col">
-        <Icon aria-hidden className="size-6 shrink-0 text-primary stroke-1" />
-        <h3
-          className="text-sm font-bold uppercase tracking-tight text-foreground md:text-base"
-          id={categoryId}
-        >
-          {categoryLabel}
-        </h3>
+      <span className="flex size-11 shrink-0 items-center justify-center rounded-md bg-card text-primary shadow-sm md:size-12">
+        <Icon aria-hidden className="size-5 md:size-6" strokeWidth={1.75} />
+      </span>
+      <div className="min-w-0 flex-1">
+        <h3 className={CARD_TITLE_CLASS}>{title}</h3>
+        <p className={cn(CARD_BODY_CLASS, "mt-1")}>{description}</p>
       </div>
-      <div>
-        <h4 className={COLUMN_TITLE_CLASS}>LSF</h4>
-        <ul className={LIST_CLASS}>
-          {lsfItems.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h4 className={COLUMN_TITLE_CLASS}>CONSTRUÇÃO TRADICIONAL</h4>
-        <ul className={LIST_CLASS}>
-          {tradicionalItems.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    </li>
   );
 }
 
@@ -113,7 +108,7 @@ export function ConstrucaoLsfComparison() {
           Light Steel Framing
         </Badge>
         <h2
-          className="text-pretty text-xl font-bold uppercase tracking-tight text-foreground md:text-2xl"
+          className="text-pretty text-xl font-bold tracking-tight text-foreground md:text-2xl"
           id={HEADING_ID}
         >
           O que é o LSF
@@ -133,14 +128,28 @@ export function ConstrucaoLsfComparison() {
           </p>
         </div>
 
-        <div className="mt-12 md:mt-16">
-          {BLOCKS.map((block, index) => (
-            <ComparisonTable
-              block={block}
-              isFirst={index === 0}
-              key={block.categoryId}
-            />
-          ))}
+        <div
+          aria-labelledby={ADVANTAGES_HEADING_ID}
+          className="mt-12 md:mt-16"
+        >
+          <h3
+            className="text-center text-pretty text-xl font-bold tracking-tight text-foreground md:text-2xl"
+            id={ADVANTAGES_HEADING_ID}
+          >
+            Vantagens do LSF
+          </h3>
+          <ul className="mt-10 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:mt-12 lg:grid-cols-6 lg:gap-5">
+            {ADVANTAGES.map((advantage, index) => (
+              <AdvantageCard
+                advantage={advantage}
+                className={cn(
+                  "lg:col-span-2",
+                  index === 3 && "lg:col-start-2"
+                )}
+                key={advantage.id}
+              />
+            ))}
+          </ul>
         </div>
       </div>
     </section>
