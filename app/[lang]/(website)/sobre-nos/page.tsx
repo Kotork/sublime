@@ -1,32 +1,33 @@
-import { SobreNosCompanyStory } from "@/components/sobre-nos-company-story";
-import {
-  SobreNosHero,
-  SOBRE_NOS_HERO_IMAGE_ALT,
-  SOBRE_NOS_HERO_IMAGE_SRC,
-} from "@/components/sobre-nos-hero";
-import type { Metadata } from "next";
-import CenterSection from "../../../../components/center-section";
 import { CtaBanner } from "@/components/cta-banner";
 import { ImageFull } from "@/components/image-full";
 import { ScrollReveal } from "@/components/scroll-reveal";
+import { SobreNosCompanyStory } from "@/components/sobre-nos-company-story";
 import { SobreNosDifferentiators } from "@/components/sobre-nos-differentiators";
+import {
+  SOBRE_NOS_HERO_IMAGE_ALT,
+  SOBRE_NOS_HERO_IMAGE_SRC,
+  SobreNosHero,
+} from "@/components/sobre-nos-hero";
 import { SobreNosMissionVisionValues } from "@/components/sobre-nos-mission-vision-values";
 import type { Locale } from "@/lib/i18n/locale";
 import { isValidLocale } from "@/lib/i18n/locale";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import CenterSection from "../../../../components/center-section";
 
+const PAGE_TITLE = "Sobre a SublimePT — Construção e Reabilitação em Coimbra";
 const PAGE_DESCRIPTION =
-  "Conheça a SublimePT: construímos hoje as casas responsáveis de amanhã — construção civil sustentável, moradias e remodelação.";
+  "Empresa de construção e reabilitação em Ceira, Coimbra. Equipa com formação certificada em LSF, alvará e acompanhamento próximo, do dono ao cliente.";
 
 const SOBRE_NOS_CTA_TITLE = "Vai construir ou remodelar casa?";
 const SOBRE_NOS_CTA_DESCRIPTION =
   "Conte-nos o seu projeto e receba um orçamento gratuito e personalizado.";
 
 export const metadata: Metadata = {
-  title: "Sobre nós",
+  title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   openGraph: {
-    title: "Sobre nós",
+    title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,
     images: [
       {
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sobre nós",
+    title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,
     images: [SOBRE_NOS_HERO_IMAGE_SRC],
   },
