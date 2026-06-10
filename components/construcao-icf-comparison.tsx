@@ -2,100 +2,85 @@
 
 import { cn } from "@/lib/utils";
 import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
-import { CircleMinus, CirclePlus, type LucideIcon } from "lucide-react";
+import {
+  Leaf,
+  Shield,
+  Thermometer,
+  Timer,
+  type LucideIcon,
+} from "lucide-react";
+import { Badge } from "./ui/badge";
 
 const HEADING_ID = "construcao-icf-comparison-heading";
+const ADVANTAGES_HEADING_ID = "construcao-icf-advantages-heading";
 
-const COLUMN_TITLE_CLASS =
-  "mb-2 text-sm font-bold uppercase tracking-tight text-foreground md:text-base";
-
-const LIST_CLASS =
-  "list-none space-y-2 text-sm leading-relaxed text-muted-foreground md:text-base";
-
-type ComparisonBlock = {
-  categoryId: string;
-  categoryLabel: string;
-  Icon: LucideIcon;
-  IcfItems: readonly string[];
-  tradicionalItems: readonly string[];
+type Advantage = {
+  id: string;
+  icon: LucideIcon;
+  title: string;
+  description: string;
 };
 
-const BLOCKS: readonly ComparisonBlock[] = [
+const ADVANTAGES: readonly Advantage[] = [
   {
-    categoryId: "construcao-icf-vantagens",
-    categoryLabel: "VANTAGENS",
-    Icon: CirclePlus,
-    IcfItems: [
-      "Rapidez na obra",
-      "Isolamento térmico e acústico superior",
-      "Resistência estrutural e durabilidade",
-      "Sustentabilidade e eficiência energética",
-      "Baixa manutenção",
-    ],
-    tradicionalItems: [
-      "Eficiência energética (classe A ou superior)",
-      "Melhor isolamento acústico",
-      "Redução do impacto ambiental",
-      "Tecnologia testada e aceite pelo mercado",
-      "Flexibilidade de design e adaptação ao terreno",
-    ],
+    id: "isolamento",
+    icon: Thermometer,
+    title: "Elevado isolamento térmico e acústico",
+    description:
+      "O isolamento contínuo reduz pontes térmicas e o ruído.",
   },
   {
-    categoryId: "construcao-icf-desvantagens",
-    categoryLabel: "DESVANTAGENS",
-    Icon: CircleMinus,
-    IcfItems: ["Custo inicial mais elevado"],
-    tradicionalItems: ["Tempo de operação"],
+    id: "robustez",
+    icon: Shield,
+    title: "Robustez e durabilidade",
+    description:
+      "Estrutura monolítica em betão armado, resistente e de baixa manutenção.",
+  },
+  {
+    id: "eficiencia",
+    icon: Leaf,
+    title: "Eficiência energética",
+    description:
+      "Bom desempenho que se reflete no conforto e nas faturas de energia.",
+  },
+  {
+    id: "execucao",
+    icon: Timer,
+    title: "Execução eficiente",
+    description: "O sistema de blocos acelera a fase de estrutura.",
   },
 ] as const;
 
-function ComparisonTable({
-  block,
-  isFirst,
+const CARD_TITLE_CLASS =
+  "text-sm font-bold leading-snug text-foreground md:text-base";
+
+const CARD_BODY_CLASS =
+  "text-pretty text-sm leading-relaxed text-muted-foreground md:text-base";
+
+function AdvantageCard({
+  advantage,
+  className,
 }: {
-  block: ComparisonBlock;
-  isFirst: boolean;
+  advantage: Advantage;
+  className?: string;
 }) {
-  const { categoryId, categoryLabel, Icon, IcfItems, tradicionalItems } = block;
+  const { icon: Icon, title, description } = advantage;
 
   return (
-    <div
-      aria-labelledby={categoryId}
+    <li
       className={cn(
-        "grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,10.5rem)_1fr_1fr] md:gap-10 lg:gap-12",
-        !isFirst && "pt-10 md:pt-16"
+        "flex items-start gap-4 rounded-lg bg-muted p-5 md:p-6",
+        className
       )}
-      role="group"
     >
-      <div className="flex flex-row items-start gap-2 md:flex-col">
-        <Icon
-          aria-hidden
-          className="size-6 shrink-0 text-primary stroke-1"
-        />
-        <h3
-          className="text-sm font-bold uppercase tracking-tight text-foreground md:text-base"
-          id={categoryId}
-        >
-          {categoryLabel}
-        </h3>
+      <span className="flex size-11 shrink-0 items-center justify-center rounded-md bg-card text-primary shadow-sm md:size-12">
+        <Icon aria-hidden className="size-5 md:size-6" strokeWidth={1.75} />
+      </span>
+      <div className="min-w-0 flex-1">
+        <h3 className={CARD_TITLE_CLASS}>{title}</h3>
+        <p className={cn(CARD_BODY_CLASS, "mt-1")}>{description}</p>
       </div>
-      <div>
-        <h4 className={COLUMN_TITLE_CLASS}>ICF</h4>
-        <ul className={LIST_CLASS}>
-          {IcfItems.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h4 className={COLUMN_TITLE_CLASS}>CONSTRUÇÃO TRADICIONAL</h4>
-        <ul className={LIST_CLASS}>
-          {tradicionalItems.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    </li>
   );
 }
 
@@ -104,37 +89,49 @@ export function ConstrucaoIcfComparison() {
     <section aria-labelledby={HEADING_ID} className="w-full">
       <div
         className={cn(
-          "mx-auto w-full px-4 py-12 sm:px-5 md:py-16 lg:py-20",
+          "mx-auto w-full px-4 pb-12 sm:px-5 md:pb-16 lg:pb-20",
           WEBSITE_CONTENT_COLUMN_CLASS
         )}
       >
+        <Badge
+          className="mb-5 self-start rounded-full border-border bg-secondary px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground"
+          variant="outline"
+        >
+          Insulated Concrete Forms
+        </Badge>
         <h2
-          className="text-pretty text-xl font-bold uppercase tracking-tight text-foreground md:text-2xl"
+          className="text-pretty text-xl font-bold tracking-tight text-foreground md:text-2xl"
           id={HEADING_ID}
         >
-          ICF vs CONSTRUÇÃO TRADICIONAL SUSTENTÁVEL
+          O que é o ICF
         </h2>
         <div className="mt-6 max-w-4xl space-y-4 text-pretty text-base leading-relaxed text-muted-foreground md:mt-8 md:text-lg">
           <p>
-            A escolha do sistema construtivo tem um impacto direto no conforto,
-            eficiência e durabilidade de um edifício. O ICF destaca-se por
-            combinar a robustez do betão com um isolamento térmico integrado,
-            apresentando uma abordagem diferente da construção tradicional.
+            O ICF (Insulated Concrete Forms, ou cofragem de betão isolado)
+            combina a robustez do betão armado com isolamento térmico integrado.
+            Blocos de poliestireno expandido (EPS) funcionam, ao mesmo tempo,
+            como cofragem e como isolamento permanente, sendo preenchidos com
+            betão armado no interior.
           </p>
           <p>
-            Aqui estão os principais pontos de comparação para o ajudar a
-            compreender melhor as diferenças e tomar uma decisão informada.
+            O resultado é uma estrutura monolítica, muito resistente e com
+            elevado conforto térmico e acústico. É indicado para moradias,
+            edifícios multifamiliares e ampliações.
           </p>
         </div>
 
-        <div className="mt-12 md:mt-16">
-          {BLOCKS.map((block, index) => (
-            <ComparisonTable
-              block={block}
-              isFirst={index === 0}
-              key={block.categoryId}
-            />
-          ))}
+        <div aria-labelledby={ADVANTAGES_HEADING_ID} className="mt-12 md:mt-16">
+          <h3
+            className="text-center text-pretty text-xl font-bold tracking-tight text-foreground md:text-2xl"
+            id={ADVANTAGES_HEADING_ID}
+          >
+            Vantagens do ICF
+          </h3>
+          <ul className="mt-10 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:mt-12 lg:gap-5">
+            {ADVANTAGES.map((advantage) => (
+              <AdvantageCard advantage={advantage} key={advantage.id} />
+            ))}
+          </ul>
         </div>
       </div>
     </section>
