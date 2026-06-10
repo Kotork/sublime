@@ -39,9 +39,9 @@ const SLIDES = [
     ctaLabel: "Pedir orçamento",
     ctaHref: "https://wa.me/351963412090",
     imageSrc:
-      "/images/hero/2.jpg",
+      "https://images.unsplash.com/photo-1755552562420-e901062245f6?w=1920&q=80",
     imageAlt:
-      "Obra com rigor, prazos cumpridos e orçamento transparente. Convencional, LSF e ICF. O sistema certo para cada projeto.",
+      "Gruas de construção numa obra no Distrito de Coimbra",
   },
 ] as const;
 
