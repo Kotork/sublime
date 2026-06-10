@@ -32,8 +32,8 @@ const BLOCKS: readonly ProsConsBlock[] = [
       "Ambiente de trabalho dinâmico e colaborativo",
       "Participação em projetos de construção moderna e sustentável",
       "Oportunidades de desenvolvimento profissional e formação contínua",
-      "Estamos em crescimento, o seu percurso cresce connosco",
-      "Localização em Coimbra, com projetos na Região Centro",
+      "Estabilidade de emprego numa empresa em crescimento",
+      "Trabalho na região, sem andar pelo país.",
     ],
   },
   {
@@ -45,6 +45,9 @@ const BLOCKS: readonly ProsConsBlock[] = [
       "Operários especializados (LSF, ICF, betão, alvenaria, acabamentos)",
       "Gestores e coordenadores de projeto",
       "Pessoal de apoio técnico",
+      "Pedreiros seniores",
+      "Pedreiros juniores",
+      "Serventes",
     ],
   },
 ] as const;
@@ -68,10 +71,7 @@ function ProsConsBlockView({
       role="group"
     >
       <div className="flex flex-row items-start gap-2 md:flex-col">
-        <Icon
-          aria-hidden
-          className="size-6 shrink-0 stroke-1 text-primary"
-        />
+        <Icon aria-hidden className="size-6 shrink-0 stroke-1 text-primary" />
         <h3
           className="text-sm font-bold uppercase tracking-tight text-foreground md:text-base"
           id={categoryId}
