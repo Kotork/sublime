@@ -60,7 +60,7 @@ function LanguageSwitcherContent() {
               lang={loc}
               className={locale === loc ? "font-medium" : "font-normal"}
             >
-              labels.portuguese
+              {labels.portuguese}
             </Link>
           </DropdownMenuItem>
         ))}
