@@ -112,27 +112,22 @@ export function ConstrucaoCtsComparison() {
           className="text-pretty text-xl font-bold tracking-tight text-foreground md:text-2xl"
           id={HEADING_ID}
         >
-          O que é a construção tradicional sustentável
+          O que é a construção convencional
         </h2>
         <div className="mt-6 max-w-4xl space-y-4 text-pretty text-base leading-relaxed text-muted-foreground md:mt-8 md:text-lg">
           <p>
-            A construção tradicional sustentável combina alvenaria de tijolo e
-            estrutura de betão armado com soluções modernas de isolamento,
-            eficiência energética e gestão de materiais. É um método sólido e
-            reconhecido, atualizado para responder às exigências atuais de
-            conforto e sustentabilidade.
+            A construção convencional, que inclui alvenaria de tijolo e
+            estrutura de betão armado, é o método mais consolidado e reconhecido
+            em Portugal: sólido, durável e flexível.
           </p>
           <p>
-            É especialmente indicada para construção de raiz, remodelações e
-            reabilitações em contexto urbano, onde a flexibilidade de design e
-            a compatibilidade com estruturas existentes são decisivas.
+            É a base do trabalho da SublimePT, executada com as melhores
+            práticas atuais de isolamento térmico e acústico e de eficiência
+            energética.
           </p>
         </div>
 
-        <div
-          aria-labelledby={ADVANTAGES_HEADING_ID}
-          className="mt-12 md:mt-16"
-        >
+        <div aria-labelledby={ADVANTAGES_HEADING_ID} className="mt-12 md:mt-16">
           <h3
             className="text-center text-pretty text-xl font-bold tracking-tight text-foreground md:text-2xl"
             id={ADVANTAGES_HEADING_ID}
@@ -143,10 +138,7 @@ export function ConstrucaoCtsComparison() {
             {ADVANTAGES.map((advantage, index) => (
               <AdvantageCard
                 advantage={advantage}
-                className={cn(
-                  "lg:col-span-2",
-                  index === 3 && "lg:col-start-2"
-                )}
+                className={cn("lg:col-span-2", index === 3 && "lg:col-start-2")}
                 key={advantage.id}
               />
             ))}
