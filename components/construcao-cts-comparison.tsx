@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 import {
   Building2,
+  CircleCheck,
   Leaf,
   ShieldCheck,
   Thermometer,
@@ -13,7 +14,15 @@ import {
 import { Badge } from "./ui/badge";
 
 const HEADING_ID = "construcao-cts-comparison-heading";
+const RIGHT_CHOICE_HEADING_ID = "construcao-cts-right-choice-heading";
 const ADVANTAGES_HEADING_ID = "construcao-cts-advantages-heading";
+
+const RIGHT_CHOICES = [
+  "Reabilitação e remodelação de edifícios existentes.",
+  "Construção de raiz em contexto urbano.",
+  "Projetos que valorizam grande inércia térmica e materiais amplamente conhecidos.",
+  "Obras que exigem flexibilidade de design e adaptação ao terreno.",
+] as const;
 
 type Advantage = {
   id: string;
@@ -125,6 +134,33 @@ export function ConstrucaoCtsComparison() {
             práticas atuais de isolamento térmico e acústico e de eficiência
             energética.
           </p>
+        </div>
+
+        <div
+          aria-labelledby={RIGHT_CHOICE_HEADING_ID}
+          className="mt-12 md:mt-16"
+        >
+          <h3
+            className="max-w-4xl text-pretty text-xl font-bold tracking-tight text-foreground md:text-2xl"
+            id={RIGHT_CHOICE_HEADING_ID}
+          >
+            Quando é a escolha certa
+          </h3>
+          <ul className="mt-6 max-w-4xl list-none space-y-3 p-0 md:mt-8">
+            {RIGHT_CHOICES.map((item) => (
+              <li
+                className="flex items-start gap-3 text-pretty text-base leading-relaxed text-muted-foreground md:gap-3.5 md:text-lg"
+                key={item}
+              >
+                <CircleCheck
+                  aria-hidden
+                  className="mt-0.5 size-5 shrink-0 text-primary md:mt-1"
+                  strokeWidth={2}
+                />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div aria-labelledby={ADVANTAGES_HEADING_ID} className="mt-12 md:mt-16">
