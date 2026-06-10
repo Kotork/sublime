@@ -143,7 +143,8 @@ export function HomeAboutIntro({ aboutHref }: HomeAboutIntroProps) {
               })}
             </ul>
 
-            <Link
+            {/* TODO: Add LinkedIn link back in */}
+            {/* <Link
               aria-label={`Ver perfil de ${FOUNDER.name} no LinkedIn`}
               className="mt-8 flex items-center gap-4 rounded-lg border border-border bg-card p-4 text-card-foreground shadow-sm transition-colors hover:bg-secondary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               href={FOUNDER.linkedinUrl}
@@ -176,7 +177,7 @@ export function HomeAboutIntro({ aboutHref }: HomeAboutIntroProps) {
                 </svg>
                 LinkedIn
               </span>
-            </Link>
+            </Link> */}
 
             {aboutHref ? (
               <Link
