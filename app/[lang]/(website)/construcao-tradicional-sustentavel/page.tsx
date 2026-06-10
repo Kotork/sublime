@@ -75,10 +75,6 @@ export default function ConstrucaoTradicionalSustentavelPage() {
         </ScrollReveal>
 
         <ScrollReveal>
-          <ConstrucaoCtsProcessSteps />
-        </ScrollReveal>
-
-        <ScrollReveal>
           <ConstrucaoCtsCertification />
         </ScrollReveal>
 

@@ -58,11 +58,13 @@ export function ConstrucaoCtsCertification() {
               Parceiros e materiais
             </h2>
             <p className={COLUMN_BODY_CLASS}>
-              Trabalhamos com fornecedores e marcas de referência em materiais de
-              construção, isolamento e acabamentos, selecionados com base na
-              qualidade, durabilidade e sustentabilidade. As soluções de cada
-              obra são definidas em função do projeto e dos requisitos de
-              desempenho.
+              Trabalhamos com marcas de referência, como <b>Cimpor/Secil</b>,{" "}
+              <b>Weber</b> e <b>Saint-Gobain</b>, <b>Fassa Bortolo</b> e{" "}
+              <b>Mapei</b> para assegurar materiais certificados em cada obra.
+            </p>
+            <p>
+              As marcas que utilizamos para cada obra são selecionadas com base
+              na sua qualidade, durabilidade e sustentabilidade.
             </p>
           </div>
         </div>
