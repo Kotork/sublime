@@ -5,7 +5,7 @@ import { WebsiteQuoteDialog } from "@/components/website-quote-dialog";
 import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { Badge } from './ui/badge';
+import { Badge } from "@/components/ui/badge";
 
 /** Distinct from hero art; steel / light-frame construction context. */
 const SECTION_IMAGE_SRC =
@@ -35,36 +35,31 @@ export function ConstrucaoCtsIntro() {
               src={SECTION_IMAGE_SRC}
             />
           </div>
-          <div className="flex flex-col gap-5 md:gap-6">
+          <div className="flex min-w-0 flex-col md:self-center">
             <Badge
-              className="self-start rounded-full border-border bg-secondary px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground"
+              className="mb-5 self-start rounded-full border-border bg-secondary px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground"
               variant="outline"
             >
               Alvenaria em tijolo
             </Badge>
             <h2
-              className="text-pretty text-xl font-bold uppercase tracking-tight text-foreground md:text-2xl"
+              className="text-pretty text-3xl font-bold leading-tight tracking-tight text-foreground md:text-4xl"
               id={HEADING_ID}
             >
-              CONSTRUÇÃO TRADICIONAL SUSTENTÁVEL
+              Construção Alvenaria Sustentável
             </h2>
-            <div className="space-y-4 text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
+            <div className="mt-5 space-y-4 text-pretty text-base leading-relaxed text-foreground md:text-lg">
               <p>
-                A construção convencional, baseada em alvenaria de tijolo e
-                estrutura de betão armado, continua a ser uma solução sólida e
-                amplamente reconhecida no mercado português.
-              </p>
-              <p>
-                A SublimePT executa obras convencionais integrando um conjunto
-                de soluções que tornem a obra mais eficiente e com alta
-                performance em isolamento térmico e acústico.
+                Alvenaria de tijolo e betão armado com soluções de isolamento e
+                eficiência energética para moradias, ampliações e reabilitações
+                no Distrito de Coimbra.
               </p>
               <p>
                 É ideal para remodelações, reabilitações e construção de raiz em
                 contexto urbano.
               </p>
             </div>
-            <div className="pt-1">
+            <div className="mt-8">
               <WebsiteQuoteDialog
                 defaultWorkType="Construção Tradicional Sustentável"
                 title="Pedir orçamento"

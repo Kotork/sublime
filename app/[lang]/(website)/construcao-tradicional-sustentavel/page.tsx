@@ -1,6 +1,9 @@
-import { ConstrucaoCtsDualShowcase } from "@/components/construcao-cts-dual-showcase";
+import { ConstrucaoCtsApproach } from "@/components/construcao-cts-approach";
+import { ConstrucaoCtsCertification } from "@/components/construcao-cts-certification";
+import { ConstrucaoCtsComparison } from "@/components/construcao-cts-comparison";
 import { ConstrucaoCtsIntro } from "@/components/construcao-cts-intro";
-import { ConstrucaoCtsWhyChoose } from "@/components/construcao-cts-why-choose";
+import { ConstrucaoCtsProcessSteps } from "@/components/construcao-cts-process-steps";
+import { ConstrucaoCtsRegion } from "@/components/construcao-cts-region";
 import { ConstrucaoOds } from "@/components/construcao-ods";
 import { ConstrucaoSustainability } from "@/components/construcao-sustainability";
 import { CtaBanner } from "@/components/cta-banner";
@@ -14,19 +17,22 @@ export const CONSTRUCAO_TRADICIONAL_SUSTENTAVEL_HERO_IMAGE_SRC =
 export const CONSTRUCAO_TRADICIONAL_SUSTENTAVEL_HERO_IMAGE_ALT =
   "Alvenaria e acabamentos em obra, representativa de construção tradicional com enfoque sustentável.";
 
+const PAGE_TITLE = "Construção Alvenaria Sustentável em Coimbra | SublimePT";
+
 const PAGE_DESCRIPTION =
-  "Construção Alvenaria com materiais e práticas orientadas para a sustentabilidade — conforto, durabilidade e menor impacto ambiental.";
+  "Construção em alvenaria com materiais e práticas orientadas para a sustentabilidade no Distrito de Coimbra — conforto, durabilidade e menor impacto ambiental. Peça orçamento.";
 
 const CONSTRUCAO_CTS_CTA_TITLE =
   "Interessado em construir com alvenaria sustentável?";
+
 const CONSTRUCAO_CTS_CTA_DESCRIPTION =
   "Analisamos o terreno, prazos e requisitos para lhe apresentar a solução mais adequada em construção tradicional sustentável.";
 
 export const metadata: Metadata = {
-  title: "Construção Alvenaria Sustentável",
+  title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   openGraph: {
-    title: "Construção Alvenaria Sustentável",
+    title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,
     images: [
       {
@@ -39,7 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Construção Alvenaria Sustentável",
+    title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,
     images: [CONSTRUCAO_TRADICIONAL_SUSTENTAVEL_HERO_IMAGE_SRC],
   },
@@ -59,12 +65,27 @@ export default function ConstrucaoTradicionalSustentavelPage() {
         <ScrollReveal>
           <ConstrucaoCtsIntro />
         </ScrollReveal>
+
         <ScrollReveal>
-          <ConstrucaoCtsWhyChoose />
+          <ConstrucaoCtsComparison />
         </ScrollReveal>
+
         <ScrollReveal>
-          <ConstrucaoCtsDualShowcase />
+          <ConstrucaoCtsApproach />
         </ScrollReveal>
+
+        <ScrollReveal>
+          <ConstrucaoCtsProcessSteps />
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <ConstrucaoCtsCertification />
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <ConstrucaoCtsRegion />
+        </ScrollReveal>
+
         <ScrollReveal>
           <CtaBanner
             buttonLabel="Peça o seu orçamento gratuito"
@@ -74,9 +95,11 @@ export default function ConstrucaoTradicionalSustentavelPage() {
             title={CONSTRUCAO_CTS_CTA_TITLE}
           />
         </ScrollReveal>
+
         <ScrollReveal>
           <ConstrucaoSustainability />
         </ScrollReveal>
+
         <ScrollReveal>
           <ConstrucaoOds />
         </ScrollReveal>
