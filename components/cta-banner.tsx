@@ -11,9 +11,11 @@ const BUTTON_CLASSES =
   "h-auto min-h-11 w-full rounded-md border-0 bg-white px-5 py-3 text-center text-sm font-bold text-primary shadow-sm transition-colors hover:bg-white/90 sm:px-6 sm:text-base md:w-auto";
 
 export type CtaBannerProps = {
+  /** Small label above the title (e.g. section context on primary strip). */
+  eyebrow?: string;
   title: string;
   /** Supporting copy below the title; improves conversion and on-page SEO when set. */
-  description?: string;
+  description?: ReactNode;
   buttonLabel: string;
   /**
    * When set, the button is a link to this URL instead of opening the dialog.
@@ -30,6 +32,7 @@ export type CtaBannerProps = {
 };
 
 export function CtaBanner({
+  eyebrow,
   title,
   description,
   buttonLabel,
@@ -78,6 +81,11 @@ export function CtaBanner({
         )}
       >
         <div className="max-w-2xl text-pretty text-center md:text-left">
+          {eyebrow ? (
+            <p className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground/80 sm:mb-3 sm:text-sm">
+              {eyebrow}
+            </p>
+          ) : null}
           <h2
             className="text-base font-semibold leading-snug sm:text-lg md:text-2xl"
             id={titleId}

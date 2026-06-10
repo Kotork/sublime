@@ -1,7 +1,7 @@
 import CenterSection from "@/components/center-section";
+import { CtaBanner } from "@/components/cta-banner";
 import { ImageFull } from "@/components/image-full";
 import { RecrutamentoBenefits } from "@/components/recrutamento-benefits";
-import { RecrutamentoSpontaneousCta } from "@/components/recrutamento-spontaneous-cta";
 import { RecrutamentoSubempreiteiro } from "@/components/recrutamento-subempreiteiro";
 import { RecrutamentoSubempreiteiroCta } from "@/components/recrutamento-subempreiteiro-cta";
 import { ScrollReveal } from "@/components/scroll-reveal";
@@ -22,6 +22,28 @@ export const RECRUTAMENTO_HERO_IMAGE_ALT =
 
 const PAGE_DESCRIPTION =
   "Oportunidades de carreira e recrutamento na SublimePT — trabalhe connosco na construção sustentável.";
+
+const WHATSAPP_HREF = "https://wa.me/351963412090";
+
+const RECRUTAMENTO_CTA_TITLE = "O que oferecemos";
+const RECRUTAMENTO_CTA_WHATSAPP_LINK_CLASS =
+  "font-semibold underline underline-offset-4 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
+const RECRUTAMENTO_CTA_DESCRIPTION = (
+  <>
+    A forma mais rápida é por WhatsApp:{" "}
+    <a
+      className={RECRUTAMENTO_CTA_WHATSAPP_LINK_CLASS}
+      href={WHATSAPP_HREF}
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      963 412 090
+    </a>
+    . Diga-nos o nome, a função e os anos de experiência. Respondemos em menos
+    de 24 horas.
+  </>
+);
+const RECRUTAMENTO_CTA_BUTTON = "Enviar candidatura por WhatsApp";
 
 export const metadata: Metadata = {
   title: "Recrutamento",
@@ -78,7 +100,12 @@ export default async function RecrutamentoPage({
           <RecrutamentoBenefits />
         </ScrollReveal>
         <ScrollReveal>
-          <RecrutamentoSpontaneousCta />
+          <CtaBanner
+            buttonLabel={RECRUTAMENTO_CTA_BUTTON}
+            description={RECRUTAMENTO_CTA_DESCRIPTION}
+            href={WHATSAPP_HREF}
+            title={RECRUTAMENTO_CTA_TITLE}
+          />
         </ScrollReveal>
         <ScrollReveal>
           <ImageFull
