@@ -25,13 +25,13 @@ const STEPS: readonly Step[] = [
     number: "2",
     title: "Proposta e projeto",
     description:
-      "Orçamento discriminado, cronograma e dimensionamento da estrutura em ICF.",
+      "Orçamento discriminado, cronograma e definição do sistema.",
   },
   {
     number: "3",
     title: "Execução acompanhada",
     description:
-      "Montagem dos blocos, betonagem e acabamentos com relatório de progresso e acesso direto ao responsável de obra.",
+      "Relatório de progresso e acesso direto ao responsável.",
   },
   {
     number: "4",
