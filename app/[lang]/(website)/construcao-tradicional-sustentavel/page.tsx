@@ -79,10 +79,6 @@ export default function ConstrucaoTradicionalSustentavelPage() {
         </ScrollReveal>
 
         <ScrollReveal>
-          <ConstrucaoCtsRegion />
-        </ScrollReveal>
-
-        <ScrollReveal>
           <CtaBanner
             buttonLabel="Peça o seu orçamento gratuito"
             defaultWorkType="Construção Tradicional Sustentável"
