@@ -29,10 +29,11 @@ export function ConstrucaoIcfCertification() {
           Parceiros e materiais
         </h2>
         <p className={cn(COLUMN_BODY_CLASS, "max-w-4xl")}>
-          Trabalhamos com fornecedores de referência em sistemas ICF para
-          assegurar blocos, isolamento e acessórios certificados em cada obra.
-          Os materiais são selecionados com base na qualidade, durabilidade e
-          desempenho térmico.
+          Trabalhamos com marcas de referência no sistema ICF, como{" "}
+          <b>Nudura</b> (blocos ICF) e <b>Cimpor/Secil</b> (betão) para
+          assegurar materiais certificados em cada obra.
+          As marcas que utilizamos para cada obra são selecionadas com base na
+          sua qualidade, durabilidade e sustentabilidade.
         </p>
       </div>
     </section>
