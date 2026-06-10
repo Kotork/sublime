@@ -3,12 +3,12 @@
 import { cn } from "@/lib/utils";
 import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 import {
-  Building2,
+  BadgeCheck,
   CircleCheck,
-  Leaf,
-  ShieldCheck,
+  PenLine,
+  Shield,
   Thermometer,
-  Wrench,
+  Zap,
   type LucideIcon,
 } from "lucide-react";
 import { Badge } from "./ui/badge";
@@ -33,39 +33,38 @@ type Advantage = {
 
 const ADVANTAGES: readonly Advantage[] = [
   {
-    id: "eficiencia-energetica",
+    id: "solucao-comprovada",
+    icon: BadgeCheck,
+    title: "Solução comprovada",
+    description:
+      "Solução comprovada e aceite por todo o mercado e entidades.",
+  },
+  {
+    id: "durabilidade-robustez",
+    icon: Shield,
+    title: "Durabilidade e robustez",
+    description: "Grande durabilidade e robustez.",
+  },
+  {
+    id: "inercia-termica",
     icon: Thermometer,
-    title: "Eficiência energética",
+    title: "Inércia térmica",
     description:
-      "Soluções de isolamento e envolvente orientadas para classe energética A ou superior.",
+      "Excelente inércia térmica. Conforto estável ao longo do ano.",
   },
   {
-    id: "isolamento-acustico",
-    icon: ShieldCheck,
-    title: "Isolamento acústico",
-    description:
-      "Materiais e detalhes construtivos que melhoram o conforto acústico no interior.",
-  },
-  {
-    id: "impacto-ambiental",
-    icon: Leaf,
-    title: "Menor impacto ambiental",
-    description:
-      "Seleção de materiais e práticas de obra que reduzem desperdício e pegada ecológica.",
-  },
-  {
-    id: "mercado-consolidado",
-    icon: Building2,
-    title: "Tecnologia consolidada",
-    description:
-      "Método amplamente reconhecido no mercado português, com equipas e fornecedores experientes.",
-  },
-  {
-    id: "flexibilidade",
-    icon: Wrench,
+    id: "flexibilidade-design",
+    icon: PenLine,
     title: "Flexibilidade de design",
     description:
-      "Adaptação ao terreno, ao contexto urbano e às necessidades específicas de cada projeto.",
+      "Flexibilidade total de design e adaptação ao terreno.",
+  },
+  {
+    id: "eficiencia-isolamento",
+    icon: Zap,
+    title: "Eficiência e isolamento",
+    description:
+      "Integração de soluções de eficiência energética e isolamento de alto desempenho.",
   },
 ] as const;
 
