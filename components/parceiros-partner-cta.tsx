@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 const HEADING_ID = "parceiros-partner-cta-heading";
 
-const PARTNER_EMAIL = "info@sublime-pt.com";
+const PARTNER_EMAIL = "info@sublimept.pt";
 
 export function ParceirosPartnerCta() {
   return (

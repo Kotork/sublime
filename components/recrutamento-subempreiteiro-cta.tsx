@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const HEADING_ID = "recrutamento-subempreiteiro-cta-heading";
 
-const CONTACT_EMAIL = "info@sublime-pt.com";
+const CONTACT_EMAIL = "info@sublimept.pt";
 
 const MAIL_SUBJECT = "Quero ser subempreiteiro";
 

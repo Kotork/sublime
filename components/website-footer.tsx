@@ -109,9 +109,9 @@ export function WebsiteFooter({ lang }: { lang: Locale }) {
                 <Mail aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-white/60" />
                 <a
                   className="underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                  href="mailto:info@sublime-pt.com"
+                  href="mailto:info@sublimept.pt"
                 >
-                  info@sublime-pt.com
+                  info@sublimept.pt
                 </a>
               </li>
               <li className="flex items-start gap-3">

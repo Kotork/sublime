@@ -5,7 +5,7 @@ import { WEBSITE_CONTENT_COLUMN_CLASS } from "@/lib/website-layout";
 import { cn } from "@/lib/utils";
 import { Mail, MapPin, Phone } from "lucide-react";
 
-const CONTACT_EMAIL = "info@sublime-pt.com";
+const CONTACT_EMAIL = "info@sublimept.pt";
 const CONTACT_PHONE_DISPLAY = "+351 963 412 090";
 
 const SECTION_HEADING_ID = "contactos-info-heading";
