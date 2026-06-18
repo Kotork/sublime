@@ -20,7 +20,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Sublime",
+  title: "SublimePT — Construção e Reabilitação · Coimbra",
   description: "Empresa de construção e remodelação de casas em Coimbra",
   icons: {
     icon: [

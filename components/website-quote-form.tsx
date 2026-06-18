@@ -270,7 +270,7 @@ export function WebsiteQuoteForm({
               className="bg-input"
               id={`${formId}-localizacao`}
               name="localizacao"
-              placeholder="Ex.: Coimbra, São Frutuoso"
+              placeholder="Ex.: Coimbra, Ceira"
             />
             {errors.localizacao ? (
               <p

@@ -52,7 +52,7 @@ export function ContactosContactSection() {
                   <address className="text-sm not-italic leading-relaxed text-primary-foreground md:text-base">
                     <p className="text-pretty">Rua da Beira, 977</p>
                     <p className="text-pretty">
-                      3030-884, São Frutuoso, Coimbra
+                      3030-884 Ceira, Coimbra
                     </p>
                   </address>
                 </li>

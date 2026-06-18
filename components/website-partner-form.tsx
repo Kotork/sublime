@@ -249,7 +249,7 @@ export function WebsitePartnerForm({
               className="bg-input"
               id={`${formId}-localizacao`}
               name="localizacao"
-              placeholder="Ex.: Coimbra, São Frutuoso (opcional)"
+              placeholder="Ex.: Coimbra, Ceira (opcional)"
             />
             {errors.localizacao ? (
               <p
