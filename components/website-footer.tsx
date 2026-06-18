@@ -116,7 +116,7 @@ export function WebsiteFooter({ lang }: { lang: Locale }) {
               </li>
               <li className="flex items-start gap-3">
                 <MapPin aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-white/60" />
-                <span>Distrito de Coimbra, Portugal</span>
+                <span>R. da Beira, 977 - 3030-884 Coimbra</span>
               </li>
               <li className="flex items-start gap-3">
                 <Clock aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-white/60" />
